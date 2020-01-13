@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+account_check_model_access_right_user,account_check_model_access_right,model_account_check,group_account_cheque,1,1,1,1

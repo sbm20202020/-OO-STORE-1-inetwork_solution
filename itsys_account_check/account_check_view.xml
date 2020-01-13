@@ -1,0 +1,254 @@
+<odoo>
+    <data>
+        <record id="account_check_collect_form" model="ir.ui.view">
+            <field name="name">account.check.form</field>
+            <field name="model">account.check</field>
+            <field name="arch" type="xml">
+                <form string="Account Check">
+                    <header>
+                        <!--Check Collection buttons-->
+                        <button name="button_receive" states="draft_collect,return_cheque_hashed" string="Receive Paper"
+                                type="object" class="oe_highlight"/>
+                        <button name="button_deposit_check" states="receive" string="Put check on Bank" type="object"
+                                class="oe_highlight"/>
+                        <button name="button_collect_check" states="deposit" string="Collect Check" type="object"
+                                class="oe_highlight"/>
+                        <button name="button_bnk_return_check" states="deposit" string="Bank Return Check" type="object"
+                                class="oe_highlight"/>
+                        <button name="button_return_client_check" states="receive" string="Return to Client"
+                                type="object" class="oe_highlight"/>
+                        <button name="button_direct_deposit" states="receive" string="Direct Deposit" type="object"
+                                class="oe_highlight"/>
+                        <button name="button_check_hashed" type="object" states="receive" string="Hash Check to supplier"
+                                 class="oe_highlight"/>
+                        <button name="button_return_check_hashed" states="cheque_hashed" string="Return hashed check"
+                                type="object" class="oe_highlight"/>
+                        <button name="close" states="collect,return_client" string="Close" type="object"
+                                class="oe_highlight"/>
+                        <!--<button name="cash_collect" states="draft_collect" string="Cash Payment" type="object" class="oe_highlight" />-->
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft_collect,receive,deposit,collect,return,cheque_hashed,return_cheque_hashed,return_client,deposit_direct,confirm"
+                               readonly="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="due_date" attrs="{'readonly' : [('state', 'not in',['draft_collect'])] }"/>
+                                <field name="partner_id"
+                                       attrs="{'readonly' : [('state', 'not in',['draft_collect'])] }"/>
+                                <field name="journal_id"/>
+                                <field name="to_check"/>
+                                <field name="supplier_id" attrs="{'invisible': [('supplier_id', '=', False)]}"/>
+                                <field name="pay_ok" invisible="1"/>
+                                <field name="collect_ok" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Information">
+                                <group>
+                                    <group>
+                                        <field name="ref"
+                                               attrs="{'readonly' : [('state', 'not in',['draft_collect'])] }"/>
+                                        <field name="comm"/>
+                                        <field name="date"/>
+                                        <field name="amount"
+                                               attrs="{'readonly' : [('state', 'not in',['draft_collect'])] }"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_check_pay_form" model="ir.ui.view">
+            <field name="name">account.check.form</field>
+            <field name="model">account.check</field>
+            <field name="arch" type="xml">
+                <form string="Account Check">
+                    <header>
+                        <!--Check Payment buttons-->
+                        <button name="button_generate_chk_supp" states="draft_pay" string="Generate Check-Supplier"
+                                type="object" class="oe_highlight"/>
+                        <button name="button_bnk_payment" states="generate_exp,generate_supp" string="Bank Payment"
+                                type="object" class="oe_highlight"/>
+                        <button name="button_pay_bnk_return_check" states="generate_exp,generate_supp"
+                                string="Return Check From bank" type="object" class="oe_highlight"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft_pay,generate_supp,bank_payment,cheque_return,confirm"/>
+                    </header>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="due_date" attrs="{'readonly' : [('state', 'not in',['draft_pay'])] }"/>
+                            <field name="partner_id" attrs="{'readonly' : [('state', 'not in',['draft_pay'])] }"/>
+                            <field name="journal_id" domain="[('bnk_payable','=',True)]"/>
+                            <field name="to_check"/>
+                            <field name="pay_ok" invisible="1"/>
+                            <field name="collect_ok" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Information">
+                            <group>
+                                <group>
+                                    <field name="ref" attrs="{'readonly' : [('state', 'not in',['draft_pay'])] }"/>
+                                    <field name="comm"/>
+                                    <field name="date"/>
+                                    <field name="amount" attrs="{'readonly' : [('state', 'not in',['draft_pay'])] }"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_check_collect_tree" model="ir.ui.view">
+            <field name="name">account.check.tree</field>
+            <field name="model">account.check</field>
+            <field name="arch" type="xml">
+                <tree string="account.check Data">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="due_date"/>
+                    <field name="partner_id"/>
+                    <field name="ref"/>
+                    <field name="journal_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="account_check_pay_tree" model="ir.ui.view">
+            <field name="name">account.check.tree</field>
+            <field name="model">account.check</field>
+            <field name="arch" type="xml">
+                <tree string="account.check Data">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="due_date"/>
+                    <field name="partner_id"/>
+                    <field name="ref"/>
+                    <field name="journal_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_check_action_generic_collect" model="ir.actions.act_window">
+            <field name="name">Account Check Collection</field>
+            <field name="res_model">account.check</field>
+            <field name="view_id" ref="account_check_collect_tree"/>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">form,tree</field>
+            <field name="domain">[('collect_ok','=',True)]</field>
+            <field name="context">{'default_collect_ok': True}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create collection accounting check.
+                </p>
+            </field>
+        </record>
+
+        <record id="account_check_action_generic_pay" model="ir.actions.act_window">
+            <field name="name">Account Check Payment</field>
+            <field name="res_model">account.check</field>
+            <field name="view_id" ref="account_check_pay_tree"/>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">form,tree</field>
+            <field name="domain">[('pay_ok','=',True)]</field>
+            <field name="context">{'default_pay_ok': True}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create payment accounting check.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_check_collect_tree_view" model="ir.actions.act_window.view">
+            <field eval="5100" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_check_collect_tree"/>
+            <field name="act_window_id" ref="account_check_action_generic_collect"/>
+        </record>
+
+        <record id="action_check_collect_form_view" model="ir.actions.act_window.view">
+            <field eval="5101" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_check_collect_form"/>
+            <field name="act_window_id" ref="account_check_action_generic_collect"/>
+        </record>
+
+        <record id="action_check_pay_tree_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_check_pay_tree"/>
+            <field name="act_window_id" ref="account_check_action_generic_pay"/>
+        </record>
+
+        <record id="action_check_pay_form_view" model="ir.actions.act_window.view">
+            <field eval="20000" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_check_pay_form"/>
+            <field name="act_window_id" ref="account_check_action_generic_pay"/>
+        </record>
+
+        <menuitem id="menu_check_root_root"
+                  name="Checks Management"
+                  sequence="4"/>
+
+        <menuitem id="menu_check_root"
+                  name="Checks"
+                  parent="menu_check_root_root"
+                  sequence="4"/>
+
+        <menuitem id="menu_check_collect"
+                  name="Check Collection"
+                  parent="menu_check_root"
+                  action="account_check_action_generic_collect"
+                  sequence="1"/>
+
+        <menuitem id="menu_check_pay"
+                  name="Check Payment"
+                  parent="menu_check_root"
+                  action="account_check_action_generic_pay"
+                  sequence="2"/>
+
+        <record id="view_account_journal_check_state_form_inherited" model="ir.ui.view">
+            <field name="name">account.journal.check.state.inherited</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="bnk_payable"/>
+                    <field name="journal_state"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_account_move_line_custom">
+            <field name="name">view.account.move.line.custom</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//page/field[@name='line_ids']/tree//field[@name='name']" position="after">
+                        <field name="date_maturity"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>

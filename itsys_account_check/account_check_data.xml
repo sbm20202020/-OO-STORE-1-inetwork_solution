@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Sequences for account.check -->
+        <record id="seq_account_check" model="ir.sequence">
+            <field name="name">Account Check</field>
+            <field name="code">account.check</field>
+            <field name="prefix">AC/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+      <record id="check_receive" model="account.journal">
+      	  <field name="name">Check Receive</field>
+          <field name="code">CR</field>
+          <field name="journal_state">receive</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="check_deposit" model="account.journal">
+      	  <field name="name">Check Deposit</field>
+          <field name="code">CD</field>
+          <field name="journal_state">deposit</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="check_collect" model="account.journal">
+      	  <field name="name">Check Collect</field>
+          <field name="code">CC</field>Bank Payment
+
+          <field name="journal_state">collect</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="check_return" model="account.journal">
+      	  <field name="name">Check Return</field>
+          <field name="code">CRet</field>
+          <field name="journal_state">return</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="check_return_client" model="account.journal">
+      	  <field name="name">Return to Client</field>
+          <field name="code">CCRet</field>
+          <field name="journal_state">return_client</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="check_deposit_direct" model="account.journal">
+      	  <field name="name">Direct deposit</field>
+          <field name="code">CDD</field>
+          <field name="journal_state">deposit_direct</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="check_generate_exp" model="account.journal">
+      	  <field name="name">Generate Check-Expenses</field>
+          <field name="code">GCE</field>
+          <field name="journal_state">generate_exp</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="cheque_hashed" model="account.journal">
+      	  <field name="name">Hash check to supplier</field>
+          <field name="code">CH</field>
+          <field name="journal_state">cheque_hashed</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="return_cheque_hashed" model="account.journal">
+      	  <field name="name">Return hashed check to supplier</field>
+          <field name="code">RCH</field>
+          <field name="journal_state">return_cheque_hashed</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="check_generate_supp" model="account.journal">
+      	  <field name="name">Generate Check-Supplier</field>
+          <field name="code">GCS</field>
+          <field name="bnk_payable">True</field>
+          <field name="journal_state">generate_supp</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="check_bank_payment" model="account.journal">
+      	  <field name="name">Bank Payment</field>
+          <field name="code">CBP</field>
+          <field name="bnk_payable">True</field>
+          <field name="journal_state">bank_payment</field>
+          <field name="type">bank</field>
+      </record>
+
+      <record id="check_cheque_return" model="account.journal">
+      	  <field name="name">Cheque Return from bank</field>
+          <field name="code">CCR</field>
+          <field name="bnk_payable">True</field>
+          <field name="journal_state">cheque_return</field>
+          <field name="type">bank</field>
+      </record>
+    </data>
+</odoo>

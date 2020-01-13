@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hash_to_supplier_wiz_form" model="ir.ui.view">
+            <field name="name">check.hash.supplier.wiz.form</field>
+            <field name="model">check.hash.supplier</field>
+            <field name="arch" type="xml">
+                <form string="Vendor">
+                    <group string="Vendor">
+                        <field name="partner_id"/>
+                    </group>
+                    <footer>
+                        <button name="hash_check_supplier" string="Hash" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Wizard action -->
+        <record id="hash_to_supplier_wiz_action" model="ir.actions.act_window">
+            <field name="name">Hash to supplier</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.hash.supplier</field>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hash_to_supplier_wiz_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

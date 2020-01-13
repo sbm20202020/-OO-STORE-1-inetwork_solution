@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="group_account_cheque" model="res.groups">
+            <field name="name">Manage Accounting Cheques</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    </data>
+</odoo>

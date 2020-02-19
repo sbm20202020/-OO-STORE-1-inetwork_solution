@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <!--add some fields in res.company to use it in invoice report -->
+       <record id="view_company_form_partner_autocomplete_inh" model="ir.ui.view">
+        <field name="name">res.company.form.web.partner.autocomplete.inh</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                 <field name="commercial_record"/>
+                 <field name="tax_file"/>
+                 <field name="sales_taxes"/>
+            </xpath>
+
+            <xpath expr="//field[@name='commercial_record']" position="attributes">
+                <attribute name="widget">field_partner_autocomplete</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_file']" position="attributes">
+                <attribute name="widget">field_partner_autocomplete</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sales_taxes']" position="attributes">
+                <attribute name="widget">field_partner_autocomplete</attribute>
+            </xpath>
+        </field>
+    </record>
+    <!--add some fields in res.partner to use it in invoice report -->
+    <record id="base_view_partner_form_inh" model="ir.ui.view">
+        <field name="name">res.partner.form.inh</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                   <field name="commercial_record" placeholder="Number" class="oe_inline" attrs="{'readonly': [('parent_id','!=',False)]}"/>
+                   <field name="tax_file" placeholder="Number" class="oe_inline" attrs="{'readonly': [('parent_id','!=',False)]}"/>
+                   <field name="sales_taxes" placeholder="e.g BE15001559627230" class="oe_inline" attrs="{'readonly': [('parent_id','!=',False)]}"/>
+            </field>
+        </field>
+    </record>
+    </data>
+</odoo>

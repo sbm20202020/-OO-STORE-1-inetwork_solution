@@ -100,18 +100,18 @@ class SaleOrderLine(models.Model):
     state_confirm = fields.Selection([
         ('confirm', 'Confirm')], store=True,copy=False)
 
-    @api.onchange('state_confirm')
-    def _check_manager(self):
-        for line in self:
-            if line.product_id:
-                if self.env.user.has_group('base.group_system') or self.env.user.has_group('sales_team.group_sale_manager'):
-                    pass
-                elif  self.env.user.has_group('sales_team.group_sale_salesman') and self.env.user.is_confirm_sale_order_line == True :
-                    pass
-                elif  self.env.user.has_group('sales_team.group_sale_salesman_all_leads') and self.env.user.is_confirm_sale_order_line == True :
-                    pass
-                else:
-                    raise ValidationError("Sales Administrator Should Confirm")
+#     @api.onchange('state_confirm')
+#     def _check_manager(self):
+#         for line in self:
+#             if line.product_id:
+#                 if self.env.user.has_group('base.group_system') or self.env.user.has_group('sales_team.group_sale_manager'):
+#                     pass
+#                 elif  self.env.user.has_group('sales_team.group_sale_salesman') and self.env.user.is_confirm_sale_order_line == True :
+#                     pass
+#                 elif  self.env.user.has_group('sales_team.group_sale_salesman_all_leads') and self.env.user.is_confirm_sale_order_line == True :
+#                     pass
+#                 else:
+#                     raise ValidationError("Sales Administrator Should Confirm")
 
 
 

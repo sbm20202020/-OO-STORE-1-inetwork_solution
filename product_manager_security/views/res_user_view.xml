@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_users_form_inherited">
+            <field name="name">res.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page/group/field[@name='company_id']" position="after">
+                    <field name="is_confirm_sale_order_line"/>
+                    <field name="is_confirm_purchase_order_line"/>
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -36,12 +36,16 @@
                 <xpath expr="//button[@name='action_quotation_send']" position="attributes">
                     <attribute name="states">confirmed_line</attribute>
                 </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][2]" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state', 'not in', ['confirmed_line'])]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][3]" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|',('state', 'not in', ['draft']),('state', 'in', ['draft'])]}</attribute>
+                </xpath>
                  <xpath expr="//button[@name='action_confirm']" position="attributes">
                     <attribute name="states">confirmed_line</attribute>
                 </xpath>
-<!--                <xpath expr="//button[@name='print_quotation']" position="attributes">-->
-<!--                    <attribute name="states">confirmed_line</attribute>-->
-<!--                </xpath>-->
+
 
                 <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
                     <attribute name="attrs">{'invisible': ['|',('state', 'not in', ['draft']),('state', 'in', ['draft'])]}</attribute>
@@ -54,14 +58,6 @@
                 <xpath expr="//field[@name='validity_date']" position="attributes">
                     <attribute name="attrs">{'readonly':[('state','not in',['draft','sent','confirmed_line'])]}</attribute>
                 </xpath>
-<!--                 <xpath expr="//field[@name='confirmation_date']" position="attributes">-->
-<!--                    <attribute name="attrs">{'readonly':True,'invisible':[('state','in',['draft','sent','cancel','confirmed_line'])]}</attribute>-->
-<!--                </xpath>-->
-
-<!--                 <xpath expr="//notebook/page/group/group/field[@name='commitment_date']" position="attributes">-->
-<!--                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sent','confirmed_line'])],'required':True,'invisible':[('state','in',['sale','done','cancel'])]}</attribute>-->
-<!--                </xpath>-->
-
 
 
 

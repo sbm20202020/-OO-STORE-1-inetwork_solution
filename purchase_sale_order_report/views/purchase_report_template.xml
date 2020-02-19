@@ -1,0 +1,206 @@
+<odoo>
+    <data>
+        <report string="Purchase Report"
+                id="purchase_report_id"
+                model="purchase.order"
+                report_type="qweb-pdf"
+                name="purchase_sale_order_report.purchase_report"
+                file="purchase_sale_order_report.purchase_report"
+                paperformat="purchase_sale_order_report.paperformat_pdf"
+
+
+        />
+        <template id="purchase_report">
+            <t t-call="web.html_container">
+                <t t-set="count_page" t-value="0"/>
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="purchase_sale_order_report.external_layout_new">
+                        <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
+                        <div class="page">
+                            <br/>
+                            <br/>
+
+                           <table style="border: 1px ;border-color:#D9D0D0;width:100%;hieght:100%;">
+                               <tr>
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                    <span style="font-size:20px;font-weight:bold" class="text-center" >Supplier</span>
+
+                                </th>
+                                <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                     <span t-field="o.partner_id.parent_id.name"/>
+                                    <span t-if="o.partner_id.parent_id.name">,</span>
+                                     <span  t-field="o.partner_id.name"></span>
+                                </th>
+
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                    <span style="font-size:20px;font-weight:bold" class="text-center" >From</span>
+
+                                </th>
+                                <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                     <span t-field="o.partner_id.parent_id.name"/>
+                                    <span t-if="o.partner_id.parent_id.name">,</span>
+                                     <span  t-field="o.user_id.name"></span>
+                                </th>
+
+
+                               </tr>
+
+                               <tr>
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                    <span style="font-size:20px;font-weight:bold" class="text-center" >Attention</span>
+
+                                </th>
+                                <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                    <span t-field="o.attention.parent_id.name"/>
+                                    <span t-if="o.attention.parent_id.name">,</span>
+                                    <span  t-field="o.attention.name"></span>
+                                </th>
+
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                    <span style="font-size:20px;font-weight:bold" class="text-center" >Date</span>
+
+                                </th>
+                                <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                     <span t-field="o.date_order"/>
+
+                                </th>
+
+
+                               </tr>
+
+                            </table>
+                            <br/>
+
+                            <table style="border-color:black;width:100%;hieght:100%;" border="1">
+                                <thead style="background-color:#F3F7F7;font-size:20px;" align="right">
+                                    <tr>
+                                        <th style="border: 1px solid grey;"  class="text-center">
+                                            <span>Item</span>
+                                        </th>
+                                        <th style="border: 1px solid grey" class="text-center">
+                                            <span> PN</span>
+                                        </th>
+                                        <th style="border: 1px solid grey" class="text-center">
+                                            <span> Description</span>
+                                        </th>
+                                        <th style="border: 1px solid grey" class="text-center">
+                                            <span>Quantity</span>
+                                        </th>
+                                        <th style="border: 1px solid grey;width:100px" class="text-center">
+                                            <span>Unit Price</span>
+                                        </th>
+                                        <th style="border: 1px solid grey" class="text-center">
+                                            <span>Amount</span>
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody border="1" style="border-color:black;font-size:17px" >
+                                    <t t-set="item" t-value="0"/>
+
+                                    <t t-foreach="o.order_line" t-as="line">
+
+                                        <t t-set="item" t-value="item+1"/>
+                                        <tr>
+                                            <td style="border: 1px solid grey;" align="center">
+                                                <span t-esc="item"/>
+                                            </td>
+                                            <td style="border: 1px solid grey" align="center">
+                                                <span t-field="line.product_id.name"/>
+                                            </td>
+                                            <td style="border: 1px solid grey" align="center">
+                                                <span t-field="line.name"/>
+                                            </td>
+                                            <td style="border: 1px solid grey" align="center">
+                                                <span t-field="line.product_uom_qty"/>
+                                            </td>
+                                            <td style="border: 1px solid grey" align="center">
+                                                <span t-field="line.price_unit"/>
+                                            </td>
+                                            <td style="border: 1px solid grey" align="center">
+                                                <span t-field="line.price_subtotal"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                               <table style="border-color:black,border-style:solid;width:100%;hieght:100%;" border="1">
+                                <tr >
+                                     <td  style="font-size:20px;border: 1px solid grey">
+                                </td>
+                                <td style="border: 1px solid grey;font-size:20px" align="center">
+                                <strong>Subtotal</strong>
+                                </td>
+                                <td style="border: 1px solid grey;font-size:17px" align="center">
+                                <span style="font-size:15px;"  t-field="o.amount_untaxed"/>
+                                </td>
+                                </tr>
+                                    <tr>
+                                        <td  style="font-size:20px;border: 1px solid grey">
+                                       </td>
+                                        <td style="border: 1px solid grey;font-size:20px" align="center">
+                                        <strong>Taxes</strong>
+                                        </td>
+                                        <td style="border: 1px solid grey;font-size:17px" align="center">
+                                        <span style="font-size:15px;"  t-field="o.amount_tax"/>
+                                        </td>
+                                    </tr>
+                                <tr class="border-black o_total">
+                                     <td style="font-size:20px;border: 1px solid grey;font-weight:bold;" align="center">
+                                <span  style="font-size:15px;" t-field="o.tafqeet_total"/>
+                                </td>
+                                <td style="font-size:20px;border: 1px solid grey" align="center">
+                                <strong>Total</strong>
+                                </td>
+
+                                <td style="font-size:17px;border: 1px solid grey" align="center">
+                                <span style="font-size:15px;" t-field="o.amount_total"/>
+                                </td>
+                                </tr>
+                                </table>
+
+                            <br></br>
+                            <table style="border: 1px solid #D9D0D0;width:100%;hieght:100%;">
+                                <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                    <span style="font-size:20px;font-weight:bold" class="text-center" >Payment term</span>
+
+                                </th>
+                                <th style="border: 1px solid #D9D0D0;width:70%" class="text-left">
+                                    <span t-field="o.payment_term_id.name" style="font-size:17px;" />
+                                </th>
+
+                            </table>
+                            <br/>
+                            <table style="border: 1px solid #D9D0D0;border-color:black;width:100%;hieght:100%;">
+                                <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                    <span style="font-size:20px;font-weight:bold" class="text-center" >Ship to</span>
+
+                                </th>
+                                <th style="border: 1px solid #D9D0D0;width:70%" class="text-left">
+                                    <span t-field="o.picking_type_id.warehouse_id.name" style="font-size:17px;" /><span t-if="o.picking_type_id.warehouse_id.name" style="font-size:17px;" >:</span>
+                                    <span t-field="o.picking_type_id.name" style="font-size:17px;" />
+                                </th>
+
+                            </table>
+                            <br/>
+                            <table style="border: 1px ;border-color:#D9D0D0;width:100%;hieght:100%;">
+                                <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                    <span style="font-size:20px;font-weight:bold" class="text-center" >General terms</span>
+
+                                </th>
+                                <th style="border: 1px solid #D9D0D0;width:70%" class="text-left">
+                                    <span t-field="o.notes" style="font-size:17px;" />
+                                </th>
+
+                            </table>
+<!--                            <span t-field="o.note" style="font-size:15px;"/>-->
+                            <p style="page-break-after: always;"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

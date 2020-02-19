@@ -6,15 +6,15 @@ from openerp import SUPERUSER_ID
 
 
 
-class SaleOrder(models.Model):
-    _inherit = 'sale.order'
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'
 
 
     @api.returns('self', lambda value: value.id)
     def message_post(self, body='', subject=None, message_type='notification',
                      subtype=None, parent_id=False, attachments=None,
                      content_subtype='html', **kwargs):
-        res = super(SaleOrder, self).message_post(body=body, subject=subject, message_type=message_type,
+        res = super(PurchaseOrder, self).message_post(body=body, subject=subject, message_type=message_type,
                                                   subtype=subtype, parent_id=parent_id, attachments=attachments,
                                                   content_subtype=content_subtype, **kwargs)
 
@@ -33,32 +33,30 @@ class SaleOrder(models.Model):
     def create(self, vals):
         if 'order_line' not in vals:
             raise UserError("Please add lines in Quotation")
-        res = super(SaleOrder, self.sudo()).create(vals)
+        res = super(PurchaseOrder, self.sudo()).create(vals)
         return res
 
 
     def write(self, vals):
-        res = super(SaleOrder, self.sudo()).write(vals)
+        res = super(PurchaseOrder, self.sudo()).write(vals)
         return res
 
     total_state = fields.Char('Total State', compute='calc_state', store=True)
-
     state = fields.Selection([
-        ('draft', 'Quotation'),
+        ('draft', 'RFQ'),
         ('confirmed_line', 'Confirmed'),
-        ('sent', 'Quotation Sent'),
-        ('sale', 'Sales Order'),
+        ('sent', 'RFQ Sent'),
+        ('to approve', 'To Approve'),
+        ('purchase', 'Purchase Order'),
         ('done', 'Locked'),
-        ('cancel', 'Cancelled'),
-    ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
+        ('cancel', 'Cancelled')
+    ], string='Status', readonly=True, index=True, copy=False, default='draft', tracking=True)
 
     @api.constrains('total_state')
     def change_state(self):
         for line in self:
             if line.total_state == 'Confirm Complate':
                 line.state = 'confirmed_line'
-                # commission_group = self.env.ref('sales_team.group_sale_manager')
-                # commission_group.write({'users': [(4,self.env.user.id)]})
             elif line.total_state == 'Waiting Confirm' or line.total_state == ' ':
                 line.state = 'draft'
 
@@ -84,17 +82,25 @@ class SaleOrder(models.Model):
 
                 line.total_state = 'Confirm Complate'
 
+    def button_confirm(self):
+        res=super(PurchaseOrder, self).button_confirm()
+        for order in self:
+            if order.state in ['confirmed_line']:
+                order.write({'state': 'to approve'})
+        return res
 
-class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = 'purchase.order.line'
     @api.model
     def create(self, vals):
-        res = super(SaleOrderLine, self.sudo()).create(vals)
+        res = super(PurchaseOrderLine, self.sudo()).create(vals)
         return res
 
 
     def write(self, vals):
-        res = super(SaleOrderLine, self.sudo()).write(vals)
+        res = super(PurchaseOrderLine, self.sudo()).write(vals)
         return res
 
     state_confirm = fields.Selection([
@@ -104,14 +110,13 @@ class SaleOrderLine(models.Model):
     def _check_manager(self):
         for line in self:
             if line.product_id:
-                if self.env.user.has_group('base.group_system') or self.env.user.has_group('sales_team.group_sale_manager'):
+                if self.env.user.has_group('base.group_system') or self.env.user.has_group('purchase.group_purchase_manager'):
                     pass
-                elif  self.env.user.has_group('sales_team.group_sale_salesman') and self.env.user.is_confirm_sale_order_line == True :
+                elif  self.env.user.has_group('purchase.group_purchase_user') and self.env.user.is_confirm_purchase_order_line == True :
                     pass
-                elif  self.env.user.has_group('sales_team.group_sale_salesman_all_leads') and self.env.user.is_confirm_sale_order_line == True :
-                    pass
+
                 else:
-                    raise ValidationError("Sales Administrator Should Confirm")
+                    raise ValidationError("Purchases Administrator Should Confirm")
 
 
 

@@ -7,9 +7,12 @@
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//notebook/page/group/field[@name='company_id']" position="after">
-                    <field name="is_confirm_sale_order_line"/>
-                    <field name="is_confirm_purchase_order_line"/>
+               <xpath expr="//notebook/page" position="inside">
+                      <group>
+                         <field name="is_confirm_sale_order_line"/>
+                                        <field name="is_confirm_purchase_order_line"/>
+                      </group>
+                   
 
                 </xpath>
 

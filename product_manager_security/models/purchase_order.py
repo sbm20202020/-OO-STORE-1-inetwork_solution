@@ -106,17 +106,17 @@ class PurchaseOrderLine(models.Model):
     state_confirm = fields.Selection([
         ('confirm', 'Confirm')], store=True,copy=False)
 
-    @api.onchange('state_confirm')
-    def _check_manager(self):
-        for line in self:
-            if line.product_id:
-                if self.env.user.has_group('base.group_system') or self.env.user.has_group('purchase.group_purchase_manager'):
-                    pass
-                elif  self.env.user.has_group('purchase.group_purchase_user') and self.env.user.is_confirm_purchase_order_line == True :
-                    pass
+#     @api.onchange('state_confirm')
+#     def _check_manager(self):
+#         for line in self:
+#             if line.product_id:
+#                 if self.env.user.has_group('base.group_system') or self.env.user.has_group('purchase.group_purchase_manager'):
+#                     pass
+#                 elif  self.env.user.has_group('purchase.group_purchase_user') and self.env.user.is_confirm_purchase_order_line == True :
+#                     pass
 
-                else:
-                    raise ValidationError("Purchases Administrator Should Confirm")
+#                 else:
+#                     raise ValidationError("Purchases Administrator Should Confirm")
 
 
 

@@ -14,7 +14,7 @@
     'data': [
 
         'views/sale_order.xml',
-        # 'views/res_user_view.xml',
+        'views/res_user_view.xml',
         'views/purchase_order.xml'
     ],
 }

@@ -115,12 +115,12 @@ class SaleOrderLine(models.Model):
 
 
 
-class ResUsers(models.Model):
-    _inherit = 'res.users'
-    is_confirm_sale_order_line=fields.Boolean()
-    is_confirm_purchase_order_line=fields.Boolean()
-
-
+# class ResUsers(models.Model):
+#     _inherit = 'res.users'
+#     is_confirm_sale_order_line=fields.Boolean()
+#     is_confirm_purchase_order_line=fields.Boolean()
+#
+#
 
 
 

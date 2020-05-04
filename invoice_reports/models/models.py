@@ -29,6 +29,7 @@ class InvoiceOrder(models.Model):
     def _compute_amount_in_word(self):
         for rec in self:
             rec.num_word = str(rec.currency_id.amount_to_text(rec.amount_total)) + ' only'
+            print(rec.num_word)
 
     num_word = fields.Char(string="Amount In Words:", compute='_compute_amount_in_word')
 

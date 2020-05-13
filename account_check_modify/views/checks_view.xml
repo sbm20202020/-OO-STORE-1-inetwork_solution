@@ -1,0 +1,24 @@
+<odoo>
+     <record id="view_account_check_inh" model="ir.ui.view">
+        <field name="name">account_check_inh</field>
+        <field name="model">account.check</field>
+          <field name="inherit_id" ref="itsys_account_check.account_check_collect_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_receive']" position="replace">
+                     <button name="button_receive" states="draft_collect,return_cheque_hashed" string="Receive Paper"
+                                type="object" class="oe_highlight" groups="account_check_modify.group_manager"/>
+                </xpath>
+            </field>
+    </record>
+    <record id="view_account_check_pay_inh" model="ir.ui.view">
+        <field name="name">account_check_pay_inh</field>
+        <field name="model">account.check</field>
+          <field name="inherit_id" ref="itsys_account_check.account_check_pay_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_generate_chk_supp']" position="replace">
+                     <button name="button_generate_chk_supp" states="draft_pay" string="Generate Check-Supplier"
+                                type="object" class="oe_highlight" groups="account_check_modify.group_manager"/>
+                </xpath>
+            </field>
+    </record>
+</odoo>

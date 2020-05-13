@@ -1,0 +1,33 @@
+<odoo>
+  <data>
+
+
+        <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//button[3]" position="attributes">
+               <attribute name="attrs">
+               {'invisible':1}
+               </attribute>
+
+          </xpath>
+          <xpath expr="//button[4]" position="attributes">
+               <attribute name="attrs">
+                   {'invisible':1}
+               </attribute>
+
+          </xpath>
+
+        </field>
+    </record>
+
+
+  </data>
+</odoo>
+
+
+
+
+

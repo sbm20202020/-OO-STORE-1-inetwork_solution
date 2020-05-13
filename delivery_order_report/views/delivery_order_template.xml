@@ -1,0 +1,375 @@
+<odoo>
+    <data>
+        <record id="paperformat_pdf" model="report.paperformat">
+            <field name="name">European A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">25</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">90</field>
+        </record>
+        <report string="Delivery Order Report"
+                id="delivery_order_report"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="delivery_order_report.delivery_order_report_template"
+                file="delivery_order_report.delivery_order_report_template"
+                paperformat="delivery_order_report.paperformat_pdf"
+
+
+        />
+        <template id="custom_external_layout_header_new_picking">
+            <div class="header">
+                <table border="0">
+                    <tr>
+                        <th align="center">
+                            <div width="100%" align="center">
+                                <img align="center" src="/delivery_order_report/static/description/inetwork_header.png"
+                                     style=" height:80px; width:220px;"/>
+                            </div>
+                        </th>
+                        <th style="border-color:black,border-style:solid;height:1px;width:500px;">
+                            <div style="border-color:black,border-style:solid;height:1px;width:500px;"></div>
+                        </th>
+                        <th>
+                            <table class="table table-sm"
+                                   style="border-color:black,border-style:solid;width:190px;" border="1">
+
+                                <thead style="color: #FFFAF0;background-color: #808080;font-weight:70px;"
+                                       align="center">
+                                    <td t-if="doc_model in ['stock.picking']"
+                                        style="text-color: #111111;border: 1px solid black;font-weight:70px;font-size:20px;height:30px;">
+                                        <span style="text-color: #FFFAF0;">Delivery Order</span>
+                                    </td>
+                                </thead>
+                                <tbody align="center">
+                                    <td style="border: 1px solid black;font-weight:50px;">
+                                        <span style="font-size:15px;height:30px;" t-field="o.name"/>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </th>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+            </div>
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                 t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+
+        </template>
+        <template id="external_layout_footer_new_picking">
+            <div class="footer">
+
+                <p style="border-top:1px solid #000000;">
+
+                </p>
+                <center>
+                    <table border="0" align="center">
+                        <tr>
+                            <th>
+                                <span class="text-center" style="font-size:15px;font-weight: lighter;">
+                                    Villa 269, Abdel monem St, 6Th district opposite mall of arabia Giza Egypt Tel: 02
+                                    38241650
+                                    <br/>
+                                    <br/>
+                                    http://www.inetwork.com.eg | info@inetwork.com.eg
+                                </span>
+
+                            </th>
+                        </tr>
+                    </table>
+                </center>
+            </div>
+        </template>
+        <template id="external_layout_new_picking">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+
+            <t t-call="delivery_order_report.custom_external_layout_header_new_picking">
+                <t t-raw="0"/>
+            </t>
+            <t t-call="delivery_order_report.external_layout_footer_new_picking"/>
+
+        </template>
+        <template id="delivery_order_report_template">
+            <t t-call="web.html_container">
+                <t t-set="count_page" t-value="0"/>
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="delivery_order_report.external_layout_new_picking">
+                        <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
+                        <div class="page">
+                            <br/>
+                            <br/>
+
+                            <table class="table table-sm">
+                                <tr>
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Customer
+                                        </span>
+
+                                    </th>
+                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.name"/>
+                                    </th>
+
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <span style="font-size:17px;font-weight:bolder" class="text-center">CST PO
+                                            Number
+                                        </span>
+
+                                    </th>
+                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.cst_po_number_id.name"/>
+                                    </th>
+
+
+                                </tr>
+
+                                <tr>
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Ship To</span>
+
+                                    </th>
+                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span style="font-size:15px;font-weight: lighter;" t-if="o.partner_id.street" t-field="o.partner_id.street"/>
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.street2"/>
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.city"/>,
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.state_id"/>
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.country_id"/>
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.zip"/>
+                                    </th>
+
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Sales order
+                                            No.
+                                        </span>
+
+                                    </th>
+                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.origin"/>
+
+                                    </th>
+
+
+                                </tr>
+                                <tr>
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Contact</span>
+
+                                    </th>
+                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.attention.parent_id.name"/>
+                                        <span style="font-size:15px;font-weight: lighter;" t-if="o.attention.parent_id.name">,</span>
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.attention.name"></span>
+                                    </th>
+
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Sales person
+                                        </span>
+
+                                    </th>
+                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.user_id.name"/>
+
+                                    </th>
+
+
+                                </tr>
+                                <tr>
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Mobile No.
+                                        </span>
+
+                                    </th>
+                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.mobile"></span>
+                                    </th>
+
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Date</span>
+
+                                    </th>
+                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span style="font-size:15px;font-weight: lighter;" t-esc="( datetime.datetime.strptime(str(o.scheduled_date), '%Y-%m-%d %H:%M:%S') + datetime.timedelta(hours=2) ).strftime('%Y-%m-%d %H:%M:%S')"/>
+                                    </th>
+
+
+                                </tr>
+
+                            </table>
+                            <br/>
+
+                            <table class="table table-sm" border="1">
+                                <thead style="background-color:#008B45;font-size:15px;color:black;" align="right">
+                                    <tr>
+                                        <th style="border: 1px solid grey;color:black;" class="text-left">
+                                            <span>ITEM</span>
+                                        </th>
+                                        <th style="border: 1px solid grey;color:black;" class="text-left">
+                                            <span>PN</span>
+                                        </th>
+                                        <th style="border: 1px solid grey;color:black;" class="text-left">
+                                            <span>DESCRIPTION</span>
+                                        </th>
+                                        <th style="border: 1px solid grey;color:black;" class="text-left">
+                                            <span>QUANTITY</span>
+                                        </th>
+                                        <th style="border: 1px solid grey;color:black;" class="text-left">
+                                            <span>Serial number</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody border="1" style="border-color:black;font-size:17px">
+                                    <t t-set="item" t-value="0"/>
+
+                                    <t t-foreach="o.move_ids_without_package" t-as="line">
+
+                                        <t t-set="item" t-value="item+1"/>
+                                        <tr>
+                                            <td style="border: 1px solid grey;" align="center">
+                                                <span style="font-size:15px;font-weight: lighter;" t-esc="item"/>
+                                            </td>
+                                            <td style="border: 1px solid grey" align="center">
+                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.product_id.default_code"/>
+                                            </td>
+                                            <td style="border: 1px solid grey" align="center">
+                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.product_id.name"/>
+                                            </td>
+                                            <td style="border: 1px solid grey" align="center">
+                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.quantity_done"/>
+                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.product_uom" groups="uom.group_uom"/>
+                                            </td>
+                                            <td style="border: 1px solid grey" align="center">
+                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.lot_id.name"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <br></br>
+                            <table border="0"  class="table table-borderless" style="border-spacing: 8px 2px;">
+                                <th style="padding: 8px;width:40%;height:40%;">
+
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <th colspan="2" style="border: 1px solid #D9D0D0;width:50%"
+                                                class="text-center">
+                                                <span style="font-size:17px;font-weight:bold" class="text-center">
+                                                    Prepared by
+                                                </span>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">Name
+                                                </span>
+
+                                            </th>
+                                            <th style="border: 1px solid #D9D0D0;width:80%" class="text-left">
+                                                <span t-field="o.partner_id.user_id.name"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">
+                                                    Signature
+                                                </span>
+
+                                            </th>
+                                            <th style="border: 1px solid #D9D0D0;width:80%" class="text-left">
+                                            </th>
+                                        </tr>
+
+                                    </table>
+                                </th>
+
+                                <th style="padding: 8px;width:50%;height:40%;">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td colspan="2" style="border: 1px solid #D9D0D0;width:100%"
+                                                class="text-center">
+                                                <span style="font-size:17px;font-weight:bold" class="text-center">I
+                                                    acknowledge receiving the above items in a good
+                                                    <br/>
+                                                    condition
+                                                </span>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">
+                                                    Name
+                                                </span>
+
+                                            </td>
+                                            <td style="border: 1px solid #D9D0D0;width:80%" class="text-left">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">
+                                                    Date
+                                                </span>
+
+                                            </td>
+                                            <td style="border: 1px solid #D9D0D0;width:80%" class="text-left">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">ID
+                                                    Number
+                                                </span>
+
+                                            </td>
+                                            <td style="border: 1px solid #D9D0D0;width:80%" class="text-left">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">
+                                                    Signature
+                                                </span>
+
+                                            </td>
+                                            <td style="border: 1px solid #D9D0D0;width:80%" class="text-left">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </th>
+                            </table>
+                            <p style="page-break-after: always;"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

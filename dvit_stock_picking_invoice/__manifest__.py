@@ -12,8 +12,10 @@
     'website': "https://dvit.me",
     'category': 'Stock',
     'version': '13.0.0.1',
-    'depends': ['account','stock',],
+    'depends': ['account','stock','purchase','sale','sale_management','sale_stock'],
     'wbs':'INS-16',
-    'data': ['views/stock_picking.xml',],
+    'data': ['views/stock_picking.xml',
+             'views/purchase_order.xml',
+             'views/sales_order.xml',],
 
 }

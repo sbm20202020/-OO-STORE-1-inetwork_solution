@@ -69,7 +69,8 @@ class Picking(models.Model):
                     'type':'in_refund',
                     'journal_id':purch_journal_id,
                     'invoice_line_ids':  i_line_id,
-                    'purchase_id':self.purchase_order.id
+                    'purchase_id':self.purchase_order.id,
+                    'invoice_origin':self.purchase_order.name
                     # 'account_id': obj.partner_id.property_account_payable_id.id,
                  })
                 self.purchase_order.is_invoice = True
@@ -96,6 +97,7 @@ class Picking(models.Model):
                         'journal_id':purch_journal_id,
                         'purchase_id': self.purchase_order.id,
                         'invoice_line_ids':i_line_id,
+                        'invoice_origin': self.purchase_order.name
 
 
                         # 'account_id': obj.partner_id.property_account_payable_id.id,
@@ -127,6 +129,7 @@ class Picking(models.Model):
                     'type':'out_refund',
                     'journal_id':sale_journal_id,
                     'invoice_line_ids':  i_line_id,
+                    'invoice_origin': self.sale_order.name
 
                     # 'account_id': obj.partner_id.property_account_receivable_id.id,
                      })
@@ -155,6 +158,7 @@ class Picking(models.Model):
                     'type':'out_invoice',
                     'journal_id':sale_journal_id,
                     'invoice_line_ids':i_line_id,
+                    'invoice_origin': self.sale_order.name
                     # 'account_id': obj.partner_id.property_account_receivable_id.id,
                      })
                 self.sale_order.write({'is_invoice' : True})
@@ -169,7 +173,6 @@ class Picking(models.Model):
 class AccountInvoice(models.Model):
     _inherit='account.move'
     picking_id = fields.Many2one('stock.picking','Picking invoice',readonly=True)
-
     def unlink(self):
         for invoice in self:
             if invoice.state not in ('draft', 'cancel'):

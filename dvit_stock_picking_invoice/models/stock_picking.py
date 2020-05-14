@@ -44,22 +44,25 @@ class Picking(models.Model):
 
 
         for obj in self:
+            pur = obj.purchase_order
+            sal = obj.sale_order
             # Vendor Refund
             if obj.location_dest_id.usage == 'supplier':
                 global inv_id
                 i_line_id=[]
-                for i in obj.move_lines:
+
+                for i in pur.order_line:
                     accounts = i.product_id.product_tmpl_id.get_product_accounts()
                     line={
                     # 'invoice_id':inv_id.id,
                     'product_id':i.product_id.id,
                     'price_unit':i.price_unit,
+                    'tax_ids':i.taxes_id,
                     'name':i.name,
                     'account_id': accounts.get('stock_input') and accounts['stock_input'].id or \
                                   accounts['expense'].id,
                     'quantity':i.product_uom_qty,
-                    # 'uom_id':i.product_uom.id,
-                    }
+                    'product_uom_id': i.product_uom.id,                    }
                     i_line_id.append(line)
                 inv_id= invoice_obj.create({
                     'partner_id':obj.partner_id.id,
@@ -70,24 +73,24 @@ class Picking(models.Model):
                     'journal_id':purch_journal_id,
                     'invoice_line_ids':  i_line_id,
                     'purchase_id':self.purchase_order.id,
-                    'invoice_origin':self.purchase_order.name
+                    'invoice_origin':self.purchase_order.name,
                     # 'account_id': obj.partner_id.property_account_payable_id.id,
                  })
-                self.purchase_order.is_invoice = True
+                obj.purchase_order.is_invoice = True
             # Vendor Invoice
             elif obj.location_id.usage == 'supplier':
                     i_line_id=[]
-                    for i in obj.move_lines:
+                    for i in pur.order_line:
                         accounts = i.product_id.product_tmpl_id.get_product_accounts()
                         line={
                         # 'move_id':inv_id.id,
                         'product_id':i.product_id.id,
                         'price_unit': i.price_unit,
                         'name':i.name,
+                        'tax_ids': i.taxes_id,
                         'account_id':accounts.get('stock_input') and accounts['stock_input'].id or accounts['expense'].id,
                         'quantity':i.product_uom_qty,
-                        # 'uom_id':i.product_uom.id,
-                        }
+                        'product_uom_id': i.product_uom.id,                        }
                         i_line_id.append(line)
                     inv_id= invoice_obj.create({
                         'partner_id':obj.partner_id.id,
@@ -102,13 +105,13 @@ class Picking(models.Model):
 
                         # 'account_id': obj.partner_id.property_account_payable_id.id,
                             })
-                    self.purchase_order.is_invoice = True
+                    obj.purchase_order.is_invoice = True
 
 
             # Customer Refund
             elif obj.location_id.usage == 'customer':
                 i_line_id=[]
-                for i in obj.move_lines:
+                for i in sal.order_line:
                     accounts = i.product_id.product_tmpl_id.get_product_accounts()
                     price_unit = i.product_id.uom_id._compute_price(i.product_id.lst_price, i.product_uom)
                     line={
@@ -116,9 +119,11 @@ class Picking(models.Model):
                         'product_id':i.product_id.id,
                         'price_unit':i.price_unit,
                         'name':i.name,
+                        'tax_ids': i.tax_id,
+                        'discount':i.discount,
                         'account_id':accounts.get('income') and accounts['income'].id or False,
                         'quantity':i.product_uom_qty,
-                        # 'uom_id': i.product_uom.id,
+                        'product_uom_id': i.product_uom.id,
                          }
                     i_line_id.append(line)
 
@@ -134,21 +139,22 @@ class Picking(models.Model):
                     # 'account_id': obj.partner_id.property_account_receivable_id.id,
                      })
 
-                self.sale_order.write({'is_invoice' : True})
+                obj.sale_order.write({'is_invoice' : True})
 
 
             elif obj.location_dest_id.usage == 'customer':
                 i_line_id=[]
-                for i in obj.move_lines:
+                for i in sal.order_line:
                     accounts = i.product_id.product_tmpl_id.get_product_accounts()
                     line={
                         'product_id':i.product_id.id,
                         'price_unit':i.price_unit,
                         'name':i.name,
+                        'tax_ids': i.tax_id,
+                        'discount': i.discount,
                         'account_id':accounts.get('income') and accounts['income'].id or False,
                         'quantity':i.product_uom_qty,
-                        # 'uom_id': i.product_uom.id,
-                        }
+                        'product_uom_id': i.product_uom.id,                        }
                     i_line_id.append(line)
 
                 inv_id= invoice_obj.create({
@@ -161,7 +167,7 @@ class Picking(models.Model):
                     'invoice_origin': self.sale_order.name
                     # 'account_id': obj.partner_id.property_account_receivable_id.id,
                      })
-                self.sale_order.write({'is_invoice' : True})
+                obj.sale_order.write({'is_invoice' : True})
 
             else:
                 break

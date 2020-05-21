@@ -19,8 +19,9 @@
                                 type="object" class="oe_highlight"/>
                         <button name="button_direct_deposit" states="receive" string="Direct Deposit" type="object"
                                 class="oe_highlight"/>
-                        <button name="button_check_hashed" type="object" states="receive" string="Hash Check to supplier"
-                                 class="oe_highlight"/>
+                        <button name="button_check_hashed" type="object" states="receive"
+                                string="Hash Check to supplier"
+                                class="oe_highlight"/>
                         <button name="button_return_check_hashed" states="cheque_hashed" string="Return hashed check"
                                 type="object" class="oe_highlight"/>
                         <button name="close" states="collect,return_client" string="Close" type="object"
@@ -43,10 +44,24 @@
                                 <field name="partner_id"
                                        attrs="{'readonly' : [('state', 'not in',['draft_collect'])] }"/>
                                 <field name="journal_id"/>
+
                                 <field name="to_check"/>
                                 <field name="supplier_id" attrs="{'invisible': [('supplier_id', '=', False)]}"/>
                                 <field name="pay_ok" invisible="1"/>
                                 <field name="collect_ok" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="currency_id" groups="base.group_multi_currency"
+                                       attrs="{'readonly':[('state','not in', ['draft_collect','draft_pay'])]}"
+                                       options="{'create': false,'no_open': True,'no_quick_create':True,'no_create':True,'create_edit': false,'limit': 1}"/>
+                                <field name="company_id" groups="base.group_multi_company"
+                                       options="{'create': false,'no_open': True,'no_quick_create':True,'no_create':True,'create_edit': false,'limit': 1}"/>
+                                <field name="company_currency_id" invisible="1"/>
+                                <field name="not_company_currency" invisible="1"/>
+                                <field name="use_custom_rate" groups="base.group_multi_currency" invisible="1"/>
+                                <field name="currency_rate" groups="base.group_multi_currency" invisible="1"/>
+                                <field name="custom_rate" groups="base.group_multi_currency" string="Used Rate" force_save="1"
+                                       attrs="{'invisible':['|',('not_company_currency','=',False), ('use_custom_rate','=',False)]}"/>
                             </group>
                         </group>
                         <notebook>
@@ -99,6 +114,19 @@
                             <field name="to_check"/>
                             <field name="pay_ok" invisible="1"/>
                             <field name="collect_ok" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" groups="base.group_multi_currency"
+                                   attrs="{'readonly':[('state','not in', ['draft_collect','draft_pay'])]}"
+                                   options="{'create': false,'no_open': True,'no_quick_create':True,'no_create':True,'create_edit': false,'limit': 1}"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   options="{'create': false,'no_open': True,'no_quick_create':True,'no_create':True,'create_edit': false,'limit': 1}"/>
+                            <field name="company_currency_id" invisible="1"/>
+                            <field name="not_company_currency" invisible="1"/>
+                            <field name="use_custom_rate" groups="base.group_multi_currency" invisible="1"/>
+                            <field name="currency_rate" groups="base.group_multi_currency" invisible="1"/>
+                            <field name="custom_rate" groups="base.group_multi_currency" string="Used Rate" force_save="1"
+                                   attrs="{'invisible':['|',('not_company_currency','=',False), ('use_custom_rate','=',False)]}"/>
                         </group>
                     </group>
                     <notebook>

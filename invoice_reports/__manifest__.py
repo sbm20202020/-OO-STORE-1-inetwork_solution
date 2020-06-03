@@ -21,7 +21,6 @@
 
     # always loaded
     'data': [
-        'data/paperformat.xml',
         'views/views.xml',
         'views/company_view.xml',
     ],

@@ -10,7 +10,7 @@
 <!--                    <field name="managers_id" widget="many2many_tags"/>-->
 <!--                </xpath>-->
                 <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
-                    <field name="state_confirm" widget="statusbar" clickable="True" string=" "/>
+                    <field name="state_confirm" widget="statusbar" clickable="true" string=" "/>
                 </xpath>
                 <xpath expr="//field[@name='state']" position="replace">
 

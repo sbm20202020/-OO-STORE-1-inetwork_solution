@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_contract_form_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <!--<field name="wage" position="after">-->
+                        <!--<field name='taxedsalary' readonly="1"/>-->
+                        <!--&lt;!&ndash;<button name="clac_taxedsalary" string="calc" type="object" class="oe_highlight"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button name="cal_all" string="calc for all" type="object" class="oe_highlight"/>&ndash;&gt;-->
+                    <!--</field>-->
+                    <xpath expr="//group[@name='salary_and_advantages']" position="inside">
+                        <field name='taxedsalary' readonly="1"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>

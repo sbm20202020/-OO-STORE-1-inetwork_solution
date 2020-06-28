@@ -16,7 +16,7 @@
     'version': '0.1',
     'wbs':'INS-10,INS-11',
 
-    'depends': ['base','sale','purchase','invoice_reports'],
+    'depends': ['base','base_setup','sale','purchase','invoice_reports'],
 
     'data': [
         'views/sale_report_template.xml',

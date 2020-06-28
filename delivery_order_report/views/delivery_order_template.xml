@@ -40,18 +40,18 @@
                         </th>
                         <th>
                             <table class="table table-sm"
-                                   style="border-color:black,border-style:solid;width:190px;" border="1">
+                                   style="border-color:black,border-style:solid;width:200px;" border="1">
 
                                 <thead style="color: #FFFAF0;background-color: #808080;font-weight:70px;"
                                        align="center">
                                     <td t-if="doc_model in ['stock.picking']"
-                                        style="text-color: #111111;border: 1px solid black;font-weight:70px;font-size:20px;height:30px;">
+                                        style="text-color: #111111;border: 1px solid black;font-weight: lighter;font-size:22px;height:30px;">
                                         <span style="text-color: #FFFAF0;">Delivery Order</span>
                                     </td>
                                 </thead>
                                 <tbody align="center">
-                                    <td style="border: 1px solid black;font-weight:50px;">
-                                        <span style="font-size:15px;height:30px;" t-field="o.name"/>
+                                    <td style="border: 1px solid black;font-weight: lighter;">
+                                            <span style="font-size:22px;height:30px;" t-field="o.name"/>
                                     </td>
                                 </tbody>
                             </table>
@@ -128,8 +128,8 @@
                             <table class="table table-sm">
                                 <tr>
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Customer
-                                        </span>
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Customer
+                                        </strong>
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
@@ -137,13 +137,14 @@
                                     </th>
 
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <span style="font-size:17px;font-weight:bolder" class="text-center">CST PO
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">CST PO
                                             Number
-                                        </span>
+                                        </strong>
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.cst_po_number_id.name"/>
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.cst_po_number_id.name"/>
                                     </th>
 
 
@@ -151,22 +152,28 @@
 
                                 <tr>
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Ship To</span>
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Ship To
+                                        </strong>
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;" t-if="o.partner_id.street" t-field="o.partner_id.street"/>
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.street2"/>
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.city"/>,
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.state_id"/>
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.country_id"/>
+                                        <span style="font-size:15px;font-weight: lighter;" t-if="o.partner_id.street"
+                                              t-field="o.partner_id.street"/>
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.partner_id.street2"/>
+                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.city"/>
+                                        ,
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.partner_id.state_id"/>
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.partner_id.country_id"/>
                                         <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.zip"/>
                                     </th>
 
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Sales order
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Sales order
                                             No.
-                                        </span>
+                                        </strong>
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
@@ -178,22 +185,28 @@
                                 </tr>
                                 <tr>
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Contact</span>
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Contact
+                                        </strong>
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.attention.parent_id.name"/>
-                                        <span style="font-size:15px;font-weight: lighter;" t-if="o.attention.parent_id.name">,</span>
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.attention.name"></span>
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.attention.parent_id.name"/>
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-if="o.attention.parent_id.name">,
+                                        </span>
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.attention.name"></span>
                                     </th>
 
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Sales person
-                                        </span>
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Sales person
+                                        </strong>
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.user_id.name"/>
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.partner_id.user_id.name"/>
 
                                     </th>
 
@@ -201,20 +214,22 @@
                                 </tr>
                                 <tr>
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Mobile No.
-                                        </span>
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Mobile No.
+                                        </strong>
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.mobile"></span>
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.partner_id.mobile"></span>
                                     </th>
 
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <span style="font-size:17px;font-weight:bolder" class="text-center">Date</span>
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Date</strong>
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;" t-esc="( datetime.datetime.strptime(str(o.scheduled_date), '%Y-%m-%d %H:%M:%S') + datetime.timedelta(hours=2) ).strftime('%Y-%m-%d %H:%M:%S')"/>
+                                        <span style="font-size:15px;font-weight: lighter;"
+                                              t-esc="( datetime.datetime.strptime(str(o.scheduled_date), '%Y-%m-%d %H:%M:%S') + datetime.timedelta(hours=2) ).strftime('%Y-%m-%d %H:%M:%S')"/>
                                     </th>
 
 
@@ -227,19 +242,19 @@
                                 <thead style="background-color:#008B45;font-size:15px;color:black;" align="right">
                                     <tr>
                                         <th style="border: 1px solid grey;color:black;" class="text-left">
-                                            <span>ITEM</span>
+                                            <strong>ITEM</strong>
                                         </th>
                                         <th style="border: 1px solid grey;color:black;" class="text-left">
-                                            <span>PN</span>
+                                            <strong>PN</strong>
                                         </th>
                                         <th style="border: 1px solid grey;color:black;" class="text-left">
-                                            <span>DESCRIPTION</span>
+                                            <strong>DESCRIPTION</strong>
                                         </th>
                                         <th style="border: 1px solid grey;color:black;" class="text-left">
-                                            <span>QUANTITY</span>
+                                            <strong>QUANTITY</strong>
                                         </th>
                                         <th style="border: 1px solid grey;color:black;" class="text-left">
-                                            <span>Serial number</span>
+                                            <strong>Serial number</strong>
                                         </th>
                                     </tr>
                                 </thead>
@@ -254,17 +269,22 @@
                                                 <span style="font-size:15px;font-weight: lighter;" t-esc="item"/>
                                             </td>
                                             <td style="border: 1px solid grey" align="center">
-                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.product_id.default_code"/>
+                                                <span style="font-size:15px;font-weight: lighter;"
+                                                      t-field="line.product_id.default_code"/>
                                             </td>
                                             <td style="border: 1px solid grey" align="center">
-                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.product_id.name"/>
+                                                <span style="font-size:15px;font-weight: lighter;"
+                                                      t-field="line.product_id.name"/>
                                             </td>
                                             <td style="border: 1px solid grey" align="center">
-                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.quantity_done"/>
-                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.product_uom" groups="uom.group_uom"/>
+                                                <span style="font-size:15px;font-weight: lighter;"
+                                                      t-field="line.quantity_done"/>
+                                                <span style="font-size:15px;font-weight: lighter;"
+                                                      t-field="line.product_uom" groups="uom.group_uom"/>
                                             </td>
                                             <td style="border: 1px solid grey" align="center">
-                                                <span style="font-size:15px;font-weight: lighter;" t-field="line.lot_id.name"/>
+                                                <span style="font-size:15px;font-weight: lighter;"
+                                                      t-field="line.lot_id.name"/>
                                             </td>
                                         </tr>
                                     </t>
@@ -272,21 +292,22 @@
                             </table>
 
                             <br></br>
-                            <table border="0"  class="table table-borderless" style="border-spacing: 8px 2px;">
+                            <table border="0" class="table table-borderless" style="border-spacing: 8px 2px;">
                                 <th style="padding: 8px;width:40%;height:40%;">
 
                                     <table class="table table-sm">
                                         <tr>
                                             <th colspan="2" style="border: 1px solid #D9D0D0;width:50%"
                                                 class="text-center">
-                                                <span style="font-size:17px;font-weight:bold" class="text-center">
+                                                <strong style="font-size:15px;" class="text-center">
                                                     Prepared by
-                                                </span>
+                                                </strong>
                                             </th>
                                         </tr>
                                         <tr>
                                             <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">Name
+                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">
+                                                    Name
                                                 </span>
 
                                             </th>
@@ -313,11 +334,11 @@
                                         <tr>
                                             <td colspan="2" style="border: 1px solid #D9D0D0;width:100%"
                                                 class="text-center">
-                                                <span style="font-size:17px;font-weight:bold" class="text-center">I
+                                                <strong style="font-size:15px;" class="text-center">I
                                                     acknowledge receiving the above items in a good
                                                     <br/>
                                                     condition
-                                                </span>
+                                                </strong>
 
                                             </td>
                                         </tr>
@@ -343,7 +364,8 @@
                                         </tr>
                                         <tr>
                                             <td style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">ID
+                                                <span style="font-size:15px;font-weight: lighter;" class="text-center">
+                                                    ID
                                                     Number
                                                 </span>
 

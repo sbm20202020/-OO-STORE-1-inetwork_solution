@@ -11,7 +11,7 @@ class SaleOrder(models.Model):
 
     tafqeet_total = fields.Text(compute="calc_amount_tafqeet", store=True)
     attention = fields.Many2one('res.partner', domain="[('id','in',attention_ids)]")
-    attention_ids = fields.Many2many('res.partner', 'par_relation', 'att1', 'att2', compute='child_ids', store=True)
+    attention_ids = fields.Many2many('res.partner', 'par_relation', 'att1', 'att2', compute='child_ids')
 
     @api.depends('partner_id')
     def child_ids(self):
@@ -32,6 +32,4 @@ class SaleOrder(models.Model):
     def calc_amount_tafqeet(self):
         b = tf2it()
         for rec in self:
-            # rec.tafqeet_total = b.convertNumber(rec.amount_total)+ ' جنيه فقط لا غير'
-            rec.tafqeet_total=str(num2words(rec.amount_total, to='currency',
-                                         lang='en')).upper()
+            rec.tafqeet_total=num2words(rec.amount_total,lang='en')

@@ -8,7 +8,7 @@
             <field name="page_width">0</field>
             <field name="orientation">Portrait</field>
             <field name="margin_top">35</field>
-            <field name="margin_bottom">20</field>
+            <field name="margin_bottom">25</field>
             <field name="margin_left">7</field>
             <field name="margin_right">7</field>
             <field name="header_line" eval="False"/>
@@ -32,26 +32,34 @@
                     <tr>
                         <th align="center">
                             <div width="100%" align="center">
-                                <img align="center" src="/purchase_sale_order_report/static/description/inetwork_header.png"
-                                     style=" height:100px; width:250px;"/>
+                                <img align="center"
+                                     src="/purchase_sale_order_report/static/description/inetwork_header.png"
+                                     style=" height:80px; width:220px;"/>
                             </div>
                         </th>
-                        <th style="border-color:black,border-style:solid;height:1px;width:400px;">
-                            <div style="border-color:black,border-style:solid;height:1px;width:400px;"></div>
+                        <th style="border-color:black,border-style:solid;height:1px;width:500px;">
+                            <div style="border-color:black,border-style:solid;height:1px;width:500px;"></div>
                         </th>
                         <th>
-                            <table style="border-color:black,border-style:solid;width:200px;" border="1">
+                            <table class="table table-sm"
+                                   style="border-color:black,border-style:solid;width:200px;" border="1">
 
-                                <thead style="background-color: #9F9393;" align="center">
+                                <thead style="color: #FFFAF0;background-color: #808080;font-weight:70px;"
+                                       align="center">
+                                    <td t-if="doc_model in ['sale.order']"
+                                        style="text-color: #111111;border: 1px solid black;font-weight:70px;font-size:22px;height:30px;">
+                                        <span style="text-color: #FFFAF0;">Sale Order</span>
+                                    </td>
+                                    <td t-if="doc_model in ['purchase.order']"
+                                        style="text-color: #111111;border: 1px solid black;font-weight:70px;font-size:22px;height:30px;">
+                                        <span style="text-color: #FFFAF0;">Purchase Order</span>
+                                    </td>
 
-                                    <th t-if="doc_model in ['sale.order']" style="border: 1px solid black;font-size:20px;height:40px;" class="item">Sale Order
-                                    </th>
-                                    <th t-if="doc_model in ['purchase.order']" style="border: 1px solid black;font-size:20px;height:40px;" class="item">Purchase Order
-                                    </th>
+
                                 </thead>
                                 <tbody align="center">
-                                    <td style="border: 1px solid black">
-                                        <span style="font-size:20px;height:50px;" t-field="o.name"/>
+                                    <td style="border: 1px solid black;font-weight: lighter;">
+                                        <span style="font-size:22px;height:30px;" t-field="o.name"/>
                                     </td>
                                 </tbody>
                             </table>
@@ -78,12 +86,13 @@
                     <table border="0" align="center">
                         <tr>
                             <th>
-                                <p class="text-center" style="color: #000000;">
+                                <span class="text-center" style="font-size:15px;font-weight: lighter;">
                                     Villa 269, Abdel monem St, 6Th district opposite mall of arabia Giza Egypt Tel: 02
                                     38241650
                                     <br/>
+                                    <br/>
                                     http://www.inetwork.com.eg | info@inetwork.com.eg
-                                </p>
+                                </span>
 
                             </th>
                         </tr>
@@ -91,6 +100,7 @@
                 </center>
             </div>
         </template>
+
 
         <template id="external_layout_new">
             <t t-if="not o" t-set="o" t-value="doc"/>
@@ -124,70 +134,107 @@
                         <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
                         <div class="page">
                             <br/>
-                            <br/>
+                            <!--                             <br/> -->
                             <table style="width:100%;hieght:100px;">
-                                <tr >
+                                <tr>
                                     <th>
-                                        <td style="font-size:20px;font-weight:bold;height:1px" align="left"><span >Customer |</span></td>
-                                        <td style="height:1px;" align="left">
-                                            <span t-field="o.partner_id.parent_id.name"/> <span t-if="o.partner_id.parent_id.name">,</span>
-                                            <span  t-field="o.partner_id.name"></span></td>
+                                        <td style="font-size:15px;font-weight:bold;height:1px" align="left">
+                                            <strong>Customer</strong>
+                                        </td>
+                                        <td style="height:1px;color:#2a2a2a" align="left">
+                                            <span>|</span>
+                                            <span t-field="o.partner_id.parent_id.name"/>
+                                            <span t-if="o.partner_id.parent_id.name">,</span>
+                                            <span t-field="o.partner_id.name"></span>
+                                        </td>
                                     </th>
-                                     <th style="border-color:black,border-style:solid;height:1px;width:100px;">
-                                     </th>
+                                    <th style="border-color:black,border-style:solid;height:1px;width:100px;">
+                                    </th>
                                     <th>
-                                        <td><span  t-field="o.company_id.commercial_record" align="right"/></td>
-                                        <td style="font-size:20px;font-weight:bold ;height:1px;width:150px;" class="text-center">
-                                            <span >| سجل تجاري</span></td>
+                                        <td>
+                                            <span t-field="o.company_id.commercial_record" align="right"/>
+                                            <span>|</span>
+                                        </td>
+                                        <td style="font-size:15px;font-weight:bold ;height:1px;width:150px;"
+                                            class="text-right">
+                                            <strong>سجل تجاري</strong>
+                                        </td>
                                     </th>
 
                                 </tr>
                                 <tr>
                                     <th>
-                                        <td style="font-size:20px;font-weight:bold ;height:1px" align="left"><span >Attention      |</span></td>
-                                        <td style="height:1px;" align="left">
-                                           <span t-field="o.attention.parent_id.name"/> <span t-if="o.attention.parent_id.name">,</span>
-                                            <span  t-field="o.attention.name"></span></td>
+                                        <td style="font-size:15px;font-weight:bold ;height:1px" align="left">
+                                            <strong>Attention</strong>
+                                        </td>
+                                        <td style="height:1px;color:#2a2a2a" align="left">
+                                            <span>|</span>
+                                            <span t-field="o.attention.parent_id.name"/>
+                                            <span t-if="o.attention.parent_id.name">,</span>
+                                            <span t-field="o.attention.name"></span>
+                                        </td>
                                     </th>
-                                     <th style="border-color:black,border-style:solid;height:1px;width:100px;">
-                                     </th>
+                                    <th style="border-color:black,border-style:solid;height:1px;width:100px;">
+                                    </th>
                                     <th>
-                                        <td><span  t-field="o.company_id.vat" align="right"/></td>
-                                        <td style="font-size:20px;font-weight:bold ;height:1px;width:150px;" class="text-center">
-                                            <span>| بطاقة ضريبة  </span></td>
+                                        <td style="height:1px;color:#2a2a2a">
+                                            <span t-field="o.company_id.vat" align="right"/>
+                                            <span>|</span>
+                                        </td>
+                                        <td style="font-size:15px;font-weight:bold ;height:1px;width:150px;"
+                                            class="text-right">
+                                            <strong>بطاقة ضريبة</strong>
+                                        </td>
                                     </th>
 
                                 </tr>
                                 <tr>
                                     <th>
-                                        <td style="font-size:20px;font-weight:bold ;height:1px;" align="left">
-                                            <span>Invoice Address |</span></td>
-                                        <td style="height:1px;" align="left">
-                                            <span t-field="o.partner_invoice_id.parent_id.name"/> <span t-if="o.partner_invoice_id.parent_id.name">,</span>
-                                            <span  t-field="o.partner_invoice_id.name"></span></td>
+                                        <td style="font-size:15px;font-weight:bold ;height:1px;" align="left">
+                                            <strong>Invoice Address</strong>
+                                        </td>
+                                        <td style="height:1px;color:#2a2a2a" align="left">
+                                            <span>|</span>
+                                            <span t-field="o.partner_invoice_id.parent_id.name"/>
+                                            <span t-if="o.partner_invoice_id.parent_id.name">,</span>
+                                            <span t-field="o.partner_invoice_id.name"></span>
+                                        </td>
                                     </th>
-                                     <th style="border-color:black,border-style:solid;height:1px;width:100px;">
-                                     </th>
+                                    <th style="border-color:black,border-style:solid;height:1px;width:100px;">
+                                    </th>
                                     <th>
-                                        <td><span  t-field="o.company_id.tax_file" align="right"/></td>
-                                        <td style="font-size:20px;font-weight:bold ;height:1px;width:200px;" class="text-center">
-                                            <span>| ملف ضريبي  </span></td>
+                                        <td style="height:1px;color:#2a2a2a">
+                                            <span t-field="o.company_id.tax_file" align="right"/>
+                                            <span>|</span>
+                                        </td>
+                                        <td style="font-size:15px;font-weight:bold ;height:1px;width:200px;"
+                                            class="text-right">
+                                            <strong>ملف ضريبي</strong>
+                                        </td>
                                     </th>
 
                                 </tr>
-                                 <tr>
+                                <tr>
                                     <th>
-                                        <td style="font-size:20px;font-weight:bold ;height:1px;" align="left">
-                                            <span>Order Date |</span></td>
-                                        <td style="height:1px;" align="left">
-                                            <span  t-field="o.date_order"></span></td>
+                                        <td style="font-size:15px;font-weight:bold ;height:1px;" align="left">
+                                            <strong>Order Date</strong>
+                                        </td>
+                                        <td style="height:1px;color:#2a2a2a" align="left">
+                                            <span>|</span>
+                                            <span t-field="o.date_order"></span>
+                                        </td>
                                     </th>
-                                     <th style="border-color:black,border-style:solid;height:1px;width:100px;">
-                                     </th>
+                                    <th style="border-color:black,border-style:solid;height:1px;width:100px;">
+                                    </th>
                                     <th>
-                                        <td><span  t-field="o.company_id.sales_taxes" align="right"/></td>
-                                        <td style="font-size:20px;font-weight:bold ;height:1px;width:200px;" class="text-left">
-                                            <span>| ضرائب المبيعات  </span></td>
+                                        <td style="height:1px;color:#2a2a2a">
+                                            <span t-field="o.company_id.sales_taxes" align="right"/>
+                                            <span>|</span>
+                                        </td>
+                                        <td style="font-size:15px;font-weight:bold ;height:1px;width:200px;"
+                                            class="text-right">
+                                            <strong>ضرائب المبيعات</strong>
+                                        </td>
                                     </th>
 
                                 </tr>
@@ -196,101 +243,123 @@
                             <br/>
 
 
-
-                            <table style="border-color:black;width:100%;hieght:100%;" border="1">
-                                <thead style="background-color:#3B7A30;font-size:20px;" align="right">
+                            <table class="table table-sm" style="border: 1px solid black;width:100%;hieght:100%;"
+                                   border="1">
+                                <thead style="background-color:#029c4f;font-size:15px;font-weight:bold;text-color:#303030;"
+                                       align="right">
                                     <tr>
-                                        <th style="border: 1px solid grey;width:1%"  class="text-center">
-                                            <span>Item</span>
+                                        <th style="border: 1px solid #D9D0D0;width:1%;color:white;" class="text-left">
+                                            <strong>ITEM</strong>
                                         </th>
-                                        <th style="border: 1px solid grey" class="text-center">
-                                            <span> PN</span>
+                                        <th style="font-weight:bolder;border: 1px solid #D9D0D0;color:white;"
+                                            class="text-left">
+                                            <strong>PN</strong>
                                         </th>
-                                        <th style="border: 1px solid grey" class="text-center">
-                                            <span> Description</span>
+                                        <th style="font-weight:bolder;border: 1px solid #D9D0D0;color:white;"
+                                            class="text-left">
+                                            <strong>DESCRIPTION</strong>
                                         </th>
-                                        <th style="border: 1px solid grey;" class="text-center">
-                                            <span>Quantity</span>
+                                        <th style="font-weight:bolder;border: 1px solid #D9D0D0;color:white;"
+                                            class="text-left">
+                                            <strong>QUANTITY</strong>
                                         </th>
-                                        <th style="border: 1px solid grey;width:100px" class="text-center">
-                                            <span>Unit Price</span>
+                                        <th style="font-weight:bolder;border: 1px solid #D9D0D0;width:100px;color:white;"
+                                            class="text-left">
+                                            <strong>UNIT PRICE</strong>
                                         </th>
-                                        <th style="border: 1px solid grey" class="text-center">
-                                            <span>Amount</span>
+                                        <th style="font-weight:bolder;border: 1px solid #D9D0D0;color:white;width:100px;"
+                                            class="text-left">
+                                            <strong>AMOUNT</strong>
                                         </th>
 
                                     </tr>
                                 </thead>
-                                <tbody border="1" style="border-color:black;font-size:17px" >
+                                <tbody border="1" style="border-color:black;font-size:15px;color:#303030">
                                     <t t-set="item" t-value="0"/>
 
                                     <t t-foreach="o.order_line" t-as="line">
 
                                         <t t-set="item" t-value="item+1"/>
                                         <tr>
-                                            <td style="border: 1px solid grey;" align="center">
+                                            <td style="border: 1px solid #D9D0D0;" align="left">
                                                 <span t-esc="item"/>
                                             </td>
-                                            <td style="border: 1px solid grey" align="center">
+                                            <td style="border: 1px solid #D9D0D0" align="left">
                                                 <span t-field="line.product_id.name"/>
                                             </td>
-                                            <td style="border: 1px solid grey" align="center">
+                                            <td style="border: 1px solid #D9D0D0" align="left">
                                                 <span t-field="line.name"/>
                                             </td>
-                                            <td style="border: 1px solid grey" align="center">
+                                            <td style="border: 1px solid #D9D0D0" align="left">
                                                 <span t-field="line.product_uom_qty"/>
+                                                <span t-field="line.product_uom.name"/>
                                             </td>
-                                            <td style="border: 1px solid grey" align="center">
-                                                <span t-field="line.price_unit"/>
+                                            <td style="border: 1px solid #D9D0D0" align="left">
+                                                <span t-field="line.price_unit"
+                                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                             </td>
-                                            <td style="border: 1px solid grey" align="center">
+                                            <td style="border: 1px solid #D9D0D0" align="left">
                                                 <span t-field="line.price_subtotal"/>
                                             </td>
 
 
                                         </tr>
                                     </t>
+                                    <tr style="border: 1px solid #D9D0D0">
+                                        <!--<table class="table table-sm"-->
+                                               <!--style="border-color:black,border-style:solid;width:100%;hieght:100%;"-->
+                                               <!--border="1">-->
+                                            <tr>
+                                                <th colspan="4" style="font-size:17px;border: 1px solid #D9D0D0">
+                                                </th>
+                                                <th class="text-left" style="border: 1px solid #D9D0D0;font-size:15px;width:100px;"
+                                                    align="center">
+                                                    <strong>SUBTOTAL</strong>
+                                                </th>
+                                                <th class="text-right" style="border: 1px solid #D9D0D0;font-size:15px;;width:85px;width:100px;"
+                                                    align="center">
+                                                    <span style="font-size:15px;color:#2a2a2a;font-weight: lighter;"
+                                                          t-field="o.amount_untaxed"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="4" style="font-size:17px;border: 1px solid #D9D0D0">
+                                                </th>
+                                                <th  class="text-left" style="border: 1px solid #D9D0D0;font-size:15px;width:100px;"
+                                                    align="center">
+                                                    <strong>Taxes</strong>
+                                                </th>
+                                                <th class="text-right" style="border: 1px solid #D9D0D0;font-size:15px;width:100px;"
+                                                    align="center">
+                                                    <span style="font-size:15px;color:#2a2a2a;font-weight: lighter;" t-field="o.amount_tax"/>
+                                                </th>
+                                            </tr>
+                                            <tr class="border-black o_total">
+                                                <th class="text-center" colspan="4" style="background-color:#029c4f;font-size:17px;border: 1px solid #D9D0D0;font-weight:bold;color:white;"
+                                                    align="center">
+                                                    <span style="font-size:15px;font-weight: lighter;" t-field="o.tafqeet_total"/>
+                                                </th>
+                                                <th  class="text-left" style="background-color:#029c4f;font-size:15px;border: 1px solid #D9D0D0;width:100px;color:white;"
+                                                    align="center">
+                                                    <strong>Total</strong>
+                                                </th>
+
+                                                <th class="text-right" style="background-color:#029c4f;font-size:15px;border: 1px solid #D9D0D0;width:100px;color:white;"
+                                                    align="center">
+                                                    <span style="font-size:15px;color:#2a2a2a;color:white;font-weight: lighter;"
+                                                          t-field="o.amount_total"/>
+                                                </th>
+                                            </tr>
+                                        <!--</table>-->
+                                    </tr>
                                 </tbody>
                             </table>
 
-                               <table style="border-color:black,border-style:solid;width:100%;hieght:100%;" border="1">
-                                <tr >
-                                     <td  style="font-size:20px;border: 1px solid grey">
-                                </td>
-                                <td style="border: 1px solid grey;font-size:20px" align="center">
-                                <strong>Subtotal</strong>
-                                </td>
-                                <td style="border: 1px solid grey;font-size:17px;;width:85px" align="center">
-                                <span style="font-size:15px;"  t-field="o.amount_untaxed"/>
-                                </td>
-                                </tr>
-                                    <tr>
-                                        <td  style="font-size:20px;border: 1px solid grey">
-                                       </td>
-                                        <td style="border: 1px solid grey;font-size:20px" align="center">
-                                        <strong>Taxes</strong>
-                                        </td>
-                                        <td style="border: 1px solid grey;font-size:17px;;width:85px" align="center">
-                                        <span style="font-size:15px;"  t-field="o.amount_tax"/>
-                                        </td>
-                                    </tr>
-                                <tr class="border-black o_total">
-                                     <td style="background-color:#3B7A30;font-size:20px;border: 1px solid grey;font-weight:bold;" align="center">
-                                <span  style="font-size:15px;" t-field="o.tafqeet_total"/>
-                                </td>
-                                <td style="background-color:#3B7A30;font-size:20px;border: 1px solid grey" align="center">
-                                <strong>Total</strong>
-                                </td>
-
-                                <td style="background-color:#3B7A30;font-size:17px;border: 1px solid grey" align="center">
-                                <span style="font-size:15px;" t-field="o.amount_total"/>
-                                </td>
-                                </tr>
-                                </table>
+                            <!--<br></br>-->
+                            <span t-field="o.note" style="font-size:12px;font-weight: lighter;"/>
                             <br></br>
-                            <span t-field="o.note" style="font-size:15px;"/>
-                            <br></br>
-                            <span  t-if="o.payment_term_id.name" style="font-size:17px;font-weight:bold">Payment term |</span>
+                            <span t-if="o.payment_term_id.name" style="font-size:15px;font-weight:bold"><strong>Payment term |</strong>
+                            </span>
                             <span t-field="o.payment_term_id.name" style="font-size:15px;"/>
                             <p style="page-break-after: always;"/>
                         </div>

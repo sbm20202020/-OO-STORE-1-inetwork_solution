@@ -194,7 +194,7 @@
                                         <t t-esc="i"/>
                                     </td>
                                     <td style="border: 1px solid gray;padding: 5px;" align="left">
-                                        <span t-field="line.product_id.default_code"/>
+                                        <span t-field="line.product_id.name"/>
                                     </td>
                                     <td style="border: 1px solid gray;padding: 5px;" align="left"
                                         name="account_invoice_line_name">

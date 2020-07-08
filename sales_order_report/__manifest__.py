@@ -16,7 +16,7 @@
     'version': '0.1',
     'wbs':'INS-10,INS-11',
 
-    'depends': ['base','base_setup','sale','sale_stock'],
+    'depends': ['base','base_setup','sale','sale_stock','add_sales_fields'],
 
     'data': [
         'views/sale_order_template.xml',

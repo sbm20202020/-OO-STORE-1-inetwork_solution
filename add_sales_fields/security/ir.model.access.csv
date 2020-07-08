@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_availibilty_id,access_availibilty_name,model_availability_availability,,1,1,1,1

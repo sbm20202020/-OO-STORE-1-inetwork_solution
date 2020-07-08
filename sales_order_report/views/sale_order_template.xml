@@ -215,6 +215,20 @@
 
 
                                 </tr>
+
+                                <tr>
+                                    <th  style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <span style="font-size:16px;font-weight:bold" class="text-center">
+                                            <strong>Site</strong>
+                                        </span>
+
+                                    </th>
+                                    <th  style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span style="font-size:15px;font-weight:bold;" t-field="o.site_name"/>
+
+                                    </th>
+
+                                </tr>
                             </table>
                             <br/>
 
@@ -264,7 +278,7 @@
                                                 <span t-esc="item"/>
                                             </td>
                                             <td style="border: 1px solid #D9D0D0" align="left">
-                                                <span t-field="line.product_id.default_code"/>
+                                                <span t-field="line.product_id.name"/>
                                             </td>
                                             <td style="border: 1px solid #D9D0D0" align="left">
                                                 <span t-field="line.name"/>
@@ -281,8 +295,11 @@
                                                 <span t-field="line.price_subtotal"/>
                                             </td>
                                             <td style="border: 1px solid #D9D0D0" align="left">
-                                                <span t-if="line.qty_available_today > 0">Stock</span>
-                                                <span t-if="line.qty_available_today &lt;= 0">Not Stock</span>
+                                                <!--<span t-if="line.qty_available_today > 0">Stock</span>-->
+                                                <!--<span t-if="line.qty_available_today &lt;= 0">Not Stock</span>-->
+                                                <span t-field="line.availability_id"/>
+
+
                                             </td>
                                         </tr>
                                     </t>

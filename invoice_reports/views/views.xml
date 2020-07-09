@@ -62,7 +62,7 @@
                         <th>
                             <td>
                                 <div align="right">
-                                    <span t-field="o.company_id.commercial_record" align="right"/>
+                                    <span t-field="o.partner_id.commercial_record" align="right"/>
                                     <span>|</span>
                                 </div>
                             </td>
@@ -88,7 +88,7 @@
                         <th>
                             <td>
                                 <div align="right">
-                                    <span t-field="o.company_id.vat" align="right"/>
+                                    <span t-field="o.partner_id.vat" align="right"/>
                                     <span>|</span>
                                 </div>
                             </td>
@@ -112,7 +112,7 @@
                         <th>
                             <td>
                                 <div align="right">
-                                    <span t-field="o.company_id.tax_file" align="right"/>
+                                    <span t-field="o.partner_id.tax_file" align="right"/>
                                     <span>|</span>
                                 </div>
                             </td>
@@ -137,7 +137,7 @@
                         <th>
                             <td>
                                 <div align="right">
-                                    <span t-field="o.company_id.sales_taxes" align="right"/>
+                                    <span t-field="o.partner_id.sales_taxes" align="right"/>
                                     <span>|</span>
                                 </div>
                             </td>
@@ -194,7 +194,7 @@
                                         <t t-esc="i"/>
                                     </td>
                                     <td style="border: 1px solid gray;padding: 5px;" align="left">
-                                        <span t-field="line.product_id.name"/>
+                                        <span t-field="line.product_id.default_code"/>
                                     </td>
                                     <td style="border: 1px solid gray;padding: 5px;" align="left"
                                         name="account_invoice_line_name">
@@ -293,15 +293,12 @@
 
                     </tbody>
                 </table>
-                <br></br>
+
+                <!--<br></br>-->
+                <!--<br></br>-->
                 <p t-if="o.narration" name="comment">
                     <span style="font-size:12px;color:#3c343c;" t-field="o.narration"/>
                 </p>
-
-                <span t-field="o.company_id.invoice_footer" style="font-size:12px;color:#3c343c;"/>
-                <br></br>
-                <!--<br>/</br>-->
-
                 <span t-if="o.invoice_date_due" style="font-size:13px;font-weight:bold;color:#3c343c;">Payment Due |
                 </span>
                 <span t-field="o.invoice_date_due" style="font-size:14px;color:#3c343c;"/>

@@ -10,7 +10,6 @@
                  <field name="commercial_record"/>
                  <field name="tax_file"/>
                  <field name="sales_taxes"/>
-                <field name="invoice_footer"/>
             </xpath>
 
             <xpath expr="//field[@name='commercial_record']" position="attributes">

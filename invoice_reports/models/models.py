@@ -11,7 +11,7 @@ class  rescompany_inherit(models.Model):
     commercial_record = fields.Char(related='partner_id.commercial_record', string="Commercial Record", readonly=False)
     tax_file = fields.Char(related='partner_id.tax_file', string="Tax file", readonly=False)
     sales_taxes = fields.Char(related='partner_id.sales_taxes', string="Sales taxes", readonly=False)
-
+    invoice_footer=fields.Text()
 
 class Partner_inherit(models.Model):
     _inherit = "res.partner"

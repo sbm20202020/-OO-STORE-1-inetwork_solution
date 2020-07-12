@@ -8,6 +8,7 @@
                 report_type="qweb-pdf"
                 name="invoice_reports.report_invoice_custom"
                 file="invoice_reports.report_invoice_custom"
+                print_report_name="(object._get_report_base_filename())"
                 paperformat="invoice_reports.paperformat_pdf"
         />
 
@@ -152,7 +153,7 @@
 
                 <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
 
-                <table style="border-color:black;width:100%;hieght:100%;" border="1">
+                <table class="table table-bordered" style="border-color:black;width:100%;hieght:100%;" border="1">
                     <thead style="background-color:#3cb35a;font-size:15px;font-weight:bold;">
                         <tr>
                             <th style="border: 1px solid grey;width:1%;padding: 25px 10px 5px 10px;"
@@ -304,19 +305,20 @@
                 <br></br>
                 <br></br>
 
-                <span t-if="o.invoice_date_due" style="font-size:13px;font-weight:bold;color:#3c343c;">Payment Due |
+                <span  style="font-size:13px;font-weight:bold;color:#3c343c;">Payment Due |
                 </span>
-                <span t-field="o.invoice_date_due" style="font-size:14px;color:#3c343c;"/>
+                <span style="font-size:14px;color:#3c343c;"/>
                 <br></br>
-                <span t-if="o.invoice_payment_term_id" style="font-size:13px;font-weight:bold;color:#3c343c;">Payment
+                <span  style="font-size:13px;font-weight:bold;color:#3c343c;">Payment
                     term |
                 </span>
-                <span t-field="o.invoice_payment_term_id" style="font-size:14px;color:#3c343c;"/>
+                <span style="font-size:14px;color:#3c343c;"/>
                 <br></br>
-                <!--                            <span t-if="o.cst_po_number_id" style="font-size:15px;font-weight:bold">CST PO Number |</span>-->
-                <!--                            <span t-field="o.cst_po_number_id" style="font-size:15px;"/>-->
-                <span t-if="o.fiscal_position_id" style="font-size:13px;font-weight:bold;color:#3c343c;">Site</span>
-                <span t-field="o.fiscal_position_id" style="font-size:14px;color:#3c343c;"/>
+                <span t-if="o.cst_po_number" style="font-size:13px;font-weight:bold">CST PO Number |</span>
+                <span t-field="o.cst_po_number" style="font-size:14px;"/>
+                <br></br>
+                <span  style="font-size:13px;font-weight:bold;color:#3c343c;">Site</span>
+                <span  style="font-size:14px;color:#3c343c;"/>
                 <br></br>
 
                 <!--                        <p t-if="o.fiscal_position_id.note" name="note">-->

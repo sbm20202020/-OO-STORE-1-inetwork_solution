@@ -314,7 +314,7 @@
                 </span>
                 <span style="font-size:14px;color:#3c343c;"/>
                 <br></br>
-                <span t-if="o.cst_po_number" style="font-size:13px;font-weight:bold">CST PO Number |</span>
+                <span  style="font-size:13px;font-weight:bold">CST PO Number |</span>
                 <span t-field="o.cst_po_number" style="font-size:14px;"/>
                 <br></br>
                 <span  style="font-size:13px;font-weight:bold;color:#3c343c;">Site</span>

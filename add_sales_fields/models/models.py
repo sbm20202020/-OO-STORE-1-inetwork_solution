@@ -41,7 +41,7 @@ class StockPicking(models.Model):
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    site_name = fields.Char(string='Site',required=True)
+    site_name = fields.Char(string='Site')
 
 
 

@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+    <record id="view_company_form_partner_fields" model="ir.ui.view">
+        <field name="name">res.company.form.web.partner.autocomplete.inh</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_registry']" position="before">
+
+                 <field name="invoice_footer"/>
+            </xpath>
+
+
+        </field>
+    </record>
+  </data>
+</odoo>

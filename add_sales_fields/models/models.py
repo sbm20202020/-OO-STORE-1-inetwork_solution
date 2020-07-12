@@ -20,6 +20,8 @@ class SaleOrder(models.Model):
     def _prepare_invoice(self):
         res = super(SaleOrder, self)._prepare_invoice()
         res['site_name'] = self.site_name
+        res['cst_po_number'] = self.cst_po_number
+
         return res
 
 
@@ -42,6 +44,8 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     site_name = fields.Char(string='Site')
+    cst_po_number= fields.Char(string="CST PO Number")
+
 
 
 

@@ -37,6 +37,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='ref']" position="after">
                     <field name="site_name"/>
+                    <field name="cst_po_number"/>
                 </xpath>
 
 

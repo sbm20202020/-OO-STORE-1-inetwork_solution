@@ -45,8 +45,6 @@ class SaleOrderLine(models.Model):
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
-
-
     site_name = fields.Char(string='Site')
 
 

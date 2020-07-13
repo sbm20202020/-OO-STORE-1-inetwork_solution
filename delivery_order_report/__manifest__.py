@@ -19,10 +19,10 @@
     'depends': ['base','base_setup','stock','sale','purchase_sale_order_report'],
 
     'data': [
-        'security/ir.model.access.csv',
-        'views/delivery_order_template.xml',
-        'views/cst_po_number.xml',
+        # 'security/ir.model.access.csv',
         'views/delivery_order_view.xml',
+        'views/delivery_order_template.xml',
+        # 'views/cst_po_number.xml',
 
 
     ],

@@ -3,6 +3,15 @@
 from odoo import models, fields, api
 
 
+
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+    site_name = fields.Char(string='Site')
+    cst_po_number= fields.Char(string="CST PO Number")
+
+
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -40,11 +49,6 @@ class StockPicking(models.Model):
 
     site_name = fields.Char(string='Site')
 
-class AccountMove(models.Model):
-    _inherit = 'account.move'
-
-    site_name = fields.Char(string='Site')
-    cst_po_number= fields.Char(string="CST PO Number")
 
 
 

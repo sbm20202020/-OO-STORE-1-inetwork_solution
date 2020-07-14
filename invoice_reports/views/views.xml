@@ -170,12 +170,12 @@
                                 class="text-center">
                                 <span style="color: #FFFFFF;">QUANTITY</span>
                             </th>
-                            <th style="border: 1px solid grey;width:100px;padding: 10px" align="right">
+                            <th style="border: 1px solid grey;width:100px;padding: 10px" align="left">
                                 <span style="color: #FFFFFF;" align="right">UNIT</span>
                                 <br/>
                                 <span style="color: #FFFFFF;" align="right">PRICE</span>
                             </th>
-                            <th style="border: 1px solid grey;padding: 25px 10px 5px 10px;" align="right">
+                            <th style="border: 1px solid grey;padding: 25px 10px 5px 10px;" align="left">
                                 <span style="color: #FFFFFF;">AMOUNT</span>
                             </th>
                         </tr>
@@ -201,16 +201,16 @@
                                         name="account_invoice_line_name">
                                         <span t-field="line.name"/>
                                     </td>
-                                    <td style="border: 1px solid gray;padding: 5px;" align="right">
+                                    <td style="border: 1px solid gray;padding: 5px;" align="left">
                                         <span t-field="line.quantity"/>
                                         <span t-field="line.product_uom_id" groups="uom.group_uom"/>
                                     </td>
-                                    <td style="border: 1px solid gray;padding: 5px;" align="right"
+                                    <td style="border: 1px solid gray;padding: 5px;" align="left"
                                         t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                         <span t-field="line.price_unit"
                                               t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
                                     </td>
-                                    <td style="border: 1px solid gray;padding: 5px;" align="right">
+                                    <td style="border: 1px solid gray;padding: 5px;" align="left">
                                         <span t-field="line.price_subtotal"
                                               groups="account.group_show_line_subtotals_tax_excluded"/>
                                         <span t-field="line.price_total"

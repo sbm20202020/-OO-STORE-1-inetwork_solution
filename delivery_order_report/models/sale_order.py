@@ -43,8 +43,8 @@ class PurchaseOrder(models.Model):
     def button_confirm(self):
         res = super(PurchaseOrder, self).button_confirm()
         for order in self:
-            if not order.cst_po_number:
-                raise ValidationError(" You Should Enter CST PO Number Before Confirm order")
+            # if not order.cst_po_number:
+            #     raise ValidationError(" You Should Enter CST PO Number Before Confirm order")
 
             for line in order.picking_ids:
                 line.write({'cst_po_number': order.cst_po_number, 'attention': order.attention.id})

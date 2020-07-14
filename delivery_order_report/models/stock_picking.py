@@ -37,3 +37,5 @@ class StockMove(models.Model):
     lot_name = fields.Char('Lot/Serial Number Name')
 
 
+
+

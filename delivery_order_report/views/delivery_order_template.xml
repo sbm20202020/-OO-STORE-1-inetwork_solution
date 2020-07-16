@@ -144,7 +144,7 @@
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
                                         <span style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.cst_po_number_id.name"/>
+                                              t-field="o.cst_po_number"/>
                                     </th>
 
 

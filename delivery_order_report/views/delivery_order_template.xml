@@ -7,12 +7,12 @@
             <field name="page_height">0</field>
             <field name="page_width">0</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">35</field>
-            <field name="margin_bottom">25</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">30</field>
             <field name="margin_left">7</field>
             <field name="margin_right">7</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">30</field>
+            <field name="header_spacing">45</field>
             <field name="dpi">90</field>
         </record>
         <report string="Delivery Order Report"
@@ -22,7 +22,7 @@
                 name="delivery_order_report.delivery_order_report_template"
                 file="delivery_order_report.delivery_order_report_template"
                 paperformat="delivery_order_report.paperformat_pdf"
-
+                print_report_name="'Delivery Order - %s' % (object.name or '')"
 
         />
         <template id="custom_external_layout_header_new_picking">
@@ -204,13 +204,12 @@
                                         </strong>
 
                                     </th>
-                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.partner_id.user_id.name"/>
-
+                                    <th  style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                        <span t-if="o.sale_id" style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.sale_id.user_id.name"/>
+                                        <span t-if="o.purchase_id" style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.purchase_id.user_id.name"/>
                                     </th>
-
-
                                 </tr>
                                 <tr>
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
@@ -219,8 +218,10 @@
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.partner_id.mobile"></span>
+                                        <span t-if="o.sale_id" style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.sale_id.user_id.mobile"></span>
+                                        <span t-if="o.purchase_id" style="font-size:15px;font-weight: lighter;"
+                                              t-field="o.purchase_id.user_id.mobile"></span>
                                     </th>
 
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
@@ -270,11 +271,11 @@
                                             </td>
                                             <td style="border: 1px solid grey" align="center">
                                                 <span style="font-size:15px;font-weight: lighter;"
-                                                      t-field="line.product_id.default_code"/>
+                                                      t-field="line.product_id.name"/>
                                             </td>
                                             <td style="border: 1px solid grey" align="center">
                                                 <span style="font-size:15px;font-weight: lighter;"
-                                                      t-field="line.product_id.name"/>
+                                                      t-field="line.product_id.description_sale"/>
                                             </td>
                                             <td style="border: 1px solid grey" align="center">
                                                 <span style="font-size:15px;font-weight: lighter;"

@@ -7,12 +7,12 @@
             <field name="page_height">0</field>
             <field name="page_width">0</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">35</field>
-            <field name="margin_bottom">20</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">30</field>
             <field name="margin_left">7</field>
             <field name="margin_right">7</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">35</field>
+            <field name="header_spacing">45</field>
             <field name="dpi">90</field>
         </record>
         <report string="Sales/Quotation Report"
@@ -21,7 +21,7 @@
                 report_type="qweb-pdf"
                 name="sales_order_report.sale_order_report"
                 file="sales_order_report.sale_order_report"
-                paperformat="purchase_sale_order_report.paperformat_pdf"
+                paperformat="sales_order_report.paperformat_pdf"
 
 
         />
@@ -234,7 +234,7 @@
 
                             <table class="table table-sm" style="border: 1px solid black;width:100%;hieght:100%;"
                                    border="1">
-                                <thead style="background-color:#029c4f;font-size:15px;font-weight:bold;text-color:#303030;"
+                                <thead style="display: table-row-group;background-color:#029c4f;font-size:15px;font-weight:bold;text-color:#303030;"
                                        align="right">
                                     <tr>
                                         <th style="border: 1px solid #D9D0D0;width:1%;color:white;" class="text-left">

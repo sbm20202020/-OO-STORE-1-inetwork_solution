@@ -16,7 +16,7 @@
     'version': '0.1',
     'wbs':'INS-10,INS-11',
 
-    'depends': ['base','base_setup','stock','sale','purchase_sale_order_report'],
+    'depends': ['base','base_setup','stock','sale','purchase_sale_order_report','product','sale_stock','purchase_stock'],
 
     'data': [
         # 'security/ir.model.access.csv',

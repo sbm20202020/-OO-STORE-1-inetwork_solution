@@ -79,6 +79,11 @@
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
                 </form>
             </field>
         </record>
@@ -100,6 +105,7 @@
                         <field name="state" widget="statusbar"
                                statusbar_visible="draft_pay,generate_supp,bank_payment,cheque_return,confirm"/>
                     </header>
+                    <sheet>
                     <div class="oe_title">
                         <h1>
                             <field name="name" default_focus="1" placeholder="Name"/>
@@ -141,6 +147,13 @@
                             </group>
                         </page>
                     </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
                 </form>
             </field>
         </record>

@@ -10,7 +10,7 @@
     'summary': '',
     'description': "Payment through checks",
     'website': 'https://www.it-syscorp.com',
-    'depends': ['account_accountant'],
+    'depends': ['account_accountant','mail'],
     'data': [
         'security/account_check_security.xml',
         'security/ir.model.access.csv',

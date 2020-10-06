@@ -59,7 +59,7 @@
                                     <td style="border: 1px solid black;">
 
                                         <span style="font-size:20px;height:30px;" t-field="o.date_order"
-                                              t-options="{&quot;format&quot;: &quot;yyyy-MM-dd&quot;}" />
+                                              t-options="{&quot;format&quot;: &quot;yyyy-MM-dd&quot;}"/>
                                     </td>
                                 </tbody>
                             </table>
@@ -217,13 +217,13 @@
                                 </tr>
 
                                 <tr>
-                                    <th  style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
                                         <span style="font-size:16px;font-weight:bold" class="text-center">
                                             <strong>Site</strong>
                                         </span>
 
                                     </th>
-                                    <th  style="border: 1px solid #D9D0D0;width:30%" class="text-left">
+                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
                                         <span style="font-size:15px;font-weight:bold;" t-field="o.site_name"/>
 
                                     </th>
@@ -231,6 +231,8 @@
                                 </tr>
                             </table>
                             <br/>
+                            <!-- Is there a discount on at least one line? -->
+                            <t t-set="display_discount" t-value="any([l.discount for l in o.order_line])"/>
 
                             <table class="table table-sm" style="border: 1px solid black;width:100%;hieght:100%;"
                                    border="1">
@@ -255,6 +257,10 @@
                                         <th style="font-weight:bolder;border: 1px solid #D9D0D0;width:100px;color:white;"
                                             class="text-left">
                                             <strong>Unit Price</strong>
+                                        </th>
+                                        <th name="th_discount" t-if="display_discount" class="text-left" style="font-weight:bolder;border: 1px solid #D9D0D0;color:white;width:100px;"
+                                            groups="product.group_discount_per_so_line">
+                                            <span>Disc.%</span>
                                         </th>
                                         <th style="font-weight:bolder;border: 1px solid #D9D0D0;color:white;width:100px;"
                                             class="text-left">
@@ -291,6 +297,10 @@
                                                 <span t-field="line.price_unit"
                                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                             </td>
+                                            <td style="border: 1px solid #D9D0D0" t-if="display_discount" align="left"
+                                                groups="product.group_discount_per_so_line">
+                                                <span t-field="line.discount"/>
+                                            </td>
                                             <td style="border: 1px solid #D9D0D0" align="left">
                                                 <span t-field="line.price_subtotal"/>
                                             </td>
@@ -303,7 +313,87 @@
                                             </td>
                                         </tr>
                                     </t>
-                                    <tr style="border: 1px solid #D9D0D0">
+                                    <tr t-if="display_discount" style="border: 1px solid #D9D0D0">
+                                        <!--<table class="table table-sm"-->
+                                        <!--style="border-color:black,border-style:solid;width:100%;hieght:100%;"-->
+                                        <!--border="1">-->
+                                        <tr>
+                                            <th colspan="5" style="font-size:17px;border: 1px solid #D9D0D0">
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid #D9D0D0;font-size:15px;width:100px;"
+                                                align="center">
+                                                <strong>SUBTOTAL</strong>
+                                            </th>
+                                            <th class="text-right"
+                                                style="border: 1px solid #D9D0D0;font-size:15px;;width:85px;width:100px;"
+                                                align="center">
+                                                <span style="font-size:15px;color:#2a2a2a"
+                                                      t-field="o.amount_untaxed"/>
+                                            </th>
+                                            <th style="font-size:17px;border: 1px solid #D9D0D0">
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5" style="font-size:17px;border: 1px solid #D9D0D0">
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid #D9D0D0;font-size:15px;width:100px;"
+                                                align="center">
+                                                <span>14% VAT</span>
+                                            </th>
+                                            <th class="text-right"
+                                                style="border: 1px solid #D9D0D0;font-size:15px;width:100px;"
+                                                align="center">
+                                                <span style="font-size:15px;color:#2a2a2a" t-field="o.amount_tax"/>
+                                            </th>
+                                            <th style="font-size:17px;border: 1px solid #D9D0D0">
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5" style="font-size:15px;border: 1px solid #D9D0D0">
+                                            </th>
+                                            <th class="text-center"
+                                                style="border: 1px solid #D9D0D0;font-size:17px;width:100px;"
+                                                align="center">
+                                                <strong>Taxes</strong>
+                                            </th>
+                                            <th class="text-right"
+                                                style="border: 1px solid #D9D0D0;font-size:15px;width:100px;"
+                                                align="center">
+                                                <span style="font-size:15px;color:#2a2a2a" t-field="o.amount_tax"/>
+                                            </th>
+                                            <th style="font-size:17px;border: 1px solid #D9D0D0">
+
+                                            </th>
+                                        </tr>
+                                        <tr class="border-black o_total">
+                                            <th class="text-center" colspan="5"
+                                                style="background-color:#029c4f;font-size:17px;border: 1px solid #D9D0D0;font-weight:bold;color:white;"
+                                                align="center">
+                                                <span style="font-size:15px" t-field="o.tafqeet_total"/>
+                                            </th>
+                                            <th class="text-center"
+                                                style="background-color:#029c4f;font-size:15px;border: 1px solid #D9D0D0;width:100px;color:white;"
+                                                align="center">
+                                                <strong>Total</strong>
+                                            </th>
+
+                                            <th class="text-right"
+                                                style="background-color:#029c4f;font-size:15px;border: 1px solid #D9D0D0;width:100px;color:white;"
+                                                align="center">
+                                                <span style="font-size:15px;color:#2a2a2a;color:white;"
+                                                      t-field="o.amount_total"/>
+                                            </th>
+                                            <th style="background-color:#029c4f;font-size:15px;border: 1px solid #D9D0D0;width:100px;color:white;">
+
+                                            </th>
+                                        </tr>
+                                        <!--</table>-->
+                                    </tr>
+                                    <tr t-if="not display_discount" style="border: 1px solid #D9D0D0">
                                         <!--<table class="table table-sm"-->
                                         <!--style="border-color:black,border-style:solid;width:100%;hieght:100%;"-->
                                         <!--border="1">-->

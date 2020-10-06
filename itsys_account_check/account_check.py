@@ -4,6 +4,8 @@ from odoo.exceptions import UserError
 
 class account_check(models.Model):
     _name = 'account.check'
+    _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin']
+
 
     @api.model
     def _default_state(self):
@@ -19,14 +21,14 @@ class account_check(models.Model):
     name = fields.Char('Name', readonly=True)
     pay_ok = fields.Boolean('pay_ok')
     collect_ok = fields.Boolean('collect_ok')
-    to_check = fields.Boolean('To Review')
-    date = fields.Date('Date', required=True)
-    due_date = fields.Date('Due Date')
-    amount = fields.Float('Amount')
-    ref = fields.Char('Reference', required=True)
-    comm = fields.Char('Communication')
-    journal_id = fields.Many2one('account.journal', string='Journal', required=True, domain=[('type', '=', 'bank')])
-    partner_id = fields.Many2one('res.partner', string='Partner', required=True)
+    to_check = fields.Boolean('To Review',track_visibility='onchange')
+    date = fields.Date('Date', required=True ,track_visibility='onchange')
+    due_date = fields.Date('Due Date',track_visibility='onchange')
+    amount = fields.Float('Amount',track_visibility='onchange')
+    ref = fields.Char('Reference', required=True,track_visibility='onchange')
+    comm = fields.Char('Communication',track_visibility='onchange')
+    journal_id = fields.Many2one('account.journal', string='Journal', required=True, domain=[('type', '=', 'bank')],track_visibility='onchange')
+    partner_id = fields.Many2one('res.partner', string='Partner', required=True,track_visibility='onchange')
     state = fields.Selection([('draft_collect', 'New'),
                               ('draft_pay', 'account.checkNew'),
                               ('open', 'Open'),
@@ -44,13 +46,14 @@ class account_check(models.Model):
                               ('cheque_return', 'Cheque Return from bank'),
                               ('confirm', 'Closed')],
                              'Status', required=True, default=_default_state, readonly="1",
-                             copy=False, )
+                             copy=False,track_visibility='onchange')
     supplier_id = fields.Many2one(comodel_name='res.partner', domain=[('supplier', '=', True)],
-                                  string='Hashed to Supplier')
+                                  string='Hashed to Supplier',track_visibility='onchange')
+
     company_id = fields.Many2one(comodel_name='res.company', string='Company', required=True,
-                                 default=lambda self: self.env.user.company_id)
+                                 default=lambda self: self.env.user.company_id,track_visibility='onchange')
     currency_id = fields.Many2one(comodel_name='res.currency', string='Currency', required=True,
-                                  default=lambda self: self.env.user.company_id.currency_id, )
+                                  default=lambda self: self.env.user.company_id.currency_id,track_visibility='onchange' )
 
     not_company_currency = fields.Boolean('Use Custom Currency Rate', compute='_compute_not_company_currency')
 

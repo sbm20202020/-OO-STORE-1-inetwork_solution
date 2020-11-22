@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="schdule_activity_stock_inventory_manager_id" model="mail.activity.type">
+            <field name="name">Inventory Adjustments Notification</field>
+            <field name="icon">fa-envelope</field>
+            <field name="res_model_id" ref="stock.model_stock_inventory"/>
+        </record>
+
+
+        <!--<record forcecreate="True" id="ir_cron_activity_action_stock_inventory" model="ir.cron">-->
+            <!--<field name="name">Inventory Adjustments Notification</field>-->
+            <!--<field name="model_id" ref="model_stock_inventory"/>-->
+            <!--<field name="user_id" ref="base.user_root"/>-->
+            <!--<field name="interval_number">1</field>-->
+            <!--<field name="interval_type">days</field>-->
+            <!--<field name="numbercall">-1</field>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="code">model.cron_activity_stock_inventory()</field>-->
+            <!--<field name="active" eval="True"/>-->
+            <!--<field name="doall" eval="False"/>-->
+        <!--</record>-->
+    </data>
+</odoo>

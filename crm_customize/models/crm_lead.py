@@ -13,6 +13,14 @@ class StockPicking(models.Model):
 
     invoice_picking_id = fields.Many2one('account.move', compute='_get_invoice_picking_id')
 
+    invoice_state = fields.Selection([
+        ('draft', 'Draft'),
+        ('open', 'Open'),
+        ('in_payment', 'In Payment'),
+        ('paid', 'Paid'),
+        ('cancel', 'Cancelled'),
+    ], related='invoice_picking_id.state',store=True)
+
     invoice_state_2 = fields.Selection([
         ('draft', 'Draft'),
         ('open', 'Open'),

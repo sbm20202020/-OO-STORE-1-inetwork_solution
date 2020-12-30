@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="stock.stock_inventory_line_tree2"/>
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="replace">
-                    <tree default_order="location_id,product_id" editable="top" string="Inventory Details"
+                    <tree default_order="location_id,product_id" editable="bottom" string="Inventory Details"
                           decoration-danger="product_qty != theoretical_qty"
                           decoration-muted="product_qty == theoretical_qty"
                           decoration-bf="is_editable">
@@ -92,7 +92,7 @@
                    eval="[(4, ref('inventory_adjustments_access_right.group_inventory_adjustments_access_right'))]"/>
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="replace">
-                    <tree default_order="location_id,product_id" editable="top" string="Inventory Details"
+                    <tree default_order="location_id,product_id" editable="bottom" string="Inventory Details"
                           js_class="inventory_validate_button"
                           decoration-danger="product_qty != theoretical_qty"
                           decoration-muted="product_qty == theoretical_qty"

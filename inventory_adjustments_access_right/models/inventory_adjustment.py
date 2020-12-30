@@ -12,17 +12,31 @@ class StockInventory(models.Model):
     check_missing = fields.Boolean(default=False, copy=False)
 
     def action_validate(self):
-        if self.check_missing == False:
+        if self.check_missing is False:
             products = []
             inventory_obj = self.env['stock.inventory.line'].search([('inventory_id', '=', self.id)])
             for rec in inventory_obj:
+                # if rec.inventory_id.product_ids:
+                #     if rec.product_id.qty_available <= 0 and rec.product_id not in rec.inventory_id.product_ids.ids:
+                #         products.append(rec.product_id.id)
+                # else:
                 products.append(rec.product_id.id)
+                '''domain = [
+                    ('id', '!=', rec.id),
+                    ('product_id', '=', rec.product_id.id),
+                    ('location_id', '=', rec.location_id.id),
+                    ('partner_id', '=', rec.partner_id.id),
+                    ('package_id', '=', rec.package_id.id),
+                    ('prod_lot_id', '=', rec.prod_lot_id.id),('inventory_id', '=', rec.inventory_id.id)]
+                existings = self.env['stock.inventory.line'].search_count(domain)
+                if existings:'''
             print("LEN", len(set(products)),
                   len(self.env['product.product'].search([('id', 'not in', products), ('type', '=', 'product')]).ids))
             ctx = {'default_inventory_id': self.id,
                    'default_location_ids': self.location_ids.ids,
                    'default_product_ids': self.env['product.product'].search(
-                       [('id', 'not in', products), ('type', '=', 'product')]).ids, }
+                       [('id', 'not in', products), ('id', 'in', self.product_ids.ids), ('type', '=', 'product'),
+                        ('qty_available', '>', 0)]).ids, }
             return {'name': _("Missing Items"),
                     'type': 'ir.actions.act_window',
                     'view_mode': 'form',
@@ -64,7 +78,7 @@ class StockInventory(models.Model):
             self._check_company()
             return True
 
-    def action_open_inventory_lines(self):
+    '''def action_open_inventory_lines(self):
         self.ensure_one()
         action = {
             'type': 'ir.actions.act_window',
@@ -96,7 +110,56 @@ class StockInventory(models.Model):
 
         action['context'] = context
         action['domain'] = domain
-        return action
+        return action'''
+
+    def _get_inventory_lines_values(self):
+        # TDE CLEANME: is sql really necessary ? I don't think so
+        locations = self.env['stock.location']
+        if self.location_ids:
+            locations = self.env['stock.location'].search([('id', 'child_of', self.location_ids.ids)])
+        else:
+            locations = self.env['stock.location'].search(
+                [('company_id', '=', self.company_id.id), ('usage', 'in', ['internal', 'transit'])])
+        domain = ' location_id in %s AND quantity != 0 AND active = TRUE'
+        args = (tuple(locations.ids),)
+
+        vals = []
+        Product = self.env['product.product']
+        # Empty recordset of products available in stock_quants
+        quant_products = self.env['product.product']
+
+        # If inventory by company
+        if self.company_id:
+            domain += ' AND company_id = %s'
+            args += (self.company_id.id,)
+        if self.product_ids:
+            domain += ' AND product_id in %s'
+            args += (tuple(self.product_ids.ids),)
+
+        self.env['stock.quant'].flush(
+            ['company_id', 'product_id', 'quantity', 'location_id', 'lot_id', 'package_id', 'owner_id'])
+        self.env['product.product'].flush(['active'])
+        self.env.cr.execute("""SELECT product_id, sum(quantity) as product_qty, location_id, lot_id as prod_lot_id, package_id, owner_id as partner_id
+            FROM stock_quant
+            LEFT JOIN product_product
+            ON product_product.id = stock_quant.product_id
+            WHERE %s
+            GROUP BY product_id, location_id, lot_id, package_id, partner_id """ % domain, args)
+
+        for product_data in self.env.cr.dictfetchall():
+            product_data['company_id'] = self.company_id.id
+            product_data['inventory_id'] = self.id
+            # replace the None the dictionary by False, because falsy values are tested later on
+            for void_field in [item[0] for item in product_data.items() if item[1] is None]:
+                product_data[void_field] = False
+            product_data['theoretical_qty'] = product_data['product_qty']
+            if self.prefill_counted_quantity == 'zero':
+                product_data['product_qty'] = 0
+            if product_data['product_id']:
+                product_data['product_uom_id'] = Product.browse(product_data['product_id']).uom_id.id
+                quant_products |= Product.browse(product_data['product_id'])
+            vals.append(product_data)
+        return []
 
 
 class StockInventoryLine(models.Model):
@@ -121,3 +184,36 @@ class StockInventoryLine(models.Model):
                     vals['check_activity_sent'] = True
 
         return res
+
+    @api.onchange('product_id', 'location_id', 'product_uom_id', 'prod_lot_id', 'partner_id', 'package_id')
+    def _onchange_quantity_context(self):
+        product_qty = False
+        if self.product_id:
+            self.product_uom_id = self.product_id.uom_id
+        if self.product_id and self.location_id and self.product_id.uom_id.category_id == self.product_uom_id.category_id:  # TDE FIXME: last part added because crash
+            theoretical_qty = self.product_id.get_theoretical_quantity(
+                self.product_id.id,
+                self.location_id.id,
+                lot_id=self.prod_lot_id.id,
+                package_id=self.package_id.id,
+                owner_id=self.partner_id.id,
+                to_uom=self.product_uom_id.id,
+            )
+        else:
+            theoretical_qty = 0
+        # Sanity check on the lot.
+        if self.prod_lot_id:
+            if self.product_id.tracking == 'none' or self.product_id != self.prod_lot_id.product_id:
+                self.prod_lot_id = False
+
+        if self.prod_lot_id and self.product_id.tracking == 'serial':
+            # We force `product_qty` to 1 for SN tracked product because it's
+            # the only relevant value aside 0 for this kind of product.
+            self.product_qty = 1
+        elif self.product_id and float_compare(self.product_qty, self.theoretical_qty,
+                                               precision_rounding=self.product_uom_id.rounding) == 0:
+            # We update `product_qty` only if it equals to `theoretical_qty` to
+            # avoid to reset quantity when user manually set it.
+            # self.product_qty = theoretical_qty
+            self.product_qty = 0.0
+        self.theoretical_qty = theoretical_qty

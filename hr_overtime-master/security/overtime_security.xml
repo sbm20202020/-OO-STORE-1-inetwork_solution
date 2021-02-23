@@ -1,0 +1,126 @@
+
+<odoo>
+    <data>
+
+        <record model="ir.module.category" id="module_overtime_management">
+            <field name="name">Overtime</field>
+        </record>
+
+
+        <record model="res.groups" id="group_overtime_menu2">
+        <field name="name"> Access  Overtime </field>
+            <field name="category_id" ref="hr_overtime-master.module_overtime_management"/>
+
+
+
+
+    </record>
+
+         <record model="res.groups" id="base_group_overtime_parent_manager">
+        <field name="name"> Overtime-Parent Manager Department</field>
+            <field name="category_id" ref="hr_overtime-master.module_overtime_management"/>
+        <field name="comment">the user will be able to manage his own overtime ( request overtime), if he is linked to an employee in the system.</field>
+             <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+
+    </record>
+
+
+    <record id="base_group_overtime_manager" model="res.groups">
+        <field name="name"> Overtime-Manager Department</field>
+        <field name="comment">the user will have an access to the overtime and approved for it.</field>
+            <field name="category_id" ref="hr_overtime-master.module_overtime_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+         <record id="repair_rule_emp_manager" model="ir.rule">
+            <field name="name">overtime manager emp Rule</field>
+            <field ref="model_hr_overtime" name="model_id"/>
+            <field name="domain_force">[('employee_id.parent_id', 'in',user.employee_ids._ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+
+        </record>
+
+        <record id="repair_rule_manager" model="ir.rule">
+            <field name="name">overtime manager Rule</field>
+            <field ref="model_hr_overtime" name="model_id"/>
+            <field name="domain_force">[('employee_id.department_id.manager_id', 'in',user.employee_ids._ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+
+        </record>
+        <record id="repair_rule_parent_manager" model="ir.rule">
+            <field name="name">overtime parent manager Rule</field>
+            <field ref="model_hr_overtime" name="model_id"/>
+            <field name="domain_force">[('employee_id.department_id.parent_id.manager_id', 'in',user.employee_ids._ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+
+        </record>
+
+
+        <record id="repair_rule_admin" model="ir.rule">
+            <field name="name">repair Rule</field>
+            <field ref="model_hr_overtime" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+
+        </record>
+
+
+        //////////////////////////////////////////////////////////////////////////
+           <record id="repair_rule_manager_str" model="ir.rule">
+            <field name="name">overtime manager str Rule</field>
+            <field ref="model_hr_overtime_structure" name="model_id"/>
+            <field name="domain_force">[('department_ids.manager_id', 'in',user.employee_ids._ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+
+        </record>
+        <record id="repair_rule_parent_manager_str" model="ir.rule">
+            <field name="name">overtime parent manager Rule</field>
+            <field ref="model_hr_overtime_structure" name="model_id"/>
+            <field name="domain_force">[('department_ids.parent_id.manager_id', 'in',user.employee_ids._ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+
+        </record>
+
+
+
+
+        <record id="repair_rule_admin_str" model="ir.rule">
+            <field name="name">repair Rule</field>
+            <field ref="model_hr_overtime_structure" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+
+        </record>
+
+
+    </data>
+</odoo>

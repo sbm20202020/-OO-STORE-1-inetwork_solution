@@ -1,0 +1,464 @@
+<odoo>
+    <data>
+
+        <!--sale order form -->
+        <record id="remove_create_edit_sale_order" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="priority" eval="200"/>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_invoice_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_shipping_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='analytic_account_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='order_line']/tree/field[@name='analytic_tag_ids']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                 <xpath expr="//field[@name='sale_order_option_ids']/tree/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='sale_order_option_ids']/tree/field[@name='uom_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <!--purchase order form -->
+        <record id="remove_create_edit_purchase_order" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='user_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='account_analytic_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='analytic_tag_ids']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+          <!--invoice and vendor bill and journal entries  form -->
+
+        <record id="remove_create_edit_invoice" model="ir.ui.view">
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_shipping_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='currency_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='invoice_payment_term_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_user_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='source_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='medium_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='campaign_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_incoterm_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='fiscal_position_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_partner_bank_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='analytic_account_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='analytic_tag_ids']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_uom_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                       <!--journal entries -->
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='account_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='analytic_tag_ids']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='tag_ids']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='analytic_account_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <!--payment screen -->
+
+
+        <record id="remove_create_edit_payment" model="ir.ui.view">
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+        <!-- comment by Abeer -->
+         <!--<record id="remove_create_edit_payment_screen_expense" model="ir.ui.view">
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="create_payment_from_expenses.account_payment_view_sheet_form_add_vendor"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='expense_sheet_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+            </field>
+        </record>-->
+
+        <!--picking screen-->
+        <record id="remove_create_edit_stock_picking" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='picking_type_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='location_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='location_dest_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                 <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!--lead screen-->
+        <record id="remove_create_edit_crm_lead" model="ir.ui.view">
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+
+                 <xpath expr="//field[@name='user_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//group/group[1]/field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//group/group[2]/field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//group/group[1]/div/field[@name='country_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//group/group[1]/div/field[@name='state_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//group/group[1]/field[@name='lang_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+          <!--task screen-->
+        <record id="remove_create_edit_crm_task" model="ir.ui.view">
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='project_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+
+                 <xpath expr="//field[@name='user_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                 <xpath expr="//field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                 <xpath expr="//field[@name='parent_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='displayed_image_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+
+            </field>
+        </record>
+
+         <!--project screen-->
+        <record id="remove_create_edit_project" model="ir.ui.view">
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='analytic_account_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='subtask_project_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+         <!--planning screen-->
+        <record id="remove_create_edit_project_planning" model="ir.ui.view">
+            <field name="model">planning.slot</field>
+            <field name="inherit_id" ref="planning.planning_view_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='employee_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='role_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='employee_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="remove_create_edit_project_planning_inhe" model="ir.ui.view">
+            <field name="model">planning.slot</field>
+            <field name="inherit_id" ref="sales_delivery_planning.add_sales_fields_to_planning"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='deliver_to_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='picking_type_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="remove_create_edit_purchase_request" model="ir.ui.view">
+            <field name="model">purchase.request</field>
+            <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('stop_quick_create.stop_quick_create_group')])]"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='requested_by']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='assigned_to']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='group_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='picking_type_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='analytic_account_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+
+
+
+    </data>
+</odoo>

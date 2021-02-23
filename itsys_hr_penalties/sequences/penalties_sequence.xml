@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate='1'>
+		
+
+		<record id="ir_seq_hr_penality" model="ir.sequence">
+			<field name="name">penality Request</field>
+			<field name="code">hr.penality</field>
+			<field name="prefix">PE/</field>
+			<field name="padding">4</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<record id="ir_seq_hr_penality_reason" model="ir.sequence">
+			<field name="name">penality Request</field>
+			<field name="code">hr.penality.reason</field>
+			<field name="prefix">PR/</field>
+			<field name="padding">4</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		
+	</data>
+</openerp>

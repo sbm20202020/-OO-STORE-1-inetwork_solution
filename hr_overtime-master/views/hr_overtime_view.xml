@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="add_bool_field_to_emploee" model="ir.ui.view">
+            <field name="name">hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='parent_id']" position="before">
+                  <field name="manager"/>                </xpath>
+
+            </field>
+        </record>
+        <!--Overtime Structure Tree-->
+        <record id="tree_hr_overtime_structure_view" model="ir.ui.view">
+            <field name="name">hr.overtime.structure.tree</field>
+            <field name="model">hr.overtime.structure</field>
+            <field name="arch" type="xml">
+                <tree string="Overtime Structure">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="overtime_method"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_overtime_structure_form" model="ir.ui.view">
+            <field name="name">hr.overtime.structur.form</field>
+            <field name="model">hr.overtime.structure</field>
+            <field name="arch" type="xml">
+                <form string="Overtime Structure">
+                    <header>
+                        <button groups="hr_overtime-master.base_group_overtime_parent_manager" name="apply_ov_structure"
+                                type="object" string="Apply Overtime Structure" states="draft"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="code" placeholder="ov/dev"/>
+                            <field name="overtime_method"/>
+                            <field name="department_ids" widget="many2many_tags"/>
+                        </group>
+                        <notebook>
+                            <page string="Overtime Rules">
+                                <field name="hr_ov_structure_rule_ids">
+                                    <tree string="Overtime Rules" editable="bottom">
+                                        <field name="type"/>
+                                        <field name="rate" widget="float_time"/>
+                                        <field name="begin_after" widget="float_time"
+                                               attrs="{'invisible': [('type', 'in', ['official_leave','weekend'])]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_hr_overtime_structure" model="ir.actions.act_window">
+            <field name="name">Overtime Structures</field>
+            <field name="res_model">hr.overtime.structure</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--
+            Contract View
+        -->
+
+        <record id="view_hr_contract_overtime_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.overtime.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='advantages']" position="before">
+                    <field name="overtime_structure_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--Overtime Request Tree-->
+        <record id="tree_hr_overtime_request_view" model="ir.ui.view">
+            <field name="name">hr.overtime.tree</field>
+            <field name="model">hr.overtime</field>
+            <field name="arch" type="xml">
+                <tree string="Overtime Structure" decoration-muted="state in ('declined')"
+                      decoration-info="state in ('submit','approve')">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="type"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Overtime Request Form-->
+        <record id="view_hr_overtime_form" model="ir.ui.view">
+            <field name="name">hr.overtime.form</field>
+            <field name="model">hr.overtime</field>
+            <field name="arch" type="xml">
+                <form string="Overtime Request">
+                    <header>
+                        <button name="action_sumbit" type="object" string="Submit"
+                                groups="hr_overtime-master.base_group_overtime_manager"
+                                attrs="{'invisible': ['|','|',('state','=','submit'),('state','=','approve'),('state','=','declined')]}"/>
+                        <button name="action_approve" type="object" string="Approve"
+                                groups="hr_overtime-master.base_group_overtime_parent_manager"
+                                attrs="{'invisible': ['|',('state','=','declined'),('state','=','approve')]}"/>
+                        <button name="action_set_to_draft" type="object" string="Cancel"
+                                groups="hr_overtime-master.base_group_overtime_parent_manager,hr_overtime-master.base_group_overtime_manager"
+                                attrs="{'invisible': [('state','=','declined')]}"/>
+                        <button name="action_set_to_drafts" type="object" string="Set To Draft"
+                                groups="hr_overtime-master.base_group_overtime_parent_manager"
+                                attrs="{'invisible': [('state','=','draft')]}"/>
+
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="payment_type"
+                                       attrs="{'readonly': ['|','|',('state','=','approve'),('state','=','submit'),('state','=','declined')]}"/>
+                                <field name="from_date"
+                                       attrs="{'readonly': ['|','|',('state','=','approve'),('state','=','submit'),('state','=','declined')]}"/>
+                                <field name="to_date"
+                                       attrs="{'readonly': ['|','|',('state','=','approve'),('state','=','submit'),('state','=','declined')]}"/>
+                                <!--<field name="actaul_leave_time"/>-->
+                            </group>
+                            <group>
+                                <field name="employee_id"
+                                       attrs="{'readonly': ['|','|',('state','=','approve'),('state','=','submit'),('state','=','declined')]}"/>
+
+
+                                <field name="total_time"
+                                       attrs="{'readonly': ['|','|',('state','=','approve'),('state','=','submit'),('state','=','declined')],'invisible': ['|',('payment_type','=','cash'),('payment_type','=',False)]}"
+                                       widget="float_time"/>
+                                <field name="cash"
+                                       attrs="{'readonly':  ['|','|',('state','=','approve'),('state','=','submit'),('state','=','declined')],'invisible': ['|',('payment_type','=','time'),('payment_type','=',False)]}"/>
+                                <field name="type"
+                                       attrs="{'readonly':  ['|','|',('state','=','approve'),('state','=','submit'),('state','=','declined')]}"/>
+                                <field name="reason"
+                                       attrs="{'readonly':  ['|','|',('state','=','approve'),('state','=','submit'),('state','=','declined')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+         <record id="action_hr_overtime" model="ir.actions.act_window">
+            <field name="name">Overtime Requests</field>
+            <field name="res_model">hr.overtime</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <menuitem id="employees_overtime_menu_root"
+                  name="Employee Overtime"
+                  groups="hr_overtime-master.group_overtime_menu2"
+
+                  sequence="120"
+
+        />
+
+        <menuitem name="Overtimes"
+                  parent="employees_overtime_menu_root"
+                  id="menu_hr_overtime"
+                  />
+
+        <menuitem name="Overtime Requests"
+                  parent="menu_hr_overtime"
+                  id="menu_hr_overtime_request"
+                   action="action_hr_overtime"/>
+
+
+
+        <menuitem name="Overtime Structures"
+                  parent="employees_overtime_menu_root"
+                  id="menu_hr_overtime_structure"
+                  action="action_hr_overtime_structure"
+                  />
+
+
+
+
+
+    </data>
+</openerp>

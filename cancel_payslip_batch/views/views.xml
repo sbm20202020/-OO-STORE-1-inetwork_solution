@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+
+        <record id="add_cancel_button_to_payslip" model="ir.ui.view">
+         <field name="name">hr.payslip.run.form</field>
+         <field name="model">hr.payslip.run</field>
+         <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+         <field name="arch" type="xml">
+             <xpath expr="//button[@name='action_validate']" position="after">
+                <button name="action_cancel" type="object" string="Cancel" states="verify,close" class="oe_highlight" />
+
+             </xpath>
+         </field>
+    </record>
+
+    </data>
+</odoo>

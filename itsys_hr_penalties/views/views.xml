@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record id="penalty_reason_form_view" model="ir.ui.view">
+            <field name="name">Penalty Reason</field>
+            <field name="model">penalty.reason</field>
+            <field name="arch" type="xml">
+                <form string="Penalty Reason">
+                    <sheet>
+                        <h1><field name="seq"/></h1>
+                        <group>
+                            <field name="reason_name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="penalty_reason_tree_view" model="ir.ui.view">
+            <field name="name">Penalty Reason</field>
+            <field name="model">penalty.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Penalty Reason">
+                    <field name="seq"/>
+                    <field name="reason_name"/>
+                </tree>
+            </field>
+        </record>
+
+
+         <record id="penalty_reason_action" model="ir.actions.act_window">
+            <field name="name">Penalty Reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">penalty.reason</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="employee_capacity_menu"
+                  name="Penalty Reason"
+                  parent="hr.menu_human_resources_configuration"
+                  action="penalty_reason_action"
+                  sequence="20"
+        />
+    </data>
+</odoo>

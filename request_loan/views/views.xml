@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <record id="add_loan_in_payroll" model="ir.ui.view">
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="loan" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <!--doaa added-->
+        <record id="hr_loan_form_view_add_type_in_loan" model="ir.ui.view">
+            <field name="model">hr.loan</field>
+            <field name="inherit_id" ref="ohrms_loan.hr_loan_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_date']" position="after">
+                    <field name="loan_type" required="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

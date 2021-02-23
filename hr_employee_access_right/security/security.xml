@@ -1,0 +1,90 @@
+<odoo>
+    <data>
+
+
+      <record id="rule_employee_manager_can see_manger_par" model="ir.rule">
+            <field name="name">employee Rule</field>
+            <field ref="model_hr_employee" name="model_id"/>
+            <field name="domain_force">['|','|','|','|','|',('parent_id.user_id','=',user.id),
+                ('parent_id.parent_id.user_id','=',user.id), ('parent_id.parent_id.parent_id.user_id','=',user.id),('parent_id.parent_id.parent_id.parent_id.user_id','=',user.id),
+                ('user_id','=',user.id),('department_id.manager_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+        </record>
+
+
+         <record id="rule_employee_manager_public" model="ir.rule">
+            <field name="name">employee Rule</field>
+            <field ref="model_hr_employee_public" name="model_id"/>
+               <field name="domain_force">['|','|','|','|','|',('parent_id.parent_id.parent_id.user_id','=',user.id),('parent_id.user_id','=',user.id),
+                ('parent_id.parent_id.user_id','=',user.id),('parent_id.parent_id.parent_id.parent_id.user_id','=',user.id),
+                ('user_id','=',user.id),('department_id.manager_id.user_id', '=', user.id)]</field>
+             <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+        </record>
+
+        <record id="employee_rule_admin" model="ir.rule">
+            <field name="name">employee Rule</field>
+            <field ref="model_hr_employee" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+
+        </record>
+         <record id="employee_public_rule_admin" model="ir.rule">
+            <field name="name">Employee Public</field>
+            <field ref="model_hr_employee_public" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+
+        </record>
+
+
+
+
+         <!--<record id="rule_employee_manager_public" model="ir.rule">-->
+            <!--<field name="name">employee manager Rule</field>-->
+            <!--<field ref="model_hr_employee_public" name="model_id"/>-->
+            <!--<field name="domain_force">['|','|','|',('parent_id.parent_id.user_id','=',user.id),-->
+                <!--('parent_id.user_id', 'in',user.employee_ids._ids),('user_id','=',user.id),-->
+                <!--('department_id.manager_id.user_id', '=', user.id)]</field>-->
+            <!--<field name="groups" eval="[(4, ref('base.group_user'))]"/>-->
+            <!--<field name="perm_create" eval="True"/>-->
+            <!--<field name="perm_unlink" eval="True"/>-->
+            <!--<field name="perm_write" eval="True"/>-->
+            <!--<field name="perm_read" eval="True"/>-->
+        <!--</record>-->
+
+        <!--<record id="rule_employee_manager_can see" model="ir.rule">-->
+            <!--<field name="name">employee Rule</field>-->
+            <!--<field ref="model_hr_employee" name="model_id"/>-->
+            <!--<field name="domain_force">['|','|',('parent_id.user_id','=',user.id),('user_id','=',user.id),('department_id.manager_id.user_id', '=', user.id)]</field>-->
+            <!--<field name="groups" eval="[(4, ref('base.group_user'))]"/>-->
+            <!--<field name="perm_create" eval="True"/>-->
+            <!--<field name="perm_unlink" eval="True"/>-->
+            <!--<field name="perm_write" eval="True"/>-->
+            <!--<field name="perm_read" eval="True"/>-->
+        <!--</record>-->
+
+
+
+
+
+
+
+
+    </data>
+</odoo>

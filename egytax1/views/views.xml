@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+        <!--tax year view-->
+        <record id="egytax_taxyear_form_view" model="ir.ui.view">
+            <field name="name">egytax.taxyear.form.view</field>
+            <field name="model">egytax.taxyear</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+
+                        <group>
+                            <h1>
+                                <field name="name" nolabel="1" width="50px;"/>
+                            </h1>
+                        </group>
+
+                        <group cols="4" colspan="4">
+                            <group>
+                                <field name="tax_examption"/>
+                                <field name="year_from"/>
+                                <field name="year_to"/>
+                            </group>
+
+                        </group>
+
+                        <field name="lines" widget="one2many_list">
+                            <tree string="Tax Year lines" editable="buttom">
+                                <field name="lowwer"/>
+                                <field name="upper"/>
+                                <field name="percentage"/>
+                                <field name="examption_limit"></field>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="egy_tax_tree" model="ir.ui.view">
+            <field name="name">egytax</field>
+            <field name="model">egytax.taxyear</field>
+            <field name="arch" type="xml">
+                <tree string="egytax year">
+                    <field name="name"/>
+                    <field name="tax_examption"/>
+                    <field name="year_from"/>
+                    <field name="year_to"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <!--tax year action-->
+
+        <record id="taxyear_form_view_action" model="ir.actions.act_window">
+            <field name="name">Tax year</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">egytax.taxyear</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first Tax Year
+                </p>
+            </field>
+        </record>
+
+
+        <!--add include to hr.salary.rule-->
+        <record model="ir.ui.view" id="view_user_ipadd_form">
+            <field name="name">hr.salary.rule.inherit.include</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <field name="active" position="before">
+                    <field name="include"/>
+                    <!--<field name="inctax"/>-->
+                </field>
+            </field>
+        </record>
+
+        <menuitem id="taxyar_menu_main" name="Tax Year"
+                  parent="hr.menu_hr_root"/>
+        <menuitem id="taxyar_menu" name="Tax Year"
+                  parent="taxyar_menu_main"
+                  action="taxyear_form_view_action"/>
+    </data>
+</odoo>

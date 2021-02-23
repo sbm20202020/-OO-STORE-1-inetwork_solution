@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_po_variant_po_variant,po_variant.po_variant,model_po_variant_po_variant,,1,0,0,0

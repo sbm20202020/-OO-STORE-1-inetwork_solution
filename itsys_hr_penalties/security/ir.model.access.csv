@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_po_variant_po_variant,po_variant.po_variant,model_penalty_reason,,1,1,1,1
+access__penalty.details,access.penalty.details,model_penalty_details,,1,1,1,1
+access__hr.employee.part,access.hr.employee.part,model_hr_employee_part,,1,1,1,1
+
+
+

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+overtime_manager,overtime.manger,model_hr_overtime,,1,1,1,1
+overtime_manager2,overtime.manger2,model_hr_ov_structure_rule,,1,1,1,1
+overtime_structure,hr.overtime.structur,model_hr_overtime_structure,,1,1,1,1
+hr_contract_id,hr_contract_name,model_hr_contract,hr_overtime-master.group_overtime_menu2,1,1,1,1
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_payroll_salary_structure_type_ind_emp_alw" model="hr.payroll.structure.type">
+            <field name="name">ALLOWANCES</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="hr_payroll_salary_structure_ind_emp_alw" model="hr.payroll.structure">
+            <field name="name">Employee ALLOWANCES</field>
+            <field name="country_id" eval="False"/>
+            <field name="type_id" ref="hr_payroll_salary_structure_type_ind_emp_alw"/>
+        </record>
+
+        <record id="hr_salary_rule_overtime" model="hr.salary.rule">
+            <field name="code">ALLOWANCES</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result=(contract.get_all_allowances())
+            </field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="name">Allowances</field>
+            <field name="sequence" eval="51"/>
+            <field name="note">Get all overtime granted to employee</field>
+            <field name="struct_id" ref="hr_payroll_salary_structure_ind_emp_alw"/>
+        </record>
+    </data>
+</odoo>

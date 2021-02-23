@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+
+         <record id="stop_quick_create_group" model="res.groups">
+            <field name="name">Stop Quick Create</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,92 @@
+<odoo>
+    <data>
+        <record id="hr_departure_form_view" model="ir.ui.view">
+            <field name="name">hr.departure.form</field>
+            <field name="model">hr.departure</field>
+            <field name="arch" type="xml">
+                <form >
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_departure_tree_view" model="ir.ui.view">
+            <field name="name">hr.departure.form</field>
+            <field name="model">hr.departure</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_departure_reason">
+        <field name="name">Archiving Reason</field>
+        <field name="res_model">hr.departure</field>
+        <field name="view_mode">tree,form</field>
+       </record>
+
+            <menuitem id="menu_employee_deprature"
+                      name="Archiving Reason"
+
+                action="action_departure_reason"
+                parent="hr.menu_human_resources_configuration"
+             sequence="30"/>
+
+<!--33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333-->
+
+
+        <record id="add_domain_to_partner" model="ir.ui.view">
+            <field name="name">crm.lead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+
+              <xpath expr="//field[@name='partner_id']" position="attributes">
+              <attribute name ="domain">[('is_company', '=', True)]</attribute>
+              </xpath>
+
+            </field>
+        </record>
+
+        <record id="add_reason_for_archive_employee_wizard" model="ir.ui.view">
+            <field name="name">hr.departure.wizard.form</field>
+            <field name="model">hr.departure.wizard</field>
+            <field name="inherit_id" ref="hr.hr_departure_wizard_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='departure_reason']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+
+                </xpath>
+
+                <xpath expr="//field[@name='departure_reason']" position="after">
+                    <field name="departure_reason_id"/>
+                    <field name="archive_reason" invisible="1"/>
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="add_archive_field_to_employee" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='department_id']" position="after">
+                    <field name="archive_reason" invisible="1"/>
+                    <field name="departure_reason_id" invisible="1"/>
+
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

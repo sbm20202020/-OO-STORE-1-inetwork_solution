@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="stock_invetory_paper_format" model='report.paperformat'>
+            <field name="name">Stock Inventory Format</field>
+            <field name="format">custom</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">47</field>
+            <field name="header_spacing">45</field>
+        </record>
+
+        <report
+            string="Stock Inventory Report"
+            id="action_report_stock_inv"
+            model="stock.inventory.wizard"
+            report_type="qweb-pdf"
+            name="aspl_stock_inventory_report_ee.stock_inv_template"
+            file="aspl_stock_inventory_report_ee.stock_inv_template"
+            paperformat="aspl_stock_inventory_report_ee.stock_invetory_paper_format"
+        />
+
+    </data>
+
+</odoo>

@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+
+        <record id="aspl_stock_inventory_wizard_from_view" model="ir.ui.view">
+            <field name="name">stock.inventory.wizard.form</field>
+            <field name="model">stock.inventory.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="state" invisible="1"/>
+                    <field name = "name" invisible="1"/>
+                    <group states ="choose">
+                        <field name="company_id" class="oe_inline" options="{'no_create':True,'no_edit':True}" groups="base.group_multi_company"/>
+                    </group>
+                    <group col="4" states ="choose">
+                        <field name="start_date" attrs="{'invisible':[('is_today_movement','=',True)],'required':[('is_today_movement','=',False)]}" />
+                        <field name="end_date" attrs="{'invisible':[('is_today_movement','=',True)],'required':[('is_today_movement','=',False)]}" />
+                    </group>
+                    <group col="4" states ="choose">
+                        <field name="warehouse_ids" widget="many2many_tags"
+                            domain="[('company_id','=',company_id)]" options="{'no_create':True,'no_edit':True}"/>
+                        <field name="location_id" options="{'no_create':True,'no_edit':True}" 
+                            context="{'warehouse_ids':warehouse_ids,'company_id':company_id}"/>
+                    </group>
+                    <group col="6" states ="choose">
+                        <field name="group_by_categ" class="oe_inline"/>
+                        <field name="with_zero" attrs="{'invisible':[('is_today_movement','=',True)]}" class="oe_inline"/>
+                        <field name="is_today_movement" attrs="{'invisible':[('with_zero','=',True)]}"/>
+                        <field name="filter_by" class="oe_inline"/>
+                    </group>
+                    <notebook attrs="{'invisible':[('filter_by','=',False)]}">
+                        <page string="Product/Category" states ="choose">
+                            <group>
+                                <field name="product_ids" widget="many2many_tags" domain="[('type','=','product')]"
+                                       attrs="{'invisible':[('filter_by','!=','product')]}"
+                                       options="{'no_create':True,'no_edit':True}"/>
+
+                                <field name="category_ids" widget="many2many_tags" attrs="{'invisible':[('filter_by','!=','category')]}"
+                                       options="{'no_create':True,'no_edit':True}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                     <div states="get">
+                            <h2>Report Complete</h2>
+                            <p>Here is the Xls File : <field name="data" readonly="1" filename="name"/></p>
+                    </div>
+                    <footer states ="choose">
+                        <button string="PDF" name="generate_pdf_report" type="object" class="oe_highlight" />
+                        or
+                        <button string="Excel" name="generate_xls_report" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                    <footer states="get">
+                        <button special="cancel" string="Close" type="object" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_stock_inventory_wizard" model="ir.actions.act_window">
+            <field name="name">Stock Inventory Report</field>
+            <field name="res_model">stock.inventory.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_wizard_stock_inventory" parent="stock.menu_warehouse_report" action="action_stock_inventory_wizard" />
+
+    </data>
+</odoo>

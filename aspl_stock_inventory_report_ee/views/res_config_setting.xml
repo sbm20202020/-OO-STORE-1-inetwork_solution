@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_employee_form_inherit_hr_attendance"
+            model="ir.ui.view">
+            <field name="name">res.config.settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('app_settings_block')]//h2[6]"
+                    position="before">
+                    <h2>Stock Inventory Report</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="stock_inventory_report"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="stock_inventory_report"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 o_setting_box">
+                            <group col="4">
+                                <field name="inventory_report_user_ids"  attrs="{'invisible': [('stock_inventory_report', '=', False)], 'required': [('stock_inventory_report', '!=', False)]}"
+                                 widget="many2many_tags" options="{'no_create':True,'no_edit':True}"/>
+                                <field name="stock_inventory_report_email_template_id" attrs="{'invisible': [('stock_inventory_report', '=', False)], 
+                                'required': [('stock_inventory_report', '!=', False)]}"  domain="[('model_id.model','=','stock.inventory.wizard')]"
+                                options="{'no_create':True,'no_edit':True}"/>
+                            </group>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

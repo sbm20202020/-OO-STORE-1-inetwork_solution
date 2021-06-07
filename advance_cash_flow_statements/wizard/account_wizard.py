@@ -106,7 +106,7 @@ class AccountWizard(models.TransientModel):
         if data['levels'] == 'summary':
             account= """AND aml.account_id IN %s""" if len(data['account_ids']) > 0 else """"""
             partner = """'AND aml.partner_id IN %s""" if len(data['partner_ids']) > 0 else """'"""
-            state = """'AND aml.parent_state ='"""+str('posted') if data['target_move'] == 'posted' else """'"""
+            state = """'AND aml.parent_state ='"""+str('posted') if data['target_move'] == 'posted' else """"""
             query3 = """SELECT aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
                         aml.debit AS total_debit, aml.credit AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
                                  LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True

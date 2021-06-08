@@ -1,27 +1,8 @@
 # -*- coding: utf-8 -*-
-#############################################################################
-#
-#    Cybrosys Technologies Pvt. Ltd.
-#
-#    Copyright (C) 2019-TODAY Cybrosys Technologies(<https://www.cybrosys.com>)
-#    Author: Cybrosys Techno Solutions(<https://www.cybrosys.com>)
-#
-#    You can modify it under the terms of the GNU LESSER
-#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
-#
-#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
-#    (LGPL v3) along with this program.
-#    If not, see <http://www.gnu.org/licenses/>.
-#
-#############################################################################
 
 import json
-from datetime import datetime
+from datetime import datetime , timedelta , date
+import calendar
 
 from odoo import models, fields, api
 from odoo.exceptions import UserError
@@ -97,6 +78,7 @@ class AccountWizard(models.TransientModel):
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         fetched_data = []
+        previous_balance = []
         account_res = []
         journal_res = []
         fetched = []
@@ -126,73 +108,86 @@ class AccountWizard(models.TransientModel):
                 tuples=(tuple(data["partner_ids"]),tuple(data["account_ids"]))
             cr.execute(query3,tuples)
             fetched_data = cr.dictfetchall()
-
-
-        elif data['levels'] == 'consolidated':
-            state = """ WHERE am.state = 'posted' """ if data['target_move'] == 'posted' else ''
-            query2 = """SELECT aat.name, sum(aml.debit) AS total_debit, sum(aml.credit) AS total_credit,
-                         sum(aml.balance) AS total_balance FROM (  SELECT am.id, am.state FROM account_move as am
-                         LEFT JOIN account_move_line aml ON aml.move_id = am.id
-                         LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
-                         LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
-                         WHERE am.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(
-                data['date_to']) + """' AND aat.id='""" + str(account_type_id) + """' ) am
-                                     LEFT JOIN account_move_line aml ON aml.move_id = am.id
-                                     LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
-                                     LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
-                                     """ + state + """GROUP BY aat.name"""
-            cr = self._cr
-            cr.execute(query2)
-            fetched_data = cr.dictfetchall()
-        elif data['levels'] == 'detailed':
-            account= """AND aml.account_id IN %s""" if len(data['account_ids']) > 0 else """"""
-            partner = """'AND aml.partner_id IN %s""" if len(data['partner_ids']) > 0 else """'"""
-            state = """'AND aml.parent_state ='"""+str('posted') if data['target_move'] == 'posted' else """'"""
-            query1 = """SELECT aml.account_id as account_id ,aa.name as account , aa.code as code,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
-                        aml.debit AS total_debit, aml.credit AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
+            print('datetime.date(2021,1,1)',datetime(int(datetime.strptime(str(data['date_from']),"%Y-%m-%d").year), 1, 1, 9, 32, 15).date())
+            query2 = """SELECT aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
+                        sum(aml.debit) AS total_debit, sum(aml.credit) AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
                                  LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
                                  LEFT JOIN res_currency cc ON cc.id = aa.currency_id
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
-                                 WHERE aml.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(data['date_to']) +\
+                                 WHERE aml.date BETWEEN '""" + str(datetime(int(datetime.strptime(str(data['date_from']),"%Y-%m-%d").year), 1, 1, 9, 32, 15).date()) + """' and '""" + str(datetime.strptime(str(data['date_from']),"%Y-%m-%d")-timedelta(days=1)) +\
                      """' AND aat.id='""" + str(account_type_id)  + state +partner+account+\
-                     """GROUP BY account,due_date,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id,code"""
+                     """GROUP BY due_date,account,partner,currency,total_balance,name_aml,partner_id,account_id"""
             cr = self._cr
-            tuples=()
-            if len(data['account_ids']) > 0 and len(data["partner_ids"]) <=0:
-                tuples=(tuple(data["account_ids"]),)
-            elif len(data['account_ids']) <= 0 and len(data["partner_ids"]) >0:
-                tuples=(tuple(data["partner_ids"]),)
-            elif len(data['account_ids']) > 0 and len(data["partner_ids"]) >0:
-                tuples=(tuple(data["partner_ids"]),tuple(data["account_ids"]))
-            cr.execute(query1,tuples)
-            fetched_data = cr.dictfetchall()
-            # for account in self.env['account.account'].search([]):
-            #     child_lines = self._get_journal_lines(account, data)
-            #     if child_lines:
-            #         journal_res.append(child_lines)
+            cr.execute(query2,tuples)
+            previous_balance = cr.dictfetchall()
 
-        else:
-            account_type_id = self.env.ref('account.data_account_type_liquidity').id
-            state = """AND am.state = 'posted' """ if data['target_move'] == 'posted' else ''
-            sql = """SELECT DISTINCT aa.name,aa.code, sum(aml.debit) AS total_debit,
-                                     sum(aml.credit) AS total_credit FROM (SELECT am.* FROM account_move as am
-                                     LEFT JOIN account_move_line aml ON aml.move_id = am.id
-                                     LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
-                                     LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
-                                     WHERE am.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(
-                data['date_to']) + """' AND aat.id='""" + str(account_type_id) + """' """ + state + """) am
-                                                         LEFT JOIN account_move_line aml ON aml.move_id = am.id
-                                                         LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
-                                                         LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
-                                                         GROUP BY aa.name, aa.code"""
-            cr = self._cr
-            cr.execute(sql)
-            fetched = cr.dictfetchall()
-            for account in self.env['account.account'].search([]):
-                child_lines = self._get_lines(account, data)
-                if child_lines:
-                    account_res.append(child_lines)
+
+        # elif data['levels'] == 'consolidated':
+        #     state = """ WHERE am.state = 'posted' """ if data['target_move'] == 'posted' else ''
+        #     query2 = """SELECT aat.name, sum(aml.debit) AS total_debit, sum(aml.credit) AS total_credit,
+        #                  sum(aml.balance) AS total_balance FROM (  SELECT am.id, am.state FROM account_move as am
+        #                  LEFT JOIN account_move_line aml ON aml.move_id = am.id
+        #                  LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
+        #                  LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
+        #                  WHERE am.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(
+        #         data['date_to']) + """' AND aat.id='""" + str(account_type_id) + """' ) am
+        #                              LEFT JOIN account_move_line aml ON aml.move_id = am.id
+        #                              LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
+        #                              LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
+        #                              """ + state + """GROUP BY aat.name"""
+        #     cr = self._cr
+        #     cr.execute(query2)
+        #     fetched_data = cr.dictfetchall()
+        # elif data['levels'] == 'detailed':
+        #     account= """AND aml.account_id IN %s""" if len(data['account_ids']) > 0 else """"""
+        #     partner = """'AND aml.partner_id IN %s""" if len(data['partner_ids']) > 0 else """'"""
+        #     state = """'AND aml.parent_state ='"""+str('posted') if data['target_move'] == 'posted' else """'"""
+        #     query1 = """SELECT aml.account_id as account_id ,aa.name as account , aa.code as code,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
+        #                 aml.debit AS total_debit, aml.credit AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
+        #                          LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
+        #                          LEFT JOIN res_currency cc ON cc.id = aa.currency_id
+        #                          LEFT JOIN res_partner pp ON pp.id = aml.partner_id
+        #                          LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
+        #                          WHERE aml.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(data['date_to']) +\
+        #              """' AND aat.id='""" + str(account_type_id)  + state +partner+account+\
+        #              """GROUP BY account,due_date,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id,code"""
+        #     cr = self._cr
+        #     tuples=()
+        #     if len(data['account_ids']) > 0 and len(data["partner_ids"]) <=0:
+        #         tuples=(tuple(data["account_ids"]),)
+        #     elif len(data['account_ids']) <= 0 and len(data["partner_ids"]) >0:
+        #         tuples=(tuple(data["partner_ids"]),)
+        #     elif len(data['account_ids']) > 0 and len(data["partner_ids"]) >0:
+        #         tuples=(tuple(data["partner_ids"]),tuple(data["account_ids"]))
+        #     cr.execute(query1,tuples)
+        #     fetched_data = cr.dictfetchall()
+        #     # for account in self.env['account.account'].search([]):
+        #     #     child_lines = self._get_journal_lines(account, data)
+        #     #     if child_lines:
+        #     #         journal_res.append(child_lines)
+        #
+        # else:
+        #     account_type_id = self.env.ref('account.data_account_type_liquidity').id
+        #     state = """AND am.state = 'posted' """ if data['target_move'] == 'posted' else ''
+        #     sql = """SELECT DISTINCT aa.name,aa.code, sum(aml.debit) AS total_debit,
+        #                              sum(aml.credit) AS total_credit FROM (SELECT am.* FROM account_move as am
+        #                              LEFT JOIN account_move_line aml ON aml.move_id = am.id
+        #                              LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
+        #                              LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
+        #                              WHERE am.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(
+        #         data['date_to']) + """' AND aat.id='""" + str(account_type_id) + """' """ + state + """) am
+        #                                                  LEFT JOIN account_move_line aml ON aml.move_id = am.id
+        #                                                  LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
+        #                                                  LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
+        #                                                  GROUP BY aa.name, aa.code"""
+        #     cr = self._cr
+        #     cr.execute(sql)
+        #     fetched = cr.dictfetchall()
+        #     for account in self.env['account.account'].search([]):
+        #         child_lines = self._get_lines(account, data)
+        #         if child_lines:
+        #             account_res.append(child_lines)
 
         logged_users = self.env['res.company']._company_default_get('account.account')
         sheet = workbook.add_worksheet()
@@ -201,6 +196,11 @@ class AccountWizard(models.TransientModel):
                                     'font_size': '10px',
                                     'border': 1,
                                     'bg_color': '#D3D3D3',})
+        opening_balance = workbook.add_format({'align': 'center',
+                                    'bold': True,
+                                    'font_size': '10px',
+                                    'border': 1,
+                                    'bg_color':'yellow',})
         date = workbook.add_format({'font_size': '10px'})
         cell_format = workbook.add_format({'bold': True,
                                            'font_size': '10px'})
@@ -261,13 +261,24 @@ class AccountWizard(models.TransientModel):
         sheet.write('F9','Account Currency', bold)
         sheet.write('G9', 'Account', bold)
 
-        row_num = 8
+        row_num = 9
         col_num = 0
+        previous_balance_list = previous_balance.copy()
         fetched_data_list = fetched_data.copy()
         account_res_list = account_res.copy()
         journal_res_list = fetched_data.copy()
         fetched_list = fetched.copy()
-        before_balance=0
+        before_balance=sum(i['total_debit']-i['total_credit'] for i in previous_balance_list)
+        sheet.write('A10', '', opening_balance)
+        sheet.write('B10', 'Opening Balance', opening_balance)
+        sheet.write('C10', '', opening_balance)
+        sheet.write('D10', '', opening_balance)
+        sheet.write('E10', before_balance, opening_balance)
+        sheet.write('F10','', opening_balance)
+        sheet.write('G10', '', opening_balance)
+
+
+
         for i in fetched_data_list:
             if data['levels'] == 'summary':
                 sheet.write(row_num + 1, col_num,str(datetime.strptime(str(i['due_date']), '%Y-%m-%d').date()) if i['due_date'] !=None else None, txt_left)
@@ -279,92 +290,92 @@ class AccountWizard(models.TransientModel):
                 sheet.write(row_num + 1, col_num+6,i['account'], txt_left)
                 row_num = row_num + 1
                 before_balance += i['total_debit'] - i['total_credit']
-            elif data['levels'] == 'consolidated':
-                sheet.write(row_num + 1, col_num, i['name'], txt_left)
-                sheet.write(row_num + 1, col_num + 1, str(i['total_debit']) + str(currency_symbol), amount)
-                sheet.write(row_num + 1, col_num + 2, str(i['total_credit']) + str(currency_symbol), amount)
-                sheet.write(row_num + 1, col_num + 3, str(i['total_debit'] - i['total_credit']) + str(currency_symbol),
-                            amount)
-                row_num = row_num + 1
+            # elif data['levels'] == 'consolidated':
+            #     sheet.write(row_num + 1, col_num, i['name'], txt_left)
+            #     sheet.write(row_num + 1, col_num + 1, str(i['total_debit']) + str(currency_symbol), amount)
+            #     sheet.write(row_num + 1, col_num + 2, str(i['total_credit']) + str(currency_symbol), amount)
+            #     sheet.write(row_num + 1, col_num + 3, str(i['total_debit'] - i['total_credit']) + str(currency_symbol),
+            #                 amount)
+            #     row_num = row_num + 1
 
-        accounts=[]
-        if data['levels'] == 'detailed':
-            for account in self.env['account.account'].search([]):
-                        total_debit=0
-                        total_credit=0
-                        total_balance=0
-                        in_out_data=0
-                        for l in fetched_data_list:
-                            if l['account_id'] == account.id:
-                                total_debit += l['total_debit']
-                                total_credit += l['total_credit']
-                                total_balance += l['total_debit'] - i['total_credit']
-                                in_out_data +=1
-
-                        if in_out_data >= 1:
-                            value={
-                                    'account_id':account.id,
-                                    'account':str(account.code) + str(account.name),
-                                    'currency':account.currency_id.name or '',
-                                    'debit':total_debit,
-                                    'credit':total_credit,
-                                    'balance':total_balance
-                                }
-                            accounts.append(value)
-
-            for account in accounts:
-                        sheet.write(row_num + 1, col_num,'', txt_bold)
-                        sheet.write(row_num + 1, col_num+1,'', txt_bold)
-                        sheet.write(row_num + 1, col_num + 2, str(account['debit'])+ str(currency_symbol), amount_bold)
-                        sheet.write(row_num + 1, col_num + 3, str(account['credit']) + str(currency_symbol), amount_bold)
-                        sheet.write(row_num + 1, col_num + 4,
-                                    str(account['balance']) + str(currency_symbol), amount_bold)
-
-                        sheet.write(row_num + 1, col_num+5,account['currency'], txt_bold)
-                        sheet.write(row_num + 1, col_num+6, str(account['account']), txt_bold)
-                        row_num = row_num + 1
-                        for l in fetched_data_list:
-                            if l['account_id'] == account['account_id']:
-                                sheet.write(row_num + 1, col_num,
-                                            str(datetime.strptime(str(l['due_date']), '%Y-%m-%d').date()) if l[
-                                                                                                                 'due_date'] != None else None,
-                                            txt_left)
-                                sheet.write(row_num + 1, col_num + 1, l['partner'], txt_left)
-                                sheet.write(row_num + 1, col_num + 2, str(l['total_debit']), txt_left)
-                                sheet.write(row_num + 1, col_num + 3, str(l['total_credit']), txt_left)
-                                sheet.write(row_num + 1, col_num + 4, str(l['total_debit'] - i['total_credit']), txt_left)
-                                sheet.write(row_num + 1, col_num + 5, l['currency'], txt_left)
-                                sheet.write(row_num + 1, col_num + 6, l['account'], txt_left)
-
-                                row_num = row_num + 1
-
-        for j in account_res_list:
-            for k in fetched_list:
-                if k['name'] == j['account']:
-                    sheet.write(row_num + 1, col_num, str(k['code']) + str(k['name']), txt_bold)
-                    sheet.write(row_num + 1, col_num + 1, str(k['total_debit']) + str(currency_symbol), amount_bold)
-                    sheet.write(row_num + 1, col_num + 2, str(k['total_credit']) + str(currency_symbol), amount_bold)
-                    sheet.write(row_num + 1, col_num + 3,
-                                str(k['total_debit'] - k['total_credit']) + str(currency_symbol), amount_bold)
-                    row_num = row_num + 1
-            for l in j['journal_lines']:
-                if l['account_name'] == j['account']:
-                    sheet.write(row_num + 1, col_num, l['name'], txt_left)
-                    sheet.write(row_num + 1, col_num + 1, str(l['total_debit']) + str(currency_symbol), amount)
-                    sheet.write(row_num + 1, col_num + 2, str(l['total_credit']) + str(currency_symbol), amount)
-                    sheet.write(row_num + 1, col_num + 3,
-                                str(l['total_debit'] - l['total_credit']) + str(currency_symbol),
-                                amount)
-                    row_num = row_num + 1
-                for m in j['move_lines']:
-                    if m['name'] == l['name']:
-                        sheet.write(row_num + 1, col_num, m['move_name'], txt_center)
-                        sheet.write(row_num + 1, col_num + 1, str(m['total_debit']) + str(currency_symbol), amount)
-                        sheet.write(row_num + 1, col_num + 2, str(m['total_credit']) + str(currency_symbol), amount)
-                        sheet.write(row_num + 1, col_num + 3,
-                                    str(m['total_debit'] - m['total_credit']) + str(currency_symbol),
-                                    amount)
-                        row_num = row_num + 1
+        # accounts=[]
+        # if data['levels'] == 'detailed':
+        #     for account in self.env['account.account'].search([]):
+        #                 total_debit=0
+        #                 total_credit=0
+        #                 total_balance=0
+        #                 in_out_data=0
+        #                 for l in fetched_data_list:
+        #                     if l['account_id'] == account.id:
+        #                         total_debit += l['total_debit']
+        #                         total_credit += l['total_credit']
+        #                         total_balance += l['total_debit'] - i['total_credit']
+        #                         in_out_data +=1
+        #
+        #                 if in_out_data >= 1:
+        #                     value={
+        #                             'account_id':account.id,
+        #                             'account':str(account.code) + str(account.name),
+        #                             'currency':account.currency_id.name or '',
+        #                             'debit':total_debit,
+        #                             'credit':total_credit,
+        #                             'balance':total_balance
+        #                         }
+        #                     accounts.append(value)
+        #
+        #     for account in accounts:
+        #                 sheet.write(row_num + 1, col_num,'', txt_bold)
+        #                 sheet.write(row_num + 1, col_num+1,'', txt_bold)
+        #                 sheet.write(row_num + 1, col_num + 2, str(account['debit'])+ str(currency_symbol), amount_bold)
+        #                 sheet.write(row_num + 1, col_num + 3, str(account['credit']) + str(currency_symbol), amount_bold)
+        #                 sheet.write(row_num + 1, col_num + 4,
+        #                             str(account['balance']) + str(currency_symbol), amount_bold)
+        #
+        #                 sheet.write(row_num + 1, col_num+5,account['currency'], txt_bold)
+        #                 sheet.write(row_num + 1, col_num+6, str(account['account']), txt_bold)
+        #                 row_num = row_num + 1
+        #                 for l in fetched_data_list:
+        #                     if l['account_id'] == account['account_id']:
+        #                         sheet.write(row_num + 1, col_num,
+        #                                     str(datetime.strptime(str(l['due_date']), '%Y-%m-%d').date()) if l[
+        #                                                                                                          'due_date'] != None else None,
+        #                                     txt_left)
+        #                         sheet.write(row_num + 1, col_num + 1, l['partner'], txt_left)
+        #                         sheet.write(row_num + 1, col_num + 2, str(l['total_debit']), txt_left)
+        #                         sheet.write(row_num + 1, col_num + 3, str(l['total_credit']), txt_left)
+        #                         sheet.write(row_num + 1, col_num + 4, str(l['total_debit'] - i['total_credit']), txt_left)
+        #                         sheet.write(row_num + 1, col_num + 5, l['currency'], txt_left)
+        #                         sheet.write(row_num + 1, col_num + 6, l['account'], txt_left)
+        #
+        #                         row_num = row_num + 1
+        #
+        # for j in account_res_list:
+        #     for k in fetched_list:
+        #         if k['name'] == j['account']:
+        #             sheet.write(row_num + 1, col_num, str(k['code']) + str(k['name']), txt_bold)
+        #             sheet.write(row_num + 1, col_num + 1, str(k['total_debit']) + str(currency_symbol), amount_bold)
+        #             sheet.write(row_num + 1, col_num + 2, str(k['total_credit']) + str(currency_symbol), amount_bold)
+        #             sheet.write(row_num + 1, col_num + 3,
+        #                         str(k['total_debit'] - k['total_credit']) + str(currency_symbol), amount_bold)
+        #             row_num = row_num + 1
+        #     for l in j['journal_lines']:
+        #         if l['account_name'] == j['account']:
+        #             sheet.write(row_num + 1, col_num, l['name'], txt_left)
+        #             sheet.write(row_num + 1, col_num + 1, str(l['total_debit']) + str(currency_symbol), amount)
+        #             sheet.write(row_num + 1, col_num + 2, str(l['total_credit']) + str(currency_symbol), amount)
+        #             sheet.write(row_num + 1, col_num + 3,
+        #                         str(l['total_debit'] - l['total_credit']) + str(currency_symbol),
+        #                         amount)
+        #             row_num = row_num + 1
+        #         for m in j['move_lines']:
+        #             if m['name'] == l['name']:
+        #                 sheet.write(row_num + 1, col_num, m['move_name'], txt_center)
+        #                 sheet.write(row_num + 1, col_num + 1, str(m['total_debit']) + str(currency_symbol), amount)
+        #                 sheet.write(row_num + 1, col_num + 2, str(m['total_credit']) + str(currency_symbol), amount)
+        #                 sheet.write(row_num + 1, col_num + 3,
+        #                             str(m['total_debit'] - m['total_credit']) + str(currency_symbol),
+        #                             amount)
+        #                 row_num = row_num + 1
         workbook.close()
         output.seek(0)
         response.stream.write(output.read())

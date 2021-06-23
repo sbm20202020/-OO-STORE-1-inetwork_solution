@@ -108,7 +108,7 @@ class AccountWizard(models.TransientModel):
                 tuples=(tuple(data["partner_ids"]),tuple(data["account_ids"]))
             cr.execute(query3,tuples)
             fetched_data = cr.dictfetchall()
-            print('datetime.date(2021,1,1)',datetime(int(datetime.strptime(str(data['date_from']),"%Y-%m-%d").year), 1, 1, 9, 32, 15).date())
+
             query2 = """SELECT aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
                         sum(aml.debit) AS total_debit, sum(aml.credit) AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
                                  INNER JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
@@ -270,7 +270,7 @@ class AccountWizard(models.TransientModel):
         account_res_list = account_res.copy()
         journal_res_list = fetched_data.copy()
         fetched_list = fetched.copy()
-        before_balance=sum(i['total_debit']-i['total_credit'] for i in previous_balance_list)
+        before_balance=sum(i['total_debit']-i['total_credit'] for x in fetched_data_list for i in previous_balance_list if i['account_id']==x['account_id'] )
         sheet.write('A10', '', opening_balance)
         sheet.write('B10', '', opening_balance)
         sheet.write('C10', '', opening_balance)

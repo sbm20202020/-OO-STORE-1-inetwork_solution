@@ -83,21 +83,21 @@ class AccountWizard(models.TransientModel):
         journal_res = []
         fetched = []
         account_type_id = self.env.ref('account.data_account_type_liquidity').id
+        # + \
+        #     """' AND aat.id='""" + str(account_type_id)
         currency_symbol = self.env.user.company_id.currency_id.symbol
 
         if data['levels'] == 'summary':
             account= """AND aml.account_id IN %s""" if len(data['account_ids']) > 0 else """"""
             partner = """'AND aml.partner_id IN %s""" if len(data['partner_ids']) > 0 else """'"""
             state = """'AND aml.parent_state ='"""+str('posted') if data['target_move'] == 'posted' else """"""
-            query3 = """SELECT aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
+            query3 = """SELECT aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as date_aml,aml.date_maturity as due_date,
                         aml.debit AS total_debit, aml.credit AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
-                                 LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
+                                 INNER JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
                                  LEFT JOIN res_currency cc ON cc.id = aa.currency_id
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
-                                 LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
-                                 WHERE aml.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(data['date_to']) +\
-                     """' AND aat.id='""" + str(account_type_id)  + state +partner+account+\
-                     """GROUP BY due_date,account,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id"""
+                                 WHERE aml.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(data['date_to']) + state +partner+account+\
+                     """GROUP BY date_aml,account,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id,due_date"""
             cr = self._cr
             tuples=()
             if len(data['account_ids']) > 0 and len(data["partner_ids"]) <=0:
@@ -111,12 +111,11 @@ class AccountWizard(models.TransientModel):
             print('datetime.date(2021,1,1)',datetime(int(datetime.strptime(str(data['date_from']),"%Y-%m-%d").year), 1, 1, 9, 32, 15).date())
             query2 = """SELECT aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
                         sum(aml.debit) AS total_debit, sum(aml.credit) AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
-                                 LEFT JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
+                                 INNER JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
                                  LEFT JOIN res_currency cc ON cc.id = aa.currency_id
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
-                                 LEFT JOIN account_account_type aat ON aat.id = aa.user_type_id
                                  WHERE aml.date BETWEEN '""" + str(datetime(int(datetime.strptime(str(data['date_from']),"%Y-%m-%d").year), 1, 1, 9, 32, 15).date()) + """' and '""" + str(datetime.strptime(str(data['date_from']),"%Y-%m-%d")-timedelta(days=1)) +\
-                     """' AND aat.id='""" + str(account_type_id)  + state +partner+account+\
+                      state +partner+account+\
                      """GROUP BY due_date,account,partner,currency,total_balance,name_aml,partner_id,account_id"""
             cr = self._cr
             cr.execute(query2,tuples)
@@ -228,8 +227,9 @@ class AccountWizard(models.TransientModel):
                                         'font_size': '10px',
                                         'border': 1})
 
-        # sheet.set_column('C:C', 30, cell_format)
-        sheet.set_column('A:G',25, cell_format)
+        sheet.set_column('A:B',25, cell_format)
+        sheet.set_column('D:I',25, cell_format)
+        sheet.set_column('C:C', 40, cell_format)
         # sheet.set_column('F:F', 20, cell_format)
         sheet.write('F2', "Report Date", txt)
         sheet.write('E2', str(data['today']), txt)
@@ -253,13 +253,15 @@ class AccountWizard(models.TransientModel):
         sheet.write('C7', str(data['date_to']), date)
 
         sheet.merge_range('A8:G8', '', head)
-        sheet.write('A9', 'Due Date', bold)
-        sheet.write('B9', 'Customers/Suppliers', bold)
-        sheet.write('C9', 'Debit', bold)
-        sheet.write('D9', 'Credit', bold)
-        sheet.write('E9', 'Amount', bold)
-        sheet.write('F9','Account Currency', bold)
-        sheet.write('G9', 'Account', bold)
+        sheet.write('A9', 'Date', bold)
+        sheet.write('B9', 'Due Date', bold)
+        sheet.write('C9', 'Label', bold)
+        sheet.write('D9', 'Customers/Suppliers', bold)
+        sheet.write('E9', 'Debit', bold)
+        sheet.write('F9', 'Credit', bold)
+        sheet.write('G9', 'Amount', bold)
+        sheet.write('H9','Account Currency', bold)
+        sheet.write('I9', 'Account', bold)
 
         row_num = 9
         col_num = 0
@@ -270,24 +272,28 @@ class AccountWizard(models.TransientModel):
         fetched_list = fetched.copy()
         before_balance=sum(i['total_debit']-i['total_credit'] for i in previous_balance_list)
         sheet.write('A10', '', opening_balance)
-        sheet.write('B10', 'Opening Balance', opening_balance)
+        sheet.write('B10', '', opening_balance)
         sheet.write('C10', '', opening_balance)
         sheet.write('D10', '', opening_balance)
-        sheet.write('E10', before_balance, opening_balance)
+        sheet.write('E10', 'Opening Balance', opening_balance)
         sheet.write('F10','', opening_balance)
-        sheet.write('G10', '', opening_balance)
+        sheet.write('G10', "{:.2f}".format(before_balance), opening_balance)
+        sheet.write('H10', '', opening_balance)
+        sheet.write('I10', '', opening_balance)
 
 
 
         for i in fetched_data_list:
             if data['levels'] == 'summary':
-                sheet.write(row_num + 1, col_num,str(datetime.strptime(str(i['due_date']), '%Y-%m-%d').date()) if i['due_date'] !=None else None, txt_left)
-                sheet.write(row_num + 1, col_num+1,i['partner'], txt_left)
-                sheet.write(row_num + 1, col_num+2,str(i['total_debit']) , txt_left)
-                sheet.write(row_num + 1, col_num+3,str(i['total_credit']), txt_left)
-                sheet.write(row_num + 1, col_num+4,str(before_balance+i['total_debit'] - i['total_credit']), txt_left)
-                sheet.write(row_num + 1, col_num+5,i['currency'], txt_left)
-                sheet.write(row_num + 1, col_num+6,i['account'], txt_left)
+                sheet.write(row_num + 1, col_num,str(datetime.strptime(str(i['date_aml']), '%Y-%m-%d').date()) if i['date_aml'] !=None else None, txt_left)
+                sheet.write(row_num + 1, col_num+1,str(datetime.strptime(str(i['due_date']), '%Y-%m-%d').date()) if i['due_date'] !=None else None, txt_left)
+                sheet.write(row_num + 1, col_num+2,i['name_aml'], txt_left)
+                sheet.write(row_num + 1, col_num+3,i['partner'], txt_left)
+                sheet.write(row_num + 1, col_num+4,str("{:.2f}".format(i['total_debit'])) , txt_left)
+                sheet.write(row_num + 1, col_num+5,str("{:.2f}".format(i['total_credit'])), txt_left)
+                sheet.write(row_num + 1, col_num+6,str("{:.2f}".format(before_balance+i['total_debit'] - i['total_credit'])), txt_left)
+                sheet.write(row_num + 1, col_num+7,i['currency'], txt_left)
+                sheet.write(row_num + 1, col_num+8,i['account'], txt_left)
                 row_num = row_num + 1
                 before_balance += i['total_debit'] - i['total_credit']
             # elif data['levels'] == 'consolidated':

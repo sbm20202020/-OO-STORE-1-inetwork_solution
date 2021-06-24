@@ -270,7 +270,7 @@ class AccountWizard(models.TransientModel):
         account_res_list = account_res.copy()
         journal_res_list = fetched_data.copy()
         fetched_list = fetched.copy()
-        before_balance=sum(i['total_debit']-i['total_credit'] for x in fetched_data_list for i in previous_balance_list if i['account_id']==x['account_id'] )
+        before_balance=sum(i['total_debit']-i['total_credit'] for i in previous_balance_list)
         sheet.write('A10', '', opening_balance)
         sheet.write('B10', '', opening_balance)
         sheet.write('C10', '', opening_balance)

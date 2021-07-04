@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_appraisal.view_hr_appraisal_form" model="ir.ui.view">
+            <field name="name">hr.appraisal.form</field>
+            <field name="model">hr.appraisal</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_start_appraisal" string="Start Appraisal And Send Forms"
+                                class="oe_highlight" type="object"
+                                attrs="{'invisible': ['|','|',('check_sent','=', True),('check_done','=', True),
+                                ('check_cancel','=', True)]}"
+                        />
+                        <button name="action_done" string="Done"
+                                class="oe_highlight" type="object"
+                                attrs="{'invisible': ['|','|',('check_done','=', True),('check_draft','=', True),
+                                 ('check_cancel','=', True)]}"
+                        />
+                        <button name="action_set_draft" string="Set To Draft"
+                                class="oe_highlight" type="object"
+                                attrs="{'invisible': ['|','|',('check_draft','=', True), ('check_done','=', True),
+                                ('check_cancel','=', True)]}"
+                        />
+                        <button name="action_cancel" string="Cancel"
+                                class="oe_highlight" type="object"
+                                attrs="{'invisible': ['|','|',('check_draft','=', True),('check_done','=', True),
+                                 ('check_cancel', '=', True)]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="action_calendar_event" icon="fa-calendar"
+                                    type="object">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" attrs="{'invisible': [('meeting_id', '=', False)]}">1
+                                        Meeting
+                                    </span>
+                                    <span class="o_stat_value" attrs="{'invisible': [('meeting_id', '!=', False)]}">No
+                                        Meeting
+                                    </span>
+                                    <span class="o_stat_text">
+                                        <field name="date_final_interview" readonly="1"/>
+                                    </span>
+                                </div>
+                            </button>
+                            <button name="action_get_answers"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-pencil-square-o">
+                                <field string="Answers" name="tot_comp_survey" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+
+                        <label for="emp_id"/>
+                        <h1>
+                            <field name="emp_id" class="oe_inline" placeholder="Employee's Name"
+                                   attrs="{'readonly':[('check_draft','!=',True)]}"/>
+                            <field name="employee_id" invisible="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="date_close" attrs="{'readonly':[('check_draft','!=', True)]}"/>
+                                <field name="response_id" invisible="1"/>
+                                <field name="app_period_from" invisible="1"/>
+                                <field name="created_by" invisible="1"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="final_interview" attrs="{'invisible':[('check_done','!=',True)]}"/>
+                                <field name="tot_sent_survey" invisible="1"/>
+                                <field name="check_draft" invisible="1"/>
+                                <field name="check_sent" invisible="1"/>
+                                <field name="check_done" invisible="1"/>
+                                <field name="check_cancel" invisible="1"/>
+                            </group>
+                        </group>
+                        <field name="is_autorized_to_send" invisible="1"/>
+                        <field name="active" invisible="1"/>
+                        <field name="meeting_id" invisible="1"/>
+                        <notebook>
+                            <page string="Plan">
+                                <group col="4">
+                                    <field name="manager_appraisal"/>
+                                    <field name="manager_ids" widget="many2many_tags"
+                                           placeholder="Select Appraisal Reviewer" nolabel="1"
+                                           attrs="{'invisible': [('manager_appraisal','=', False)], 'readonly':[('check_draft','!=', True)]}"/>
+                                    <field name="manager_survey_id"
+                                           placeholder="Appraisal Form" nolabel="1"
+                                           attrs="{'invisible': [('manager_appraisal','=', False)], 'readonly':[('check_draft','!=', True)]}"/>
+                                    <field name="employee_appraisal" attrs="{'readonly':[('check_draft','!=', True)]}"/>
+                                    <seperator/>
+                                    <field name="emp_survey_id"
+                                           placeholder="Appraisal Form" nolabel="1"
+                                           attrs="{'invisible': [('employee_appraisal','=', False)],
+                                           'readonly':[('check_draft','!=', True)]}"/>
+                                    <field name="collaborators_appraisal"
+                                           attrs="{'readonly':[('check_draft','!=', True)]}"/>
+                                    <field name="collaborators_ids" widget="many2many_tags"
+                                           placeholder="Select Appraisal Reviewer" nolabel="1"
+                                           attrs="{'invisible': [('collaborators_appraisal','=', False)],
+                                           'readonly':[('check_draft','!=', True)]}"/>
+                                    <field name="colloborator_survey_id"
+                                           placeholder="Appraisal Form" nolabel="1"
+                                           attrs="{'invisible': [('collaborators_appraisal','=', False)],
+                                           'readonly':[('check_draft','!=',True)]}"/>
+                                    <field name="colleagues_appraisal" attrs="{'readonly':[('check_draft','!=', True)],
+                                           'readonly':[('check_draft','!=', True)]}"/>
+                                    <field name="colleagues_ids" widget="many2many_tags"
+                                           placeholder="Select Appraisal Reviewer" nolabel="1"
+                                           attrs="{'invisible': [('colleagues_appraisal','=', False)],
+                                           'readonly':[('check_draft','!=', True)]}"/>
+                                    <field name="colleague_survey_id"
+                                           placeholder="Appraisal Form" nolabel="1"
+                                           attrs="{'invisible': [('colleagues_appraisal','=', False)],
+                                           'readonly':[('check_draft','!=', True)]}"/>
+                                </group>
+                            </page>
+                            <page string="Final Evaluation" attrs="{'invisible':[('check_done','!=',True)]}">
+                                <field name="final_evaluation" nolabel="1"
+                                       attrs="{'invisible':[('check_done','!=',True)]}"/>
+                            </page>
+<!--                            <page string="Mail To Send">-->
+<!--                                <group>-->
+<!--                                    <field name="manager_body_html" string="Mail To Manager"-->
+<!--                                           attrs="{'invisible':[('manager_appraisal','=',False)]}"/>-->
+<!--                                    <field name="employee_body_html" string="Mail To Employee"-->
+<!--                                           attrs="{'invisible':[('employee_appraisal','=',False)]}"/>-->
+<!--                                    <field name="collaborators_body_html" string="Mail To Collaborators"-->
+<!--                                           attrs="{'invisible':[('collaborators_appraisal','=',False)]}"/>-->
+<!--                                    <field name="colleagues_body_html" string="Mail To Colleagues"-->
+<!--                                           attrs="{'invisible':[('colleagues_appraisal','=',False)]}"/>-->
+<!--                                </group>-->
+<!--                            </page>-->
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+
+    <record model="ir.ui.view" id="hr_appraisal.view_hr_appraisal_tree">
+        <field name="name">hr.appraisal.tree</field>
+        <field name="model">hr.appraisal</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="active" invisible="1"/>
+                <field name="emp_id"/>
+                <field name="app_period_from"/>
+                <field name="date_close"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state"/>
+                <field name="employee_id" invisible="1"/>
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_appraisal.hr_appraisal_kanban" model="ir.ui.view">
+        <field name="name">hr.appraisal.kanban</field>
+        <field name="model">hr.appraisal</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" quick_create="false">
+                <field name="color"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown">
+                                <a class="dropdown-toggle btn" data-toggle="dropdown" href="#">
+                                    <span class="fa fa-bars fa-lg"/>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                    <t t-if="widget.editable">
+                                        <li>
+                                            <a type="edit">Edit</a>
+                                        </li>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <li>
+                                            <a type="delete">Delete</a>
+                                        </li>
+                                    </t>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <div>
+                                    <strong>
+                                        <field name="emp_id"/>
+                                    </strong>
+                                </div>
+                                <t t-if="record.date_close.raw_value and record.date_close.raw_value &lt; (new Date())"
+                                   t-set="red">oe_kanban_text_red
+                                </t>
+                                Deadline:
+                                <span t-attf-class="#{red}">
+                                    <i>
+                                        <field name="date_close"/>
+                                    </i>
+                                </span>
+                                <br/>
+                                <div class="text-muted">
+                                    Sent Questions:
+                                    <span>
+                                        <i>
+                                            <field name="tot_sent_survey"/>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="text-muted">
+                                    Answers:
+                                    <span>
+                                        <i>
+                                            <field name="tot_comp_survey"/>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <t t-if="record.final_interview.raw_value and record.final_interview.raw_value &lt; (new Date())"
+                                       t-set="red">oe_kanban_text_red
+                                    </t>
+                                    Final Interview:
+                                    <span t-attf-class="#{red}">
+                                        <i>
+                                            <field name="final_interview"/>
+                                        </i>
+                                    </span>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="hr_appraisal.hr_appraisal_action">
+        <field name="name">Appraisal</field>
+        <field name="res_model">hr.appraisal</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+    </record>
+
+    <!--    <menuitem name="Appraisal"-->
+    <!--              id="menu_hr_appraisal_root"-->
+    <!--              web_icon="oh_appraisal,static/description/appraisal_icon.png"-->
+    <!--              groups="oh_appraisal.group_appraisal_manager,oh_appraisal.group_appraisal_employee"/>-->
+
+    <!--    <menuitem name="Appraisal"-->
+    <!--              id="menu_hr_appraisal"-->
+    <!--              parent="hr_appraisal.menu_hr_appraisal_root"-->
+    <!--              action="hr_appraisal_action_form"-->
+    <!--              groups="oh_appraisal.group_appraisal_manager,oh_appraisal.group_appraisal_employee"/>-->
+
+    <menuitem name="Answers"
+              id="menu_hr_appraisal_answers"
+              parent="hr_appraisal.menu_hr_appraisal_root"
+              action="survey.action_survey_user_input"
+              groups="base.group_user"/>
+</odoo>

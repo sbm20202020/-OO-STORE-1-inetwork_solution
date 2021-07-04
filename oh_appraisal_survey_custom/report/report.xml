@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--        <report-->
+<!--            id="result_pdf_template_report"-->
+<!--            model="survey.user_input"-->
+<!--            string="Answer PDF"-->
+<!--            report_type="qweb-pdf"-->
+<!--            name="oh_appraisal_survey_custom.result_pdf_template"-->
+<!--            file="oh_appraisal_survey_custom.result_pdf_template"-->
+<!--    />-->
+
+     <report
+                id="answer_report_excel_id"
+                model="survey.user_input"
+                string="Answer XLSX"
+                report_type="xlsx"
+                name="oh_appraisal_survey_custom.answer_report_excel"
+                file="oh_appraisal_survey_custom.answer_report_excel"
+                print_report_name="('Annual Interview - %s' % (object.name))"
+                attachment_use="False"
+                />
+
+
+</odoo>

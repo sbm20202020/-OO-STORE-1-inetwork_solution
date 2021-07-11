@@ -114,7 +114,7 @@ class AccountWizard(models.TransientModel):
                                  INNER JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
                                  LEFT JOIN res_currency cc ON cc.id = aa.currency_id
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
-                                 WHERE aml.date BETWEEN '""" + str(datetime(int(datetime.strptime(str(data['date_from']),"%Y-%m-%d").year), 1, 1, 9, 32, 15).date()) + """' and '""" + str(datetime.strptime(str(data['date_from']),"%Y-%m-%d")-timedelta(days=1)) +\
+                                 WHERE aml.date < '""" + str(data['date_from']) +\
                       state +partner+account+\
                      """GROUP BY due_date,account,partner,currency,total_balance,name_aml,partner_id,account_id"""
             cr = self._cr

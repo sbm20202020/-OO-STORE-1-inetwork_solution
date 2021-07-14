@@ -103,7 +103,7 @@
 
                                 </td>
                             </tr>
-                            <tr>
+<!--                             <tr>
                                 <th style="background-color:#DFE9F2;border: 1px solid black;width:200px;"
                                     t-att-colspan="2" class="text-left" align="left">
                                     <span>Score:</span>
@@ -118,7 +118,7 @@
                                     <span t-esc="sum(q.answer_score for q in question.labels_ids if q.question_id == col_label)"></span>
 
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tr>
 
 

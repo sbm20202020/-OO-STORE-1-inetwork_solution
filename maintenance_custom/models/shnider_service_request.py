@@ -18,8 +18,8 @@ class ShniderServiceRequest(models.Model):
         ('create_DO_to_Shnider', 'Create DO to Shnider'),
         ('created_CI', 'Created CI'),
     ], 'Stage', default='new_request')
-    product_ids = fields.Many2many('product.product', 'product_stock_inv_rel', string="Products")
-    replaced_product_ids = fields.Many2many('product.product', 'product_stock_replaced_rel', string="Replaced Products")
+    product_ids = fields.Many2many('product.product', string="Products")
+    # replaced_product_ids = fields.Many2many('product.product', string="Replaced Products")
     invoice_id = fields.Many2one('account.move', 'Customer Invoice')
     delivery_order_id_to_MT = fields.Many2one('stock.picking', string='Delivery Order to MT', copy=False, store=True)
     delivery_order_id_to_shnider = fields.Many2one('stock.picking', string='Delivery Order to Shnider', copy=False, store=True)

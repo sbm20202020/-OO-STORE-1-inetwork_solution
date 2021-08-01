@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <!-- Standard stages for Maintenance Request -->
+    <record id="maintenance.stage_1" model="maintenance.stage">
+        <field name="name">Inspection</field>
+    </record>
+    <record id="maintenance.stage_3" model="maintenance.stage">
+        <field name="name">Fixable</field>
+    </record>
+    <record id="maintenance.stage_4" model="maintenance.stage">
+        <field name="name">Created SO</field>
+    </record>
+    <record id="stage_5" model="maintenance.stage">
+        <field name="name">Tested</field>
+        <field name="sequence" eval="5" />
+        <field name="fold" eval="True" />
+        <field name="done" eval="True" />
+    </record>
+    <record id="stage_6" model="maintenance.stage">
+        <field name="name">Closed</field>
+        <field name="sequence" eval="6" />
+        <field name="fold" eval="True" />
+        <field name="done" eval="True" />
+    </record>
+    <record id="stage_7" model="maintenance.stage">
+        <field name="name">Created DO</field>
+        <field name="sequence" eval="7" />
+        <field name="fold" eval="True" />
+        <field name="done" eval="True" />
+    </record>
+</data>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hr_asset_model_form_view" model="ir.ui.view">
+            <field name="name">hr.asset.from</field>
+            <field name="model">hr.asset</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="hr_asset_model_tree_view" model="ir.ui.view">
+            <field name="name">hr.asset.tree</field>
+            <field name="model">hr.asset</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="hr_asset_model_action" model="ir.actions.act_window">
+            <field name="name">Asset</field>
+            <field name="res_model">hr.asset</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Asset
+                </p>
+            </field>
+        </record>
+        <menuitem
+                id="hr_asset_model_menu"
+                parent="hr.menu_human_resources_configuration"
+                name="Asset"
+                action="hr_asset_model_action"
+                sequence="5"/>
+
+    </data>
+</odoo>

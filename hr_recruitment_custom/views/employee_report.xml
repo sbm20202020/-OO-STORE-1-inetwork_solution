@@ -45,7 +45,7 @@
                                             <th style="text-align: left;font-size:18px;align:left;color:black">Graduated
                                                 Certificate
                                             </th>
-                                            <th style="text-align: right;text-color:black">No</th>
+                                            <th style="text-align: right;color:black">No</th>
                                         </t>
                                         <t t-if="o.certificate_of_birth">
                                             <th style="text-align: left;font-size:18px;align:left;color:black">

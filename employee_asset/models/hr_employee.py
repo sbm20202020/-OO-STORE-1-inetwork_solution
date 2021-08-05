@@ -6,7 +6,7 @@ from odoo import api, fields, models, _
 class HrEmployeeAsset(models.Model):
     _name = 'hr.asset'
     _rec_name = 'name'
-    name = fields.Char(string='Asset', required=True, copy=False)
+    name = fields.Char(string='Asset', required=True)
 
 class HrEmployee(models.Model):
 

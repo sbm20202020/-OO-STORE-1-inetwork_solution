@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+            id="action_report_hr_employee"
+            model="hr.employee"
+            string="Employee Report"
+            report_type="qweb-pdf"
+            name="hr_recruitment_custom.report_hr_employee_temp"
+            file="hr_recruitment_custom.report_hr_employee_temp"
+    />
+    <template id="report_hr_employee_temp">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h3 style="text-align: Center;font-weight:bold;color:black">
+                        <Strong style="border-bottom: 1px solid">Employee Report</Strong>
+                    </h3>
+                    <br/>
+                    <t t-foreach="docs" t-as="o">
+                        <div class="oe_structure"/>
+                        <div style="border-bottom: 1px solid">
+                            <div style="font-size: 25px;text-align: Center;font-weight:bold;color:black">
+                                <span t-field="o.name"/>
+                            </div>
+                            <br/>
+                            <div align="center">
+                                <table align="center"
+                                       class="table table-bordered">
+                                    <tr>
+                                        <t t-if="o.card_id">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">ID</th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.card_id">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">ID</th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                        <t t-if="o.graduated_certificate">
+                                            <th style="text-align: left;font-size:18x;align:left;color:black">Graduated
+                                                Certificate
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.graduated_certificate">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Graduated
+                                                Certificate
+                                            </th>
+                                            <th style="text-align: right;text-color:black">No</th>
+                                        </t>
+                                        <t t-if="o.certificate_of_birth">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">
+                                                Certificate
+                                                Of Birth
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.certificate_of_birth">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">
+                                                Certificate
+                                                Of Birth
+                                            </th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                        <t t-if="o.military_certificate">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Military
+                                                Certificate
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.military_certificate">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Military
+                                                Certificate
+                                            </th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <t t-if="o.Form1_Social_insurance">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Form 1
+                                                Social
+                                                insurance
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.Form1_Social_insurance">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Form 1
+                                                Social
+                                                insurance
+                                            </th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                        <t t-if="o.Form6">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Form 6
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.Form6">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Form 6
+                                            </th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                        <t t-if="o.employee_contract">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Employee
+                                                Contract
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.employee_contract">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Employee
+                                                Contract
+                                            </th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                        <t t-if="o.driver_license">
+                                            <th style="text-align: left;font-size:18x;align:left;color:black">Driver
+                                                License
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.driver_license">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Driver
+                                                License
+                                            </th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <t t-if="o.fesh">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Fesh</th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.fesh">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Fesh</th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                        <t t-if="o.passport">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">
+                                                Passport
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.passport">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">
+                                                Passport
+                                            </th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                        <t t-if="o.medical_card">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Medical
+                                                Card
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.medical_card">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Medical
+                                                Card
+                                            </th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                        <t t-if="o.personal_photo">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Personal
+                                                Photo
+                                            </th>
+                                            <th style="text-align: right;background-color: gray;color:black">Yes</th>
+                                        </t>
+                                        <t t-if="not o.personal_photo">
+                                            <th style="text-align: left;font-size:18px;align:left;color:black">Personal
+                                                Photo
+                                            </th>
+                                            <th style="text-align: right;color:black">No</th>
+                                        </t>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

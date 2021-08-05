@@ -20,6 +20,7 @@
         'views/hr_employee_views.xml',
         'views/res_country_view.xml',
         'views/cron_job_and_schedule.xml',
+        'views/employee_report.xml',
 
 
     ],

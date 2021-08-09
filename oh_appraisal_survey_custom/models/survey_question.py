@@ -30,3 +30,23 @@ class SurveyQuestion(models.Model):
     header_labels=fields.One2many('survey.label','question_header_label')
 
 
+class SurveyUserInput(models.Model):
+    _inherit = "survey.user_input"
+
+    # quizz_passed = fields.Boolean('Quizz Passed', compute='_compute_quizz_passed', store=True, compute_sudo=True)
+    @api.depends('user_input_line_ids.answer_score', 'user_input_line_ids.question_id')
+    def _compute_quizz_score(self):
+        for user_input in self:
+            if user_input.survey_id.id == self.env.ref('oh_appraisal_survey_custom.survey_inetwork').id:
+                total_possible_score = 92
+
+                if total_possible_score == 0:
+                    user_input.quizz_score = 0
+                else:
+                    score = (sum(user_input.user_input_line_ids.mapped('answer_score')) / total_possible_score) * 100
+                    user_input.quizz_score = round(score, 2) if score > 0 else 0
+                    print('total', total_possible_score,score)
+
+            else:
+                return super(SurveyUserInput, self)._compute_quizz_score()
+

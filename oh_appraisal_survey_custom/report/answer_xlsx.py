@@ -251,7 +251,7 @@ class SupplierStatusReportXLSX(models.AbstractModel):
             worksheet.merge_range('C' + str(row1 + 3) + ':' + 'D' + str(row1 +4), 'Score Achieved', header_format_blue)
             worksheet.merge_range('C' + str(row1 + 5) + ':' + 'D' + str(row1 +6), 'Total Score', header_format_blue)
             worksheet.merge_range('E' + str(row1 + 3) + ':' + 'E' + str(row1 +4), score_total, header_format_blue)
-            worksheet.merge_range('E' + str(row1 + 5) + ':' + 'E' + str(row1 +6), '100', header_format_blue)
+            worksheet.merge_range('E' + str(row1 + 5) + ':' + 'E' + str(row1 +6),int(92), header_format_blue)
             worksheet.merge_range('F' + str(row1 + 3) + ':' + 'F' + str(row1 +4), '%', header_format_blue)
-            worksheet.merge_range('F' + str(row1 + 5) + ':' + 'F' + str(row1 +6),str(score_total/100*100)+' %', header_format_blue)
+            worksheet.merge_range('F' + str(row1 + 5) + ':' + 'F' + str(row1 +6),str("{0:.2f}".format(score_total/92*100))+' %', header_format_blue)
 

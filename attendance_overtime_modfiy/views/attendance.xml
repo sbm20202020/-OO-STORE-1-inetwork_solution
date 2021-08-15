@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_attendance_overtime_form" model="ir.ui.view">
+            <field name="name">view.inherit.attendance.outside.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='check_in']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="is_outside"/>
+                </xpath>
+                
+            </field>
+        </record>
+            <!-- Inherit Form View to Modify it -->
+        <record id="view_inherit_attendance_sheet_outside_form" model="ir.ui.view">
+            <field name="name">view.inherit.attendance_side.form</field>
+            <field name="model">attendance.sheet</field>
+            <field name="inherit_id" ref="rm_hr_attendance_sheet.attendance_sheet_form_view"/>
+            <field name="arch" type="xml">
+
+                <!-- position: after|before|replace|attributes|inside -->
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='status']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="is_outside"/>
+                </xpath>
+
+            </field>
+        </record>
+    
+    </data>
+</odoo>

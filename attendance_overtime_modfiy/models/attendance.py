@@ -120,7 +120,7 @@ class hrAttendance(models.Model):
                                                                   'out_after'])
                                         float_overtime = (float_overtime -
                                                           overtime_policy[
-                                                              'ph_after']) * \
+                                                              'out_after']) * \
                                                          overtime_policy['out_rate']
                                 else:
                                     if float_overtime <= overtime_policy[

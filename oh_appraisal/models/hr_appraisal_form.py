@@ -125,10 +125,13 @@ class HrAppraisalForm(models.Model):
         for appraisal_reviewers, survey_id in appraisal_reviewers_list:
             for reviewers in appraisal_reviewers:
                 url = survey_id.public_url
-                response = self.emp_survey_id._create_answer(survey_id=self.emp_survey_id.id,
+                response=self.response_id
+                if not self.response_id:
+                   response = self.emp_survey_id._create_answer(survey_id=self.emp_survey_id.id,
                                                              deadline=self.appraisal_deadline,
                                                              partner_id=self.emp_id.user_id.partner_id.id,
                                                              email=reviewers.work_email, appraisal_id=self.ids[0])
+                   self.response_id = response.id
                 token = response.token
                 if token:
                     url = url + '?answer_token=' + token

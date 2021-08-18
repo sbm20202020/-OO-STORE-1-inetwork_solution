@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kpi_quarter,kpi_quarter,model_kpi_quarter,,1,1,1,1
+access_sales_volume,sales_volume,model_sales_volume,,1,1,1,1
+access_performance_value,performance_value,model_performance_value,,1,1,1,1
+access_market_share,market_share,model_market_share,,1,1,1,1
+access_purchase_sales_commision,purchase_sales_commision,model_purchase_sales_commision,,1,1,1,1
+

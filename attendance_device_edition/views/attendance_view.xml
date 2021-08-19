@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_attendance_tree_inherit" model="ir.ui.view">
+            <field name="name">view.attendance.tree.inherit</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="to_attendance_device.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='checkin_device_id']" position="replace">
+                    <field name="checkin_device_id" readonly="0"/>
+                </xpath>
+                <xpath expr="//field[@name='checkout_device_id']" position="replace">
+                    <field name="checkout_device_id" readonly="0"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

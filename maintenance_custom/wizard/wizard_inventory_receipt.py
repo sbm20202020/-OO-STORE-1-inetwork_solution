@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class StockInventoryWizard(models.TransientModel):
@@ -23,6 +24,12 @@ class StockInventoryWizard(models.TransientModel):
     serial = fields.Char('Serial', required=True)
     qty = fields.Float('QTY', required=True)
     partner = fields.Many2one('res.partner', required=True)
+
+    @api.constrains('qty')
+    def not_minus(self):
+        for rec in self:
+            if rec.qty <= 0:
+                raise ValidationError(_('QTY should not minus. or 0'))
 
 
     def create_picking(self):

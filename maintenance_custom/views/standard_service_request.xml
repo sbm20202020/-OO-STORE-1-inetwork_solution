@@ -5,6 +5,15 @@
             <field name="model">maintenance.request</field>
             <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="string">Standard service request</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="placeholder">Standard service request</attribute>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="replace">
+                    <field name="stage_id" widget="statusbar" attrs="{'invisible': [('archive', '=', True)]}"/>
+                </xpath>
                 <xpath expr="//button[@name='archive_equipment_request']" position="replace">
                     <button string="Cancel" name="archive_equipment_request" type="object" invisible="1"/>
                 </xpath>
@@ -47,8 +56,8 @@
 <!--                    <field name="type"/>-->
                     <field name="receipt_created" invisible="1"/>
                     <field name="stage_name" invisible="1"/>
-                    <field name="sales_order_id" attrs="{'invisible': [('type','=','shnider')]}"/>
-                    <field name="delivery_order_id"/>
+                    <field name="sales_order_id" attrs="{'invisible': [('type','=','shnider')]}" readonly="1"/>
+                    <field name="delivery_order_id" readonly="1"/>
                     <field name="picking_id_stage" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='maintenance_type']" position="replace">
@@ -58,7 +67,7 @@
         </record>
 
         <record id="maintenance.hr_equipment_request_action" model="ir.actions.act_window">
-            <field name="name">Maintenance Requests</field>
+            <field name="name">Standard service request</field>
             <field name="res_model">maintenance.request</field>
             <field name="view_mode">kanban,tree,form,pivot,graph,calendar</field>
             <field name="view_id" ref="maintenance.hr_equipment_request_view_kanban"/>
@@ -67,7 +76,7 @@
             <field name="domain">[('type', '=', 'standard')]</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Add a new maintenance request
+                    Add a new Standard service request
                 </p>
                 <p>
                     Follow the process of the request and communicate with the collaborator.

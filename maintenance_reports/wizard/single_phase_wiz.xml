@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_single_phase_wizard_report" model="ir.ui.view">
+            <field name="name">single phase Report</field>
+            <field name="model">single.phase.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group>
+                        <group>
+                            <field name="date_from" />
+                            <field name="date_to" required="1"/>
+                            <field name="type" />
+
+                        </group>
+
+                    </group>
+                    <footer>
+                        <button name="print_report_xls" string="Print XLSX" type="object" context="{'xls_export':1}"
+                                class="oe_highlight"/>
+
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id='wizard_single_phase_report_action' model='ir.actions.act_window'>
+            <field name="name">single phase  Activities Report</field>
+            <field name="res_model">single.phase.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_single_phase_wizard_report"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem name="Single Phase Activities Report" parent="maintenance.menu_m_request"
+                  action="wizard_single_phase_report_action"
+                  id="menu_wizard_single_report" sequence="20"
+                 />
+    </data>
+</odoo>

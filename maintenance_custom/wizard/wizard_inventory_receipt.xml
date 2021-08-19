@@ -13,7 +13,7 @@
                         <field name="serial"/>
                         <field name="qty"/>
                         <field name="partner"/>
-                        <field name="picking_type_id"/>
+                        <field name="picking_type_id" readonly="1"/>
                     </group>
                     <footer>
                         <button name="create_picking" string="Create Receipt" type="object" class="btn-primary"/>

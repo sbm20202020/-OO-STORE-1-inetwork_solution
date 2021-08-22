@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 
 class HREmployee(models.Model):
@@ -31,6 +31,16 @@ class HREmployee(models.Model):
 
     emp_id = fields.Char("Employee Id")
     emp_sequence_id = fields.Many2one('ir.sequence', 'Employee Sequence',default=lambda self: self.env['ir.sequence'].search([('code','=','seqemp.seqemp')]).id)
+
+    def name_get(self):
+        res = super(HREmployee, self).name_get()
+        print("doaaaaaaaaaaaaaaa",res)
+        for employee in self:
+            name = employee.name
+            if employee.emp_id:
+                name = "%s [%s]" % (employee.name, employee.emp_id)
+            res.append((employee.id, name))
+        return res
 
     @api.model
     def create(self, values):

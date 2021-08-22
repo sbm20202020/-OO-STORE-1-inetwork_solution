@@ -6,9 +6,12 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="emp_id" string="Employee Code" readonly="1"/>
+                </xpath>
                 <xpath expr="//field[@name='department_id']" position="before">
                     <field name="emp_sequence_id" string="Employee Sequence" readonly="1" invisible="1"/>
-                    <field name="emp_id" string="Employee Code" readonly="1"/>
+<!--                    <field name="emp_id" string="Employee Code" readonly="1"/>-->
                 </xpath>
             </field>
         </record>

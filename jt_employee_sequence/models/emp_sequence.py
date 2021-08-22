@@ -34,7 +34,6 @@ class HREmployee(models.Model):
 
     def name_get(self):
         res = super(HREmployee, self).name_get()
-        print("doaaaaaaaaaaaaaaa",res)
         for employee in self:
             name = employee.name
             if employee.emp_id:

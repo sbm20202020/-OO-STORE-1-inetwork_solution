@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="access_delay_employee_notification_mail_15" model="res.groups">
+            <field name="name">Email Notification for Employee Delay data for 15 days from contract date</field>
+        </record>
+        <record id="access_delay_employee_notification_mail_30" model="res.groups">
+            <field name="name">Email Notification for Employee Delay data for 30 days from contract date</field>
+        </record>
+        <record id="access_delay_employee_notification_mail_60" model="res.groups">
+            <field name="name">Email Notification for Employee Delay data for 60 days from contract date</field>
+        </record>
+    </data>
+</odoo>

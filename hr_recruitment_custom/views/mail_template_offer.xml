@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="offer_job_pdf_report"
+            model="hr.applicant"
+            string="Job Offer"
+            report_type="qweb-pdf"
+            name="hr_recruitment_custom.offer_job_pdf_template"
+            file="hr_recruitment_custom.offer_job_pdf_template"
+            paperformat="hr_recruitment_custom.paperformat_pdf"
+            print_report_name="('Job Offer- %s' % (object.name)"
+            menu="False"
+    />
+    <template id="offer_job_pdf_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="hr_recruitment_custom.external_layout_job_offer">
+                    <div class="page">
+                        <table border="0" cellpadding="0" cellspacing="0" width="590"
+                               style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                            <tr>
+                                <td valign="top" style="font-size: 13px;">
+                                    <div>
+                                        <center>Job Offer</center>
+                                        <br/>
+
+                                        <span style="font-weight:bold">Name:</span>
+                                        <span t-field="doc.employee_name"></span>
+                                        <br/>
+                                        <span style="font-weight:bold">Date:</span>
+                                        <span t-field="doc.availability"></span>
+                                        <br/>
+                                        <br/>
+                                        It is our pleasure that we give you the following offer to join
+                                        I Network Solutions as follows:
+                                        <br/>
+                                        <br/>
+                                        • Job title:
+                                        <span t-field="doc.job_id.name"></span>
+                                        <br/>
+                                        • Monthly Gross Salary:
+                                        <span t-field="doc.salary_proposed"></span>
+                                        <br/>
+                                        • Profit share every year
+                                        <br/>
+                                        • Medical insurance
+                                        <br/>
+                                        • Social insurance
+                                        <br/>
+                                        <br/>
+                                        <span style="font-weight:bold">Note:</span>
+                                        <br/>
+                                        <br/>
+                                        <span style="font-weight:bold">In case of acceptance,</span>
+                                        <br/>
+                                        <br/>
+                                        • You are kindly requested to sign this original offer and
+                                        submitted to HR department with 10 days of
+                                        receiving it.
+                                        <br/>
+                                        • You kindly requested to inform us about the joining date.
+                                        <br/>
+                                        <br/>
+                                        In case you neede+d any clarification, please don’t hesitate to
+                                        contact HR department
+                                        <br/>
+                                        <br/>
+                                        <span style="font-weight:bold">Signatures</span>
+                                        <br/>
+
+                                        <table>
+                                            <tr>
+                                                <td colspan="5" class="text-left" style="align:left;">
+                                                    <span style="font-weight:bold;align:left">HR operation
+                                                        Manager
+                                                    </span>
+                                                </td>
+                                                <td colspan="20" class="text-right" style="width:75%;text-right:right;align:right;">
+                                                    <span style="font-weight:bold;align:right;text-align:right">CEO
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" class="text-left" style="align:left;">
+                                                    <span>
+                                                        <img class="image"
+                                                             t-att-src="'data:image/png;base64,%s' % to_text(doc.signature_hr)"
+                                                             style="border:auto;width:100px;"/>
+                                                    </span>
+                                                </td>
+                                                <td colspan="5" class="text-right" style="width:75%;text-right:right;align:right;">
+                                                    <span>
+                                                        <img class="image"
+                                                             t-att-src="'data:image/png;base64,%s' % to_text(doc.signature_ceo)"
+                                                             style="border:auto;width:100px;"/>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <br/>
+                                        <br/>
+                                        <span style="font-weight:bold">Employee Signature</span>
+                                        <br/>
+                                        <span style="font-weight:bold">Date:</span>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="send_offer_email" model="mail.template">
+        <field name="name">Send Job Offer</field>
+        <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+        <field name="subject">Job Offer</field>
+        <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.company_id.email or user.email) | safe}&gt;</field>
+        <field name="email_to">${object.email_from| safe}</field>
+        <field name="body_html" type="html">
+            <table border="0" cellpadding="0" cellspacing="0"
+                   style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                <tr>
+                    <td align="center">
+                        <table border="0" cellpadding="0" cellspacing="0" width="590"
+                               style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                            <tbody>
+                                <!-- HEADER -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px;">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="590"
+                                               style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                            <tr>
+                                                <td valign="middle">
+                                                    <span style="font-size: 10px;">Your Application</span>
+                                                    <br/>
+
+
+                                                    <span style="font-size: 20px; font-weight: bold;">
+                                                        ${object.name}
+                                                    </span>
+
+
+                                                </td>
+                                                <td valign="middle" align="right">
+                                                    <img src="/logo.png?company=${object.company_id.id}"
+                                                         style="padding: 0px; margin: 0px; height: auto; width: 80px;"
+                                                         alt="${object.company_id.name}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="text-align:center;">
+                                                    <hr width="100%"
+                                                        style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <!-- CONTENT -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px;">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="590"
+                                               style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                            <tr>
+                                                <td valign="top" style="font-size: 13px;">
+                                                    <div>
+                                                        <center>Job Offer</center>
+                                                        <br/>
+
+                                                        <span style="font-weight:bold">Name:</span>
+                                                        %if object.employee_name:
+                                                        ${object.employee_name}
+                                                        %endif
+                                                        <br/>
+                                                        <span style="font-weight:bold">Date:</span>
+                                                        %if object.availability:
+                                                        ${object.availability}
+                                                        %endif
+                                                        <br/>
+                                                        <br/>
+                                                        It is our pleasure that we give you the following offer to join
+                                                        I Network Solutions as follows:
+                                                        <br/>
+                                                        <br/>
+                                                        • Job title:
+
+                                                        %if object.job_id.name:
+                                                        ${object.job_id.name}
+                                                        %endif
+                                                        <br/>
+                                                        • Monthly Gross Salary:${object.salary_proposed}
+                                                        <br/>
+                                                        • Profit share every year
+                                                        <br/>
+                                                        • Medical insurance
+                                                        <br/>
+                                                        • Social insurance
+                                                        <br/>
+                                                        <br/>
+                                                        <span style="font-weight:bold">Note:</span>
+                                                        <br/>
+                                                        <br/>
+                                                        <span style="font-weight:bold">In case of acceptance,</span>
+                                                        <br/>
+                                                        <br/>
+                                                        • You are kindly requested to sign this original offer and
+                                                        submitted to HR department with 10 days of
+                                                        receiving it.
+                                                        <br/>
+                                                        • You kindly requested to inform us about the joining date.
+                                                        <br/>
+                                                        <br/>
+                                                        In case you neede+d any clarification, please don’t hesitate to
+                                                        contact HR department
+                                                        <br/>
+                                                        <br/>
+                                                        <span style="font-weight:bold">Signatures</span>
+                                                        <br/>
+
+                                                       <table>
+                                            <tr>
+                                                <td>
+                                                    <span style="font-weight:bold;align:left">HR operation
+                                                        Manager
+                                                    </span>
+                                                </td>
+                                                <td colspan="20" class="text-right" style="width:75%;text-right:right;align:right;">
+                                                    <span style="font-weight:bold;align:right;text-align:right">CEO
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                                        <br/>
+                                                        <br/>
+                                                        <span style="font-weight:bold">Employee Signature</span>
+                                                        <br/>
+                                                        <span style="font-weight:bold">Date:</span>
+                                                        <br/>
+                                                        <br/>
+                                                        <br/>
+                                                        <br/>
+
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </td>
+                                </tr>
+                                <!-- FOOTER -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px;">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="590"
+                                               style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                            <tr>
+                                                <td valign="middle" align="left">
+                                                    ${object.company_id.name}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle" align="left" style="opacity: 0.7;">
+                                                    ${object.company_id.phone}
+                                                    % if object.company_id.email
+                                                    |
+                                                    <a href="'mailto:%s' % ${object.company_id.email}"
+                                                       style="text-decoration:none; color: #454748;">
+                                                        ${object.company_id.email}
+                                                    </a>
+                                                    % endif
+                                                    % if object.company_id.website
+                                                    |
+                                                    <a href="'%s' % ${object.company_id.website}"
+                                                       style="text-decoration:none; color: #454748;">
+                                                        ${object.company_id.website}
+                                                    </a>
+                                                    % endif
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </field>
+        <field name="report_template" ref="hr_recruitment_custom.offer_job_pdf_report"/>
+        <field name="report_name">${('Job Offer- %s' % (object.name))}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="user_signature" eval="False"/>
+    </record>
+
+</odoo>

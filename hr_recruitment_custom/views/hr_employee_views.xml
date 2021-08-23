@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="required_field_to_employee" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='job_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mobile_phone']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='marital']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='emergency_contact']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='emergency_phone']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='certificate']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='address_home_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Employee Documents">
+                        <group>
+                            <group>
+                                 <field name="card_id"  filename="card_id_name" widget="download"/>
+                                 <field name="card_id_name" invisible="1"></field>
+                                 <field name="graduated_certificate"  filename="graduated_certificate_name" widget="download"/>
+                                 <field name="graduated_certificate_name" invisible="1"></field>
+                                 <field name="certificate_of_birth"  filename="certificate_of_birth_name" widget="download"/>
+                                 <field name="certificate_of_birth_name" invisible="1"></field>
+                                 <field name="military_certificate" filename="military_certificate_name" widget="download"/>
+                                 <field name="military_certificate_name" invisible="1"></field>
+
+
+                            </group>
+                            <group>
+                                <field name="fesh"  filename="fesh_name" widget="download"/>
+                                 <field name="fesh_name" invisible="1"></field>
+                                <field name="passport" filename="passport_name" widget="download"/>
+                                 <field name="passport_name" invisible="1"></field>
+                                <field name="medical_card"  filename="medical_card_name" widget="download"/>
+                                 <field name="medical_card_name" invisible="1"></field>
+                            </group>
+                            <group>
+                                <field name="Form1_Social_insurance"  filename="Form1_Social_insurance_name" widget="download"/>
+                                 <field name="Form1_Social_insurance_name" invisible="1"></field>
+                                <field name="Form6"  filename="Form6_name" widget="download"/>
+                                 <field name="Form6_name" invisible="1"></field>
+                                <field name="employee_contract" filename="employee_contract_name" widget="download"/>
+                                 <field name="employee_contract_name" invisible="1"></field>
+                                <field name="driver_license"  filename="driver_license_name" widget="download"/>
+                                 <field name="driver_license_name" invisible="1"></field>
+                            </group>
+                            <group>
+                                <field name="personal_photo" widget="image"
+                                       class="o_kanban_image_fill_left" options="{'zoom': true, 'zoom_delay':50, 'background': true, 'preventClicks': false}"/>
+
+
+                            </group>
+                        </group>
+
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+
+</data>
+</odoo>

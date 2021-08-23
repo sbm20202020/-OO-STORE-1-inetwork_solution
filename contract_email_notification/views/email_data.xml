@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="end_date_contract_template" model="mail.template">
+            <field name="name">End Contracts e-mail template</field>
+            <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
+            <field name="subject">Congratz ${object.name}</field>
+            <field name="email_to">${object.email|safe}</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="auto_delete" eval="True"/>
+
+            <field name="body_html">
+                <![CDATA[
+	          <p>Dear HRM${(object.name)},<br/><br/>
+               Kindly be noted that this list of contracts it's end date will by after 74 days.
+                  Thanks,<br/>
+                  ${(object.company_id.name)}
+	    ]]>
+            </field>
+        </record>
+
+    </data>
+</odoo>

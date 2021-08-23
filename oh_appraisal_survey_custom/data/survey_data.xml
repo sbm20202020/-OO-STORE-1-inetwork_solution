@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record model="survey.survey" id="survey_inetwork">
+            <field name="title">Inetwork Form</field>
+            <field name="access_token">b137640d-14d4-4748-9ef6-344ca256531e</field>
+            <field name="state">open</field>
+            <field name="access_mode">public</field>
+            <field name="users_can_go_back" eval="True"/>
+            <field name="questions_layout">one_page</field>
+            <field name="scoring_type">scoring_with_answers</field>
+            <field name="passing_score">100.00</field>
+            <field name="description" type="html">
+                <p>This survey allows you to give Inetwork form hr analysis.</p>
+            </field>
+            <field name="thank_you_message">&lt;p&gt;&lt;/p&gt;</field>
+        </record>
+
+        <!-- Page1: general information -->
+        <record model="survey.question" id="survey_inetwork_p1">
+            <field name="title">Annual Interview</field>
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">1</field>
+            <field name="question_type" eval="False"/>
+            <field name="is_page" eval="True"/>
+            <field name="description" type="html">
+                <p></p>
+            </field>
+        </record>
+
+        <record model="survey.question" id="survey_inetwork_p1_q0">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">2</field>
+            <field name="title">Year</field>
+            <field name="question_type">numerical_box</field>
+            <field name="constr_mandatory" eval="False"/>
+        </record>
+
+        <record model="survey.question" id="survey_inetwork_p1_q1">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">3</field>
+            <field name="title">Full Name: الاسم</field>
+            <field name="question_type">textbox</field>
+            <field name="constr_mandatory" eval="False"/>
+        </record>
+        <record model="survey.question" id="survey_inetwork_p1_q2">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">4</field>
+            <field name="title">Position: الوظيفة</field>
+            <field name="question_type">textbox</field>
+            <field name="constr_mandatory" eval="False"/>
+        </record>
+        <record model="survey.question" id="survey_inetwork_p1_q3">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">5</field>
+            <field name="title">ID number: رقم البطاقة</field>
+            <field name="question_type">numerical_box</field>
+            <field name="constr_mandatory" eval="False"/>
+        </record>
+        <record model="survey.question" id="survey_inetwork_p1_q4">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">6</field>
+            <field name="title">Hiring Date in company:
+                تاريخ التعيين في الشركة
+            </field>
+            <field name="question_type">date</field>
+            <field name="constr_mandatory" eval="False"/>
+        </record>
+        <record model="survey.question" id="survey_inetwork_p1_q5">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">7</field>
+            <field name="title">Department: القسم</field>
+            <field name="question_type">textbox</field>
+            <field name="constr_mandatory" eval="False"/>
+        </record>
+        <record model="survey.question" id="survey_inetwork_p1_q6">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">8</field>
+            <field name="title">Direct Manager:
+                المدير المباشر
+            </field>
+            <field name="question_type">textbox</field>
+            <field name="constr_mandatory" eval="False"/>
+        </record>
+        <record model="survey.question" id="survey_inetwork_p1_q7">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">9</field>
+            <field name="title">Department Manager:
+                مدير القسم
+            </field>
+            <field name="question_type">textbox</field>
+            <field name="constr_mandatory" eval="False"/>
+        </record>
+
+        <record model="survey.question" id="survey_inetwork_p2_q2">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">9</field>
+            <field name="title">TECHNICAL COMPETENCIES
+                المهارات الفنية
+            </field>
+            <field name="question_type">matrix</field>
+            <field name="matrix_subtype">simple</field>
+            <field name="constr_mandatory" eval="True"/>
+            <field name="multi_row" eval="True"/>
+            <field name="need_header" eval="True"/>
+        </record>
+<!--        -->
+        <record model="survey.label" id="survey_inetwork_p2_q2_col1">
+            <field name="question_id" ref="survey_inetwork_p2_q2"/>
+            <field name="sequence">1</field>
+            <field name="value">1</field>
+            <field name="answer_score">1</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q2_col2">
+            <field name="question_id" ref="survey_inetwork_p2_q2"/>
+            <field name="sequence">2</field>
+            <field name="value">2</field>
+            <field name="answer_score">2</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q2_col3">
+            <field name="question_id" ref="survey_inetwork_p2_q2"/>
+            <field name="sequence">3</field>
+            <field name="value">3</field>
+            <field name="answer_score">3</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q2_col4">
+            <field name="question_id" ref="survey_inetwork_p2_q2"/>
+            <field name="sequence">4</field>
+            <field name="value">4</field>
+            <field name="answer_score">4</field>
+
+        </record>
+
+<!---->
+        <record model="survey.label" id="survey_inetwork_p2_q2_row1">
+            <field name="question_id_2" ref="survey_inetwork_p2_q2"/>
+            <field name="sequence">1</field>
+            <field name="value">TECHNICAL COMPETENCIES
+                المهارات الفنية
+            </field>
+            <field name="value2">Quality Focus</field>
+            <field name="value3">التركيز على الجودة</field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q2_row2">
+            <field name="question_id_2" ref="survey_inetwork_p2_q2"/>
+            <field name="sequence">2</field>
+            <field name="value">TECHNICAL COMPETENCIES
+                المهارات الفنية
+            </field>
+            <field name="value2">Technical Expertise</field>
+            <field name="value3">الخبرة الفنية</field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q2_row3">
+            <field name="question_id_2" ref="survey_inetwork_p2_q2"/>
+            <field name="sequence">3</field>
+            <field name="value">TECHNICAL COMPETENCIES
+                المهارات الفنية
+            </field>
+            <field name="value2">Problem Solving</field>
+            <field name="value3">حل المشكلات</field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q2_row4">
+            <field name="question_id_2" ref="survey_inetwork_p2_q2"/>
+            <field name="sequence">4</field>
+            <field name="value">TECHNICAL COMPETENCIES
+                المهارات الفنية
+            </field>
+            <field name="value2">Response rate to work instructions/requests</field>
+            <field name="value3">معدل الاستجابة لتعليمات ومتطلبات العمل</field>
+        </record>
+<!--        -->
+        <record model="survey.label" id="survey_inetwork_p2_q2_row_header">
+            <field name="question_header_label" ref="survey_inetwork_p2_q2"/>
+            <field name="sequence">1</field>
+            <field name="value">SCALE</field>
+            <field name="value2">(4) Strong/ قوي</field>
+            <field name="value3">(1)	 ضعيف / Weak</field>
+        </record>
+<!--        -->
+
+
+        <record model="survey.question" id="survey_inetwork_p2_q3">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">10</field>
+            <field name="title">RESPECT OF BUDGET &amp; REDUCING EXPENSES
+مراعاة الميزانية وتقليل النفقات
+            </field>
+            <field name="question_type">matrix</field>
+            <field name="matrix_subtype">simple</field>
+            <field name="constr_mandatory" eval="True"/>
+            <field name="multi_row" eval="True"/>
+            <field name="need_header" eval="False"/>
+        </record>
+<!--        -->
+        <record model="survey.label" id="survey_inetwork_p2_q3_col1">
+            <field name="question_id" ref="survey_inetwork_p2_q3"/>
+            <field name="sequence">1</field>
+            <field name="value">1</field>
+            <field name="answer_score">1</field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q3_col2">
+            <field name="question_id" ref="survey_inetwork_p2_q3"/>
+            <field name="sequence">2</field>
+            <field name="value">2</field>
+            <field name="answer_score">2</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q3_col3">
+            <field name="question_id" ref="survey_inetwork_p2_q3"/>
+            <field name="sequence">3</field>
+            <field name="value">3</field>
+            <field name="answer_score">3</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q3_col4">
+            <field name="question_id" ref="survey_inetwork_p2_q3"/>
+            <field name="sequence">4</field>
+            <field name="value">4</field>
+            <field name="answer_score">4</field>
+
+        </record>
+
+<!---->
+        <record model="survey.label" id="survey_inetwork_p2_q3_row1">
+            <field name="question_id_2" ref="survey_inetwork_p2_q3"/>
+            <field name="sequence">1</field>
+            <field name="value">RESPECT OF BUDGET &amp; REDUCING EXPENSES
+مراعاة الميزانية وتقليل النفقات
+            </field>
+            <field name="value2">Respect of Budget </field>
+            <field name="value3">مراعاة الميزانية</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q3_row2">
+            <field name="question_id_2" ref="survey_inetwork_p2_q3"/>
+            <field name="sequence">2</field>
+            <field name="value">RESPECT OF BUDGET &amp; REDUCING EXPENSES
+مراعاة الميزانية وتقليل النفقات
+            </field>
+            <field name="value2">Capacity to challenge the expenses &amp; reduce them  </field>
+            <field name="value3">القدرة على تنظيم النفقات والتقليل منها</field>
+        </record>
+<!--        -->
+
+
+        <record model="survey.question" id="survey_inetwork_p2_q4">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">11</field>
+            <field name="title">ORGANIZATION/
+METHODS
+أساليب التنظيم
+            </field>
+            <field name="question_type">matrix</field>
+            <field name="matrix_subtype">simple</field>
+            <field name="constr_mandatory" eval="True"/>
+            <field name="multi_row" eval="True"/>
+            <field name="need_header" eval="False"/>
+        </record>
+<!--        -->
+        <record model="survey.label" id="survey_inetwork_p2_q4_col1">
+            <field name="question_id" ref="survey_inetwork_p2_q4"/>
+            <field name="sequence">1</field>
+            <field name="value">1</field>
+            <field name="answer_score">1</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q4_col2">
+            <field name="question_id" ref="survey_inetwork_p2_q4"/>
+            <field name="sequence">2</field>
+            <field name="value">2</field>
+            <field name="answer_score">2</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q4_col3">
+            <field name="question_id" ref="survey_inetwork_p2_q4"/>
+            <field name="sequence">3</field>
+            <field name="value">3</field>
+            <field name="answer_score">3</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q4_col4">
+            <field name="question_id" ref="survey_inetwork_p2_q4"/>
+            <field name="sequence">4</field>
+            <field name="value">4</field>
+            <field name="answer_score">4</field>
+
+        </record>
+
+<!---->
+        <record model="survey.label" id="survey_inetwork_p2_q4_row1">
+            <field name="question_id_2" ref="survey_inetwork_p2_q4"/>
+            <field name="sequence">1</field>
+            <field name="value">ORGANIZATION/
+METHODS
+أساليب التنظيم
+            </field>
+            <field name="value2">Punctuality  &amp; Attendence  </field>
+            <field name="value3">الالتزام بالمواعيد والحضور </field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q4_row3">
+            <field name="question_id_2" ref="survey_inetwork_p2_q4"/>
+            <field name="sequence">3</field>
+            <field name="value">ORGANIZATION/
+METHODS
+أساليب التنظيم
+            </field>
+            <field name="value2">Managing Priorities &amp; delays </field>
+            <field name="value3">إدارة الأولويات </field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q4_row2">
+            <field name="question_id_2" ref="survey_inetwork_p2_q4"/>
+            <field name="sequence">4</field>
+            <field name="value">ORGANIZATION/
+METHODS
+أساليب التنظيم
+            </field>
+            <field name="value2">Reporting (Formal &amp; Informal) </field>
+            <field name="value3">التقرير (رسمي وغير رسمي) </field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q4_row4">
+            <field name="question_id_2" ref="survey_inetwork_p2_q4"/>
+            <field name="sequence">2</field>
+            <field name="value">ORGANIZATION/
+METHODS
+أساليب التنظيم
+            </field>
+            <field name="value2">Meet the dead line   </field>
+            <field name="value3">الالتزام بمواعيد المهام المطلوبه</field>
+        </record>
+<!--////////////////////////////////////////////-->
+          <record model="survey.question" id="survey_inetwork_p2_q5">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">12</field>
+            <field name="title">CREATIVITY/
+METHODS
+أساليب الابداع </field>
+            <field name="question_type">matrix</field>
+            <field name="matrix_subtype">simple</field>
+            <field name="constr_mandatory" eval="True"/>
+            <field name="multi_row" eval="True"/>
+            <field name="need_header" eval="False"/>
+        </record>
+<!--        -->
+        <record model="survey.label" id="survey_inetwork_p2_q5_col1">
+            <field name="question_id" ref="survey_inetwork_p2_q5"/>
+            <field name="sequence">1</field>
+            <field name="value">1</field>
+            <field name="answer_score">1</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q5_col2">
+            <field name="question_id" ref="survey_inetwork_p2_q5"/>
+            <field name="sequence">2</field>
+            <field name="value">2</field>
+            <field name="answer_score">2</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q5_col3">
+            <field name="question_id" ref="survey_inetwork_p2_q5"/>
+            <field name="sequence">3</field>
+            <field name="value">3</field>
+            <field name="answer_score">3</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q5_col4">
+            <field name="question_id" ref="survey_inetwork_p2_q5"/>
+            <field name="sequence">4</field>
+            <field name="value">4</field>
+            <field name="answer_score">4</field>
+
+        </record>
+
+<!---->
+        <record model="survey.label" id="survey_inetwork_p2_q5_row1">
+            <field name="question_id_2" ref="survey_inetwork_p2_q5"/>
+            <field name="sequence">1</field>
+            <field name="value">CREATIVITY/
+METHODS
+أساليب الابداع
+            </field>
+            <field name="value2">Ability to propose improvements </field>
+            <field name="value3">القدرة على اقتراح التعديلات
+من أجل التحسين</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q5_row2">
+            <field name="question_id_2" ref="survey_inetwork_p2_q5"/>
+            <field name="sequence">4</field>
+            <field name="value">CREATIVITY/
+METHODS
+أساليب الابداع
+            </field>
+            <field name="value2">Autonomy/ Self Driven </field>
+            <field name="value3">الاستقلال / الدفعة الذاتية </field>
+        </record>
+
+        <record model="survey.label" id="survey_inetwork_p2_q5_row3">
+            <field name="question_id_2" ref="survey_inetwork_p2_q5"/>
+            <field name="sequence">3</field>
+            <field name="value">CREATIVITY/
+METHODS
+أساليب الابداع
+            </field>
+            <field name="value2">analyting thinking  </field>
+            <field name="value3">التفكير التحليلي  </field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q5_row4">
+            <field name="question_id_2" ref="survey_inetwork_p2_q5"/>
+            <field name="sequence">2</field>
+            <field name="value">CREATIVITY/
+METHODS
+أساليب الابداع
+            </field>
+            <field name="value2">strategic thinking </field>
+            <field name="value3">التفكير الشمولي </field>
+        </record>
+<!--////////////////////////////////////////////-->
+          <record model="survey.question" id="survey_inetwork_p2_q6">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">13</field>
+            <field name="title">COMMUNICATION
+طرق التواصل </field>
+            <field name="question_type">matrix</field>
+            <field name="matrix_subtype">simple</field>
+            <field name="constr_mandatory" eval="True"/>
+            <field name="multi_row" eval="True"/>
+            <field name="need_header" eval="False"/>
+        </record>
+<!--        -->
+        <record model="survey.label" id="survey_inetwork_p2_q6_col1">
+            <field name="question_id" ref="survey_inetwork_p2_q6"/>
+            <field name="sequence">1</field>
+            <field name="value">1</field>
+            <field name="answer_score">1</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q6_col2">
+            <field name="question_id" ref="survey_inetwork_p2_q6"/>
+            <field name="sequence">2</field>
+            <field name="value">2</field>
+            <field name="answer_score">2</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q6_col3">
+            <field name="question_id" ref="survey_inetwork_p2_q6"/>
+            <field name="sequence">3</field>
+            <field name="value">3</field>
+            <field name="answer_score">3</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q6_col4">
+            <field name="question_id" ref="survey_inetwork_p2_q6"/>
+            <field name="sequence">4</field>
+            <field name="value">4</field>
+            <field name="answer_score">4</field>
+
+        </record>
+
+<!---->
+        <record model="survey.label" id="survey_inetwork_p2_q6_row1">
+            <field name="question_id_2" ref="survey_inetwork_p2_q6"/>
+            <field name="sequence">1</field>
+            <field name="value">COMMUNICATION
+طرق التواصل
+            </field>
+            <field name="value2">Communication written &amp; verbal </field>
+            <field name="value3">التواصل المكتوب والشفوي </field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q6_row2">
+            <field name="question_id_2" ref="survey_inetwork_p2_q6"/>
+            <field name="sequence">4</field>
+            <field name="value">COMMUNICATION
+طرق التواصل
+            </field>
+            <field name="value2">Managing Information (Ethics, Confidentiality)  </field>
+            <field name="value3">إدارة المعلومات (الأخلاقيات٬ السرية) </field>
+        </record>
+
+        <record model="survey.label" id="survey_inetwork_p2_q6_row3">
+            <field name="question_id_2" ref="survey_inetwork_p2_q6"/>
+            <field name="sequence">3</field>
+            <field name="value">COMMUNICATION
+طرق التواصل
+            </field>
+            <field name="value2">Communication with internal personnel (Superiors,
+Subordinates)  </field>
+            <field name="value3">التواصل مع الأفراد داخل  العمل (الرؤساء٬ المرؤسين)</field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q6_row4">
+            <field name="question_id_2" ref="survey_inetwork_p2_q6"/>
+            <field name="sequence">2</field>
+            <field name="value">COMMUNICATION
+طرق التواصل
+            </field>
+            <field name="value2">Loyalty  </field>
+            <field name="value3">الانتماء للشركه </field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q6_row5">
+            <field name="question_id_2" ref="survey_inetwork_p2_q6"/>
+            <field name="sequence">2</field>
+            <field name="value">COMMUNICATION
+طرق التواصل
+            </field>
+            <field name="value2">Company police Acknowledge  </field>
+            <field name="value3">المعرفه بسياسات الشركه و تطبيقها  </field>
+        </record>
+
+
+<!--////////////////////////////////////////////-->
+          <record model="survey.question" id="survey_inetwork_p2_q7">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">14</field>
+            <field name="title">HEALTH &amp; SAFETY
+السلامة والصحة المهنية  </field>
+            <field name="question_type">matrix</field>
+            <field name="matrix_subtype">simple</field>
+            <field name="constr_mandatory" eval="True"/>
+            <field name="multi_row" eval="True"/>
+            <field name="need_header" eval="False"/>
+        </record>
+<!--        -->
+        <record model="survey.label" id="survey_inetwork_p2_q7_col1">
+            <field name="question_id" ref="survey_inetwork_p2_q7"/>
+            <field name="sequence">1</field>
+            <field name="value">1</field>
+            <field name="answer_score">1</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q7_col2">
+            <field name="question_id" ref="survey_inetwork_p2_q7"/>
+            <field name="sequence">2</field>
+            <field name="value">2</field>
+            <field name="answer_score">2</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q7_col3">
+            <field name="question_id" ref="survey_inetwork_p2_q7"/>
+            <field name="sequence">3</field>
+            <field name="value">3</field>
+            <field name="answer_score">3</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q7_col4">
+            <field name="question_id" ref="survey_inetwork_p2_q7"/>
+            <field name="sequence">4</field>
+            <field name="value">4</field>
+            <field name="answer_score">4</field>
+
+        </record>
+
+<!---->
+        <record model="survey.label" id="survey_inetwork_p2_q7_row1">
+            <field name="question_id_2" ref="survey_inetwork_p2_q7"/>
+            <field name="sequence">1</field>
+            <field name="value">HEALTH &amp; SAFETY
+السلامة والصحة المهنية
+            </field>
+            <field name="value2">Use of PPE (Personal Protective Equipments)  </field>
+            <field name="value3"> استخدام أدوات الحماية الشخصية </field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q7_row2">
+            <field name="question_id_2" ref="survey_inetwork_p2_q7"/>
+            <field name="sequence">4</field>
+            <field name="value">HEALTH &amp; SAFETY
+السلامة والصحة المهنية
+            </field>
+            <field name="value2">Respect of Procedures (work permit, isolation)  </field>
+            <field name="value3">احترام الاجراءات (تصاريح العمل٬ العزل) </field>
+        </record>
+
+        <record model="survey.label" id="survey_inetwork_p2_q7_row3">
+            <field name="question_id_2" ref="survey_inetwork_p2_q7"/>
+            <field name="sequence">3</field>
+            <field name="value">HEALTH &amp; SAFETY
+السلامة والصحة المهنية
+            </field>
+            <field name="value2">Maintaining the Cleanness of the workplace </field>
+            <field name="value3">الحفاظ على نظافة مكان العمل</field>
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q7_row4">
+            <field name="question_id_2" ref="survey_inetwork_p2_q7"/>
+            <field name="sequence">2</field>
+            <field name="value">HEALTH &amp; SAFETY
+السلامة والصحة المهنية
+            </field>
+            <field name="value2">Respecting Driving Regulations (Speed, Safety Belt….)</field>
+            <field name="value3">احترام قوانين القيادة (السرعة٬ حزام الأمان ...)</field>
+        </record>
+<!--        ////////////////////////////////////////////////////////////-->
+
+        <record model="survey.question" id="survey_inetwork_p2_q8">
+            <field name="survey_id" ref="survey_inetwork"/>
+                <field name="sequence">15</field>
+                <field name="title">THE EMPLOYEE'S
+COMMENTS
+
+ملاحظات الموظف </field>
+                <field name="question_type">free_text</field>
+                <field name="as_table">True</field>
+                <field name="constr_mandatory" eval="False"/>
+        </record>
+
+        <record model="survey.question" id="survey_inetwork_p2_q9">
+            <field name="survey_id" ref="survey_inetwork"/>
+                <field name="sequence">16</field>
+                <field name="title">Training &amp; Development Needs</field>
+                <field name="question_type">free_text</field>
+                <field name="constr_mandatory" eval="False"/>
+                <field name="color_green" eval="True"/>
+
+        </record>
+
+<!--        ////////////////////////////////////-->
+
+        <record model="survey.question" id="survey_inetwork_p2_q10">
+            <field name="survey_id" ref="survey_inetwork"/>
+            <field name="sequence">17</field>
+            <field name="title">Agree with the Interview Evaluation</field>
+            <field name="question_type">matrix</field>
+            <field name="matrix_subtype">simple</field>
+            <field name="constr_mandatory" eval="True"/>
+        </record>
+<!--        -->
+        <record model="survey.label" id="survey_inetwork_p2_q10_col1">
+            <field name="question_id" ref="survey_inetwork_p2_q10"/>
+            <field name="sequence">1</field>
+            <field name="value">Yes/نعم</field>
+
+        </record>
+        <record model="survey.label" id="survey_inetwork_p2_q10_col2">
+            <field name="question_id" ref="survey_inetwork_p2_q10"/>
+            <field name="sequence">2</field>
+            <field name="value">No/لا</field>
+
+        </record>
+
+<!---->
+        <record model="survey.label" id="survey_inetwork_p2_q10_row1">
+            <field name="question_id_2" ref="survey_inetwork_p2_q10"/>
+            <field name="sequence">1</field>
+            <field name="value">موافق على تقييم المقابلة </field>
+
+        </record>
+
+<!--        ////////////////////////-->
+
+        <record model="survey.question" id="survey_inetwork_p2_q11">
+            <field name="survey_id" ref="survey_inetwork"/>
+                <field name="sequence">21</field>
+                <field name="title">INTERVIEWER'S
+COMMENTS
+ملاحظات مجري المقابلة</field>
+                <field name="question_type">free_text</field>
+                <field name="as_table">True</field>
+                <field name="constr_mandatory" eval="False"/>
+                <field name="color_yellow" eval="True"/>
+        </record>
+
+
+
+
+
+
+    </data>
+</odoo>

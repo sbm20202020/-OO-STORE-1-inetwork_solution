@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <!-- QUESTIONS -->
+    <record model="ir.ui.view" id="survey_question_form_inherit">
+        <field name="name">Form view for survey question</field>
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="survey.survey_question_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/label[@for='labels_ids']" position="before">
+                <group>
+                     <field name="color_yellow" attrs="{'invisible': [('question_type', '!=', 'free_text')]}"/>
+                     <field name="color_green" attrs="{'invisible': [('question_type', '!=', 'free_text')]}"/>
+                     <field name="as_table" attrs="{'invisible': [('question_type', '!=', 'free_text')]}"/>
+<!--                     <field name="color" attrs="{'invisible': [('question_type', '!=', 'free_text')]}" widget="color"/>-->
+                </group>
+            </xpath>
+
+            <xpath expr="//notebook/page/label[@for='labels_ids']" position="before">
+                <group> <field name="multi_row" attrs="{'invisible': [('question_type', '!=', 'matrix')]}"/> </group>
+            </xpath>
+            <xpath expr="//notebook/page/label[@for='labels_ids_2']" position="before">
+                <group><field name="need_header" attrs="{'invisible': ['|',('question_type', '!=', 'matrix'),('multi_row','=',False)]}"/></group>
+                <field name="header_labels" context="{'default_question_id_2': active_id}" attrs="{'invisible': ['|','|',('question_type', '!=', 'matrix'),('need_header','=',False),('multi_row','=',False)]}">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="value" string="Rows"/>
+                                    <field name="value2" string="Second Rows"/>
+                                    <field name="value3" string="Third Rows"/>
+                                </tree>
+                            </field>
+
+            </xpath>
+            <xpath expr="//notebook/page/field[@name='labels_ids_2']/tree/field[@name='value']" position="after">
+                 <field name="value2" string="Second Rows" attrs="{'column_invisible': [('parent.multi_row','=',False)]}"/>
+                 <field name="value3" string="Third Rows" attrs="{'column_invisible': [('parent.multi_row','=',False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</data>
+</odoo>

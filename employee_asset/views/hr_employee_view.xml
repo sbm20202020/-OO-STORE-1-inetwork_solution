@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_inherit_hr_employee_asset_form" model="ir.ui.view">
+            <field name="name">view.inherit.hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Asset">
+                        <group>
+                            <field name="asset_ids"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="elements_fields_in_contract" model="ir.ui.view">
+            <field name="name">hr.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Elements">
+                        <group>
+                            <group>
+                                <field name="allowances"/>
+                                <field name="medical_insurance"/>
+                                <field name="phone_allowances"/>
+                                <field name="transfer_allowances"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

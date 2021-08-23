@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <!-- QUESTIONS -->
+    <record model="ir.ui.view" id="hr_recruitment_stage_form_inherit">
+        <field name="name">hr.recruitment.stage.form</field>
+        <field name="model">hr.recruitment.stage</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_recruitment_stage_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fold']" position="after">
+                <field name="send_email"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_applicant_view_form_inherit">
+        <field name="name">hr.applicant.form</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='reset_applicant']" position="after">
+                <field name="stage_send_email" invisible="1"/>
+                <field name="is_send" invisible="1"/>
+                <button string="Send Offer" name="send_offer" type="object" class="oe_highlight" attrs="{'invisible': ['|','|',('stage_send_email', '=', False),('is_send', '=', True),('active', '=', False)]}" confirm="Are you sure?"/>
+            </xpath>
+
+            <xpath expr="//group" position="after">
+                <notebook>
+                       <page string="HR operation Manager Signature" groups="hr_recruitment_custom.group_hr_signature">
+                        <group col="3">
+                        <group>
+                             <field name="signature_date_hr"  string="Signature Date"/>
+                            <field name="signature_name_hr" string="Signature Name"/>
+                            <field name="signature_hr" widget="signature"
+                                   options="{'full_name': 'signature_name_hr', 'size': ['',100]}"/>
+
+
+                        </group>
+
+                    </group>
+
+                    <group></group>
+                </page>
+                       <page string="CEO Signature" groups="hr_recruitment_custom.group_ceo_signature">
+                        <group col="3">
+                        <group>
+                             <field name="signature_date_ceo" string="Signature Date"/>
+                            <field name="signature_name_ceo" string="Signature Name"/>
+                            <field name="signature_ceo" widget="signature"
+                                   options="{'full_name': 'signature_name_ceo', 'size': ['',100]}"/>
+
+
+                        </group>
+
+                    </group>
+
+                    <group></group>
+                </page>
+
+                </notebook>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</data>
+</odoo>

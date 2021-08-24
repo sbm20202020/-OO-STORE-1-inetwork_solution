@@ -97,7 +97,7 @@ class PayslipReportDataXls(models.AbstractModel):
         col = 0
         if len(wizard_record.sales_person) == 0:
             invoices = self.env['account.move'].search(
-                [('invoice_date', '>=', wizard_record.date_from), ('invoice_date', '<=', wizard_record.date_to)]).sorted(key=lambda r: r.invoice_user_id.id)
+                [('invoice_date', '>=', wizard_record.date_from), ('type','=', 'out_invoice'),('invoice_date', '<=', wizard_record.date_to)]).sorted(key=lambda r: r.invoice_user_id.id)
             salespersons=[invoice.invoice_user_id for invoice in invoices]
             if invoices:
                 for salesperson in set(salespersons):
@@ -209,7 +209,7 @@ class PayslipReportDataXls(models.AbstractModel):
 
         else:
             invoices = self.env['account.move'].search(
-                [('invoice_date', '>=', wizard_record.date_from), ('invoice_date', '<=', wizard_record.date_to),
+                [('invoice_date', '>=', wizard_record.date_from), ('type','=', 'out_invoice'), ('invoice_date', '<=', wizard_record.date_to),
                  ('invoice_user_id', 'in', wizard_record.sales_person.ids)]).sorted(key=lambda r: r.invoice_user_id.id)
             if invoices:
                 for salesperson in wizard_record.sales_person:

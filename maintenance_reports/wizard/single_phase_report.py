@@ -85,7 +85,7 @@ class PheReportDataXls(models.AbstractModel):
         # worksheet.right_to_left()
         worksheet.set_column('A:A',15)
         worksheet.set_column('B:B', 30)
-        worksheet.set_column('C:C', 30)
+        worksheet.set_column('C:C', 40)
         worksheet.set_column('D:D', 30)
         worksheet.set_column('E:E', 30)
         worksheet.set_column('G:G',30)
@@ -216,9 +216,9 @@ class PheReportDataXls(models.AbstractModel):
                 else:
                     worksheet.write(row, col + 6, str(' '), header4_format)
 
-                if type == 'standard':
+                if rec.type == 'standard':
                     worksheet.write(row, col + 7, rec.initial_amount, header4_format)
-                if type == 'shnider':
+                if rec.type == 'shnider':
                     worksheet.write(row, col + 7,sum([s.lst_price for s in rec.product_ids]), header4_format)
 
                 row += 1
@@ -315,9 +315,9 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 6, str(rec.request_date.strftime('%B')), header4_format)
                 else:
                     worksheet.write(row, col + 6, str(' '), header4_format)
-                if type == 'standard':
+                if rec.type == 'standard':
                     worksheet.write(row, col + 7, rec.initial_amount, header4_format)
-                if type == 'shnider':
+                if rec.type == 'shnider':
                     print("reccccccccccccccccccc",rec.total_price)
                     worksheet.write(row, col + 7, sum([s.lst_price for s in rec.product_ids]), header4_format)
 

@@ -12,11 +12,11 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div class="page">
-                    <h3 style="text-align: Center;font-weight:bold;color:black">
-                        <Strong style="border-bottom: 1px solid">Employee Report</Strong>
-                    </h3>
-                    <br/>
                     <t t-foreach="docs" t-as="o">
+		         <h3 style="text-align: Center;font-weight:bold;color:black">
+		                <Strong style="border-bottom: 1px solid">Employee Report</Strong>
+		         </h3>
+		         <br/>
                         <div class="oe_structure"/>
                         <div style="border-bottom: 1px solid">
                             <div style="font-size: 25px;text-align: Center;font-weight:bold;color:black">
@@ -172,7 +172,6 @@
                                     </tr>
                                 </table>
                             </div>
-                            <br/>
                         </div>
                         <br/>
                     </t>

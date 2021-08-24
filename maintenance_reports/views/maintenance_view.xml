@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <record id="shinder_request_view_form_inherit_new" model="ir.ui.view">
+            <field name="name">maintenance.request</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance_custom.shnider_service_request_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form/sheet/notebook/page[1]" position="after">
+
+                        <page string="Other INfo">
+                            <group>
+                                <field name="symptoms_description"/>
+                                <field name="assessment_performed"/>
+                                <field name="observations"/>
+                                <field name="assessment_results"/>
+                                <field name="recommendations_further"/>
+
+                            </group>
+                        </page>
+                        <page string="REIMBURSEMENT REQUEST" attrs="{'invisible':[('type','!=','shnider')]}">
+                            <group>
+
+                                <group>
+                                    <field name="total_price" invisible="1"/>
+                                    <field name="end_user_name"/>
+                                    <field name="issue_problem"/>
+                                    <field name="defective_part_number"/>
+                                    <field name="defective_serial_number"/>
+                                </group>
+
+                                <group>
+                                    <field name="replacement_part_number"/>
+                                    <field name="replacement_serial_number"/>
+                                    <field name="purchase_date"/>
+                                    <field name="end_user_date"/>
+                                </group>
+                                <group>
+                                    <field name="service_request_number"/>
+                                    <field name="rma_number"/>
+
+                                </group>
+
+
+                            </group>
+
+                        </page>
+
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="hr_equipment_request_view_form_inherit_new" model="ir.ui.view">
+            <field name="name">hr.request.view.form.inherit</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="partner_id"/>
+                    <field name="service"/>
+                    <field name="quantity"/>
+                    <field name="initial_amount" attrs="{'invisible': [('type', '!=', 'standard')]}"/>
+
+                </xpath>
+
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,196 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ctx_equipment_stock_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-23 13:43+0000\n"
+"PO-Revision-Date: 2021-01-23 16:47+0300\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: ar\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_maintenance_equipment_product_id
+msgid "Associated Product"
+msgstr "المنتج المرتبط"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_maintenance_equipment_product_tmpl_id
+msgid "Associated Product Template"
+msgstr "قالب المنتج المرتبط"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_stock_inventory_line_create_equipment
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_stock_move_line_create_equipment
+msgid "Create Equipment"
+msgstr "إنشاء المعدات"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_maintenance_equipment_created_from_stock_lot
+msgid "Created from Stock Lot"
+msgstr "تم إنشاؤها من دفعة مخزنية"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_maintenance_equipment_current_stock_location_id
+msgid "Current Stock Location"
+msgstr "الموقع الحالي"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_product_default_equipment_category_id
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_template_default_equipment_category_id
+msgid "Default Equipment Category"
+msgstr "فئة المعدات الإفتراضية"
+
+#. module: ctx_equipment_stock_product
+#: selection:product.template,equipment_assign_to:0
+msgid "Department"
+msgstr "القسم"
+
+#. module: ctx_equipment_stock_product
+#: selection:product.template,equipment_assign_to:0
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model,name:ctx_equipment_stock_product.model_maintenance_equipment
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_product_equipment_ids
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_template_equipment_ids
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_stock_inventory_line_equipment_id
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_stock_move_line_equipment_id
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_stock_production_lot_equipment_id
+msgid "Equipment"
+msgstr "الالة"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_product_equipment_count
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_template_equipment_count
+#: model:ir.ui.view,arch_db:ctx_equipment_stock_product.product_template_form_view_inherit_equipment
+msgid "Equipments"
+msgstr "المعدات"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model,name:ctx_equipment_stock_product.model_stock_inventory
+msgid "Inventory"
+msgstr "مخزن"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model,name:ctx_equipment_stock_product.model_stock_inventory_line
+msgid "Inventory Line"
+msgstr "بند الجرد"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_product_is_equipment
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_template_is_equipment
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_stock_inventory_line_is_equipment
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_stock_move_line_is_equipment
+msgid "Is equipment?"
+msgstr "هل هو معدات؟"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_maintenance_equipment_lot_id
+msgid "Logistics Serial Number"
+msgstr "الرقم التسلسلي المخزني"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model,name:ctx_equipment_stock_product.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "الدفعة/المسلسل"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_product_maintenance_team_id
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_template_maintenance_team_id
+msgid "Maintenance Team"
+msgstr "فريق الصيانة"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_product_model
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_template_model
+msgid "Model"
+msgstr "الطراز"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_maintenance_equipment_stock_move_lines
+msgid "Moves History"
+msgstr "سجل التنقلات"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_maintenance_equipment_history_count
+msgid "Moves History Count"
+msgstr "عدد السجلات"
+
+#. module: ctx_equipment_stock_product
+#: selection:product.template,equipment_assign_to:0
+msgid "Other"
+msgstr "أخرى"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model,name:ctx_equipment_stock_product.model_stock_move_line
+msgid "Packing Operation"
+msgstr "عمليه الالتقاط "
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model,name:ctx_equipment_stock_product.model_product_template
+msgid "Product Template"
+msgstr "قالب المنتج"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_product_technician_user_id
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_template_technician_user_id
+msgid "Technician"
+msgstr "فني الصيانة"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,help:ctx_equipment_stock_product.field_stock_production_lot_equipment_id
+msgid "The Equipment linked to this lot for equipment movement tracking."
+msgstr "المعدات المرتبطة بهذه الدفعة  لتتبع حركة المعدات."
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,help:ctx_equipment_stock_product.field_product_product_equipment_ids
+#: model:ir.model.fields,help:ctx_equipment_stock_product.field_product_template_equipment_ids
+msgid "The Equipments of this product"
+msgstr "المعدات المرتبطة بهذا المنتج"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,help:ctx_equipment_stock_product.field_stock_inventory_line_equipment_id
+msgid "The equipment generated by this stock inventory line."
+msgstr "المعدات التي تم إنشاؤها بواسطة بند الجرد هذا."
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,help:ctx_equipment_stock_product.field_stock_move_line_equipment_id
+msgid "The equipment generated by this stock move line."
+msgstr "المعدات التي تم إنشاؤها بواسطة بند حركة المخزون هذا."
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,help:ctx_equipment_stock_product.field_maintenance_equipment_lot_id
+msgid "The unique serial number that associated with the Equipmen"
+msgstr "الرقم التسلسلي الفريد المرتبط بالمعدات"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model,name:ctx_equipment_stock_product.model_stock_picking
+msgid "Transfer"
+msgstr "نقل"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_stock_move_line_picking_code
+msgid "Type of Operation"
+msgstr "نوع العملية"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_product_equipment_assign_to
+#: model:ir.model.fields,field_description:ctx_equipment_stock_product.field_product_template_equipment_assign_to
+msgid "Used By"
+msgstr "استعمل من قبل"
+
+#. module: ctx_equipment_stock_product
+#: model:ir.model.fields,help:ctx_equipment_stock_product.field_stock_inventory_line_create_equipment
+#: model:ir.model.fields,help:ctx_equipment_stock_product.field_stock_move_line_create_equipment
+msgid "select this to create a new equipment automatically once the stock picking validated"
+msgstr "حدد هذا لإنشاء معدات جديدة تلقائيًا بمجرد التحقق من حركة المخزون"

@@ -29,12 +29,12 @@ class SaleOrder(models.Model):
 
 
 
-    @api.model
-    def create(self, vals):
-        if 'order_line' not in vals:
-            raise UserError("Please add lines in Quotation")
-        res = super(SaleOrder, self.sudo()).create(vals)
-        return res
+    # @api.model
+    # def create(self, vals):
+    #     if 'order_line' not in vals:
+    #         raise UserError("Please add lines in Quotation")
+    #     res = super(SaleOrder, self.sudo()).create(vals)
+    #     return res
 
 
     def write(self, vals):

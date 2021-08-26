@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_maintenance_request_user,maintenance.request system user,model_maintenance_request,group_maintenance_user,1,1,1,1
 access_maintenance_request_manager,maintenance.request system manager,model_maintenance_request,group_maintenance_manager,1,1,1,1
+access_maintenance_request_wh_keeper,stock.picking wh keeper,stock.model_stock_picking,group_WH_keeper,1,1,1,1
 

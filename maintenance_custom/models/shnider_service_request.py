@@ -25,7 +25,7 @@ class ShniderServiceRequest(models.Model):
     delivery_order_id_to_shnider = fields.Many2one('stock.picking', string='Delivery Order to Shnider', copy=False, store=True)
     replaced = fields.Boolean('replaced')
     fixable = fields.Boolean('replaced')
-    type = fields.Selection([('standard', 'Standard'), ('shnider', 'Shnider')], 'Type')
+    type = fields.Selection([('standard', 'Standard'), ('shnider', 'Shnider')], 'Type', store=True)
 
     # addedd by marwa
     contact_name = fields.Char(String='Customer Contact Name')

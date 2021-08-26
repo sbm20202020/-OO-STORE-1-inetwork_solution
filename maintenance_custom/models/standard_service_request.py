@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _, SUPERUSER_ID
-from odoo.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import ValidationError
+from datetime import datetime
 import logging
 import threading
 _logger = logging.getLogger(__name__)
-from odoo.http import request
 
 
 class MaintenanceStage(models.Model):
@@ -26,6 +26,34 @@ class MaintenanceStage(models.Model):
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
     ], related='picking_id.state')
+    priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Medium'), ('3', 'High')], string='Priority')
+    request_date = fields.Date('Request Date', related='equipment_id.assign_date')
+    # @api.onchange('user_id')
+    # def onchange_company_id(self):
+    #     users = self.env.ref('maintenance_custom.group_maintenance_manager').users.ids
+    #     return {'domain': {'user_id': [('id', 'in', users)]}}
+
+    @api.constrains('schedule_date')
+    def date_constrains(self):
+        for rec in self:
+            if rec.schedule_date.date() < datetime.today().date():
+                raise ValidationError(_('Sorry, Schedule Date Must be greater Than Current Date...'))
+
+    @api.constrains('duration')
+    def duration_constrains(self):
+        for rec in self:
+            if rec.duration < 0:
+                raise ValidationError(_('Sorry, Duration Must be greater Than or Equal 0...'))
+
+    @api.onchange('equipment_id')
+    def onchange_equipment_id(self):
+        if self.equipment_id:
+            self.user_id = self.equipment_id.technician_user_id if self.equipment_id.technician_user_id else self.equipment_id.category_id.technician_user_id
+            self.category_id = self.equipment_id.category_id
+            if self.equipment_id.maintenance_team_id:
+                self.maintenance_team_id = self.equipment_id.maintenance_team_id.id
+            if self.equipment_id.assign_date:
+                self.request_date = self.equipment_id.assign_date
 
     def action_inspection(self):
         if self.type == 'standard':
@@ -169,6 +197,59 @@ class MaintenanceStage(models.Model):
     #                                  base_url)
     #
     #         template.send_mail(rec.user_id.id, force_send=True, email_values=email_values)
+
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+    def action_confirm(self):
+        res = super(SaleOrder, self).action_confirm()
+        ir_model_data = self.env['ir.model.data']
+        template_res = self.env['mail.template']
+        maintenance_obj = self.env['maintenance.request'].search([('sales_order_id', '=', self.id)])
+
+        # users = self.env['res.users'].search([])
+        # contracts = self.search([])
+        # contract_list = []
+
+        template_id = ir_model_data.get_object_reference('maintenance_custom',
+                                                         'sales_order_confirmation_template')[1]
+        template = template_res.browse(template_id)
+
+        email_values = {
+            'email_to': maintenance_obj.user_id.email,
+            'email_from': res.user_id.email,
+            'subject': 'Sales Order Confirmed',
+        }
+        template.body_html = '<p>Dear ${(object.name)},''<br/><br/>Kindly be noted that this sale Order is Confirmed ,<br/>' + str(
+            res.name) + 'Thanks,<br/>' \
+                         '${(object.company_id.name)}'
+
+        template.send_mail(res.user_id.id, force_send=True, email_values=email_values)
+        return res
+
+    # def send_email_notification(self):
+    #     ir_model_data = self.env['ir.model.data']
+    #     template_res = self.env['mail.template']
+    #     maintenance_obj = self.env['maintenance.request'].search([('sales_order_id', '=', self.id)])
+    #
+    #     # users = self.env['res.users'].search([])
+    #     # contracts = self.search([])
+    #     # contract_list = []
+    #
+    #     template_id = ir_model_data.get_object_reference('maintenance_custom',
+    #                                                      'sales_order_confirmation_template')[1]
+    #     template = template_res.browse(template_id)
+    #
+    #     email_values = {
+    #         'email_to': maintenance_obj.user_id.email,
+    #         'email_from': self.user_id.email,
+    #         'subject': 'Contract End Date',
+    #     }
+    #     template.body_html = '<p>Dear ${(object.name)},''<br/><br/>Kindly be noted that this sale Order is Confirmed ' + str(
+    #         self.name) +  'Thanks,<br/>' \
+    #                          '${(object.company_id.name)}'
+    #
+    #     template.send_mail(self.user_id.id, force_send=True, email_values=email_values)
 
 
 

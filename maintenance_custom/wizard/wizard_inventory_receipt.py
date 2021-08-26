@@ -21,9 +21,10 @@ class StockInventoryWizard(models.TransientModel):
     des_location_id = fields.Many2one('stock.location', 'Destination Location', required=True, domain=[('usage', '<>', 'view')])
     location_id = fields.Many2one('stock.location', "Location", required=True, domain=[('usage', '<>', 'view')])
     product_id = fields.Many2one('product.product', 'Device', required=True)
-    serial = fields.Char('Serial', required=True)
+    serial = fields.Many2one('stock.production.lot', 'Serial', domain="[('product_id', '=', product_id)]")
     qty = fields.Float('QTY', required=True)
     partner = fields.Many2one('res.partner', required=True)
+    description = fields.Char('description', required=True)
 
     @api.constrains('qty')
     def not_minus(self):
@@ -85,6 +86,7 @@ class SalesOrderWizard(models.TransientModel):
             'company_id': maintenance.picking_id.company_id.id,
             'partner_id': maintenance.picking_id.partner_id.id,
             'date_order': self.date_order,
+            # 'description': maintenance.name,
         })
         for line in maintenance.picking_id.move_ids_without_package:
             sol = self.env['sale.order.line'].create({

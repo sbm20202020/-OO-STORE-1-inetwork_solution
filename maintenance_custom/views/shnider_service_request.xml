@@ -3,18 +3,22 @@
         <record id="shnider_service_request_view" model="ir.ui.view">
             <field name="name">hr.equipment.request.view.form.inherit</field>
             <field name="model">maintenance.request</field>
+            <field name="priority" eval="100"/>
             <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="placeholder"> </attribute>
+                </xpath>
                 <xpath expr="//button[@name='archive_equipment_request']" position="after">
                     <button type="object" name="action_test"
                             string="Test"
-                            attrs="{'invisible': ['&amp;','|',('type','!=','shnider'),('shnider_stage_id','!=','fixable'),('shnider_stage_id','!=','create_DO_to_MT')]}"/>
+                            attrs="{'invisible': ['&amp;','|',('type','!=','shnider'),('shnider_stage_id','!=','fixable'),('shnider_stage_id','!=','create_DO_to_MT')]}" groups="maintenance_custom.group_maintenance_manager"/>
                     <button type="object" name="action_create_invoice"
                             string="Create CI"
                             attrs="{'invisible': ['&amp;','|',('type','!=','shnider'),('shnider_stage_id','!=','created_DO'),('shnider_stage_id','!=','create_DO_to_Shnider')]}"/>
                     <button type="object" name="action_replace"
                             string="Replace"
-                            attrs="{'invisible': ['|',('type','!=','shnider'),('shnider_stage_id','!=','not_fixable')]}"/>
+                            attrs="{'invisible': ['|',('type','!=','shnider'),('shnider_stage_id','!=','not_fixable')]}" groups="maintenance_custom.group_maintenance_manager"/>
                     <button type="object" name="action_not_replace"
                             string="Not Replace"
                             attrs="{'invisible': ['|',('type','!=','shnider'),('shnider_stage_id','!=','not_fixable')]}"/>
@@ -26,7 +30,7 @@
                             attrs="{'invisible': ['|',('replaced','!=',True),('shnider_stage_id','!=', 'tested')]}"/>
                 </xpath>
                 <xpath expr="//field[@name='stage_id']" position="after">
-                    <field name="shnider_stage_id"  widget="statusbar" options="{'clickable': '1'}" attrs="{'invisible':[('type','=','standard')]}"/>
+                    <field name="shnider_stage_id"  widget="statusbar" attrs="{'invisible':[('type','=','standard')]}"/>
                 </xpath>
                 <xpath expr="//field[@name='stage_id']" position="attributes">
                     <attribute name="attrs">{'invisible':[('type','=','shnider')]}</attribute>
@@ -72,9 +76,9 @@
                 </xpath>
                 <xpath expr="//field[@name='email_cc']" position="after">
                     <field name="type" readonly="1"/>
-                    <field name="invoice_id" attrs="{'invisible':[('type','!=','shnider')]}"/>
-                    <field name="delivery_order_id_to_MT" attrs="{'invisible':[('type','!=','shnider')]}"/>
-                    <field name="delivery_order_id_to_shnider" attrs="{'invisible':[('type','!=','shnider')]}"/>
+                    <field name="invoice_id" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1"/>
+                    <field name="delivery_order_id_to_MT" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1"/>
+                    <field name="delivery_order_id_to_shnider" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1"/>
                     <field name="replaced" invisible="1"/>
                     <field name="fixable" invisible="1"/>
                 </xpath>
@@ -175,7 +179,7 @@
         </field>
     </record>
         <record id="action_shnider_service_request" model="ir.actions.act_window">
-            <field name="name">Shnider Service Request</field>
+            <field name="name">Schneider Service Request</field>
             <field name="res_model">maintenance.request</field>
             <field name="view_mode">kanban,tree,form,pivot,graph,calendar</field>
             <field name="view_id" ref="shnider_service_request_view_kanban"/>

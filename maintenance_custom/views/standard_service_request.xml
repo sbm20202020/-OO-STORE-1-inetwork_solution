@@ -5,12 +5,6 @@
             <field name="model">maintenance.request</field>
             <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form" position="attributes">
-                    <attribute name="string">Standard service request</attribute>
-                </xpath>
-                <xpath expr="//field[@name='name']" position="attributes">
-                    <attribute name="placeholder">Standard service request</attribute>
-                </xpath>
                 <xpath expr="//field[@name='stage_id']" position="replace">
                     <field name="stage_id" widget="statusbar" attrs="{'invisible': [('archive', '=', True)]}"/>
                 </xpath>
@@ -36,10 +30,10 @@
                             attrs="{'invisible': ['|',('stage_name', '!=', 'fixable'),('type','=','shnider')]}"/>
                     <button type="object" name="action_tested"
                             string="Test"
-                            attrs="{'invisible': [('stage_name', '!=', 'Created SO')]}"/>
+                            attrs="{'invisible': [('stage_name', '!=', 'Created SO')]}" groups="maintenance_custom.group_maintenance_manager"/>
                     <button type="object" name="action_closed"
                             string="Close"
-                            attrs="{'invisible': [('stage_name', '!=', 'Tested')]}"/>
+                            attrs="{'invisible': [('stage_name', '!=', 'Tested')]}" groups="maintenance_custom.group_maintenance_manager"/>
                     <button type="object" name="action_create_delivery_order"
                             string="Create DO"
                             attrs="{'invisible': ['&amp;',('stage_name', '!=', 'Closed'),('shnider_stage_id','!=', 'tested')]}"/>
@@ -63,6 +57,12 @@
                 <xpath expr="//field[@name='maintenance_type']" position="replace">
                     <field name="maintenance_type" invisible="1"/>
                 </xpath>
+                <xpath expr="//field[@name='schedule_date']" position="replace">
+                    <field name="schedule_date" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='close_date']" position="replace">
+                    <field name="close_date" invisible="1"/>
+                </xpath>
             </field>
         </record>
 
@@ -81,6 +81,17 @@
                 <p>
                     Follow the process of the request and communicate with the collaborator.
                 </p>
+            </field>
+        </record>
+
+        <record id="maintenance_request_view_form_inherit_hr_inetwork" model="ir.ui.view">
+            <field name="name">maintenance.equipment.request.view.form.inherit</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="hr_maintenance.maintenance_request_view_form_inherit_hr"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="replace">
+                    <field name="employee_id" readonly="1"/>
+                </xpath>
             </field>
         </record>
 

@@ -95,5 +95,12 @@
             </field>
         </record>
 
+        <menuitem
+        id="maintenance.menu_maintenance_title"
+        name="Maintenance"
+        web_icon="maintenance,static/description/icon.png"
+        groups="maintenance.group_equipment_manager"
+        sequence="110"/>
+
     </data>
 </odoo>

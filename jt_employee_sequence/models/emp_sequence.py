@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 
 
 class HREmployee(models.Model):
@@ -30,27 +30,9 @@ class HREmployee(models.Model):
     _description = "Generate employee sequence id"
 
     emp_id = fields.Char("Employee Id")
-    emp_sequence_id = fields.Many2one('ir.sequence', 'Employee Sequence',default=lambda self: self.env['ir.sequence'].search([('code','=','seqemp.seqemp')]).id)
 
-    def name_get(self):
-        res = super(HREmployee, self).name_get()
-        for employee in self:
-            name = employee.name
-            if employee.emp_id:
-                name = "%s [%s]" % (employee.name, employee.emp_id)
-            res.append((employee.id, name))
-        return res
-
-    @api.model
-    def create(self, values):
-        values['emp_id'] = self.env[
-            'ir.sequence'].next_by_code('seqemp.seqemp')
-        values['emp_sequence_id'] = self.env[
-            'ir.sequence'].search([('code','=','seqemp.seqemp')]).id
-        return super(HREmployee, self).create(values)
-
-
-
-class HrContract(models.Model):
-    _inherit= 'hr.contract'
-    emp_id = fields.Char("Employee Id", related="employee_id.emp_id", store=True)
+    # @api.model
+    # def create(self, values):
+    #     values['emp_id'] = self.env[
+    #         'ir.sequence'].next_by_code('seqemp.seqemp')
+    #     return super(HREmployee, self).create(values)

@@ -12,6 +12,7 @@ class MaintenanceStage(models.Model):
     _inherit = ['maintenance.request', 'mail.thread', 'mail.activity.mixin']
 
     type = fields.Selection([('standard', 'standard'), ('shnider', 'Shnider')], 'Type')
+
     picking_id = fields.Many2one('stock.picking', string='Receipts', copy=False, store=True)
     sales_order_id = fields.Many2one('sale.order', 'Sales Order', copy=False, store=True)
     delivery_order_id = fields.Many2one('stock.picking', string='Delivery Order', copy=False, store=True)
@@ -28,6 +29,9 @@ class MaintenanceStage(models.Model):
     ], related='picking_id.state')
     priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Medium'), ('3', 'High')], string='Priority')
     request_date = fields.Date('Request Date', related='equipment_id.assign_date')
+    confirm_user_id=fields.Many2one('res.users',string='confirmed user', readonly=1)
+    confirm_date=fields.Date('confirm date')
+
     # @api.onchange('user_id')
     # def onchange_company_id(self):
     #     users = self.env.ref('maintenance_custom.group_maintenance_manager').users.ids
@@ -205,7 +209,12 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).action_confirm()
         ir_model_data = self.env['ir.model.data']
         template_res = self.env['mail.template']
-        maintenance_obj = self.env['maintenance.request'].search([('sales_order_id', '=', self.id)])
+        maintenance_obj =self.env['maintenance.request'].search([('sales_order_id', '=', self.id)])
+
+        # add by marwa
+        for rec in maintenance_obj:
+            rec.confirm_user_id=self.env.user.id
+            rec.confirm_date=fields.Date.today()
 
         # users = self.env['res.users'].search([])
         # contracts = self.search([])

@@ -6,7 +6,7 @@ from odoo import models, fields, api
 class MaintenanceStage(models.Model):
     _inherit = 'maintenance.request'
 
-    contact_name=fields.Char(String='Customer Contact Name')
+    contact_name=fields.Char(String='Contact')
     symptoms_description = fields.Char(String='Symptoms description ')
     assessment_performed = fields.Char(String='Assessment performed ')
     observations = fields.Char(String='Observations ')
@@ -14,8 +14,8 @@ class MaintenanceStage(models.Model):
     recommendations_further= fields.Char(String='Recommendations and Further Actions ')
     quantity=fields.Float(default='1')
     initial_amount= fields.Float(string='Entitled Amount')
-    partner_id=fields.Many2one('res.partner',string='Customer')
-    service = fields.Char("service ")
+    partner_id=fields.Char(string='Customer')
+    service = fields.Char("service")
 
     end_user_name = fields.Char(String='End User Name ')
     issue_problem = fields.Char(String='Issue/Problem Description ')
@@ -27,6 +27,7 @@ class MaintenanceStage(models.Model):
     end_user_date=fields.Date('Date End user Obtained Replacement')
     service_request_number=fields.Char('Service Request Number')
     rma_number=fields.Char('RMA Number')
+    serial = fields.Char(String='Serial')
 
 
     total_price=fields.Float(compute='calc_total_price')

@@ -282,13 +282,16 @@ class BranchRefundtDataXls(models.AbstractModel):
                 else:
                     worksheet.write(row, col + 9, ' ', header4_format)
 
-                if line.total_price:
-                    worksheet.write(row, col + 10, sum([rec.lst_price for rec in line.product_ids]), header4_format)
+                if line.product_id:
+                    # worksheet.write(row, col + 10, sum([rec.lst_price for rec in line.product_ids]), header4_format)
+                    worksheet.write(row, col + 10, line.product_id.lst_price, header4_format)
+                    total+=line.product_id.lst_price
+
+
                 else:
                     worksheet.write(row, col + 10, ' ', header4_format)
 
-                for rec in line.product_ids:
-                    total+=rec.lst_price
+
 
                 row += 1
 

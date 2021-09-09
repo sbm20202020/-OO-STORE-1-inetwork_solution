@@ -20,6 +20,7 @@
         'views/maintenance_view.xml',
         'wizard/single_phase_report.xml',
         'wizard/single_phase_wiz.xml',
+        'reports/mr_report.xml',
     ],
 
 }

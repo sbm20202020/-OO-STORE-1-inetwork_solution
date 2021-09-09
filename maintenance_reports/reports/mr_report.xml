@@ -4,7 +4,7 @@
          <template id="mr_report_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="web.external_layout">
+                    <t t-call="maintenance_reports.external_layout_custom">
                         <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
                         <div class="page">
                             <h1 t-field="o.name" align="center">

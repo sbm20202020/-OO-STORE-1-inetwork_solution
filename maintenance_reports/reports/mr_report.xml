@@ -7,10 +7,10 @@
                     <t t-call="maintenance_reports.external_layout_custom">
                         <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
                         <div class="page">
-                            <h1 t-field="o.name" align="center">
+                            <h4 t-field="o.name" align="center">
 
-                            </h1>
-                            <table  style="font-size:14px;font-weight:normal;color:#000080">
+                            </h4>
+                            <table  style="font-size:14px;font-weight:normal;">
                                     <thead>
 
                                         <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;width:900px;height:5px;">
@@ -145,7 +145,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span>Product:</span>
+                                                        <span>Part Number:</span>
 
 
                                                     </td>

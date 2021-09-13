@@ -8,7 +8,7 @@
 
                 <xpath expr="//form/sheet/notebook/page[1]" position="after">
 
-                        <page string="Inspection" attrs="{'invisible':[('stage_name','!=','Inspection')]}">
+                        <page string="Inspection" attrs="{'invisible':[('stage_name','=','New Request')]}">
                             <group>
                                 <field name="symptoms_description" attrs="{'required':[('stage_name','=','Inspection')]}"/>
                                 <field name="assessment_performed" attrs="{'required':[('stage_name','=','Inspection')]}"/>

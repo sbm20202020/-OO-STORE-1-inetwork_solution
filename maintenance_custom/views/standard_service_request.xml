@@ -1,5 +1,15 @@
 <odoo>
     <data>
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.view.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="replace">
+                    <field name="origin" placeholder="e.g. PO0032" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
         <record id="hr_equipment_request_view_form_inherit" model="ir.ui.view">
             <field name="name">hr.equipment.request.view.form.inherit</field>
             <field name="model">maintenance.request</field>
@@ -8,14 +18,14 @@
                 <xpath expr="//field[@name='stage_id']" position="replace">
                     <field name="stage_id" widget="statusbar" attrs="{'invisible': [('archive', '=', True)]}"/>
                 </xpath>
-                <xpath expr="//button[@name='archive_equipment_request']" position="replace">
-                    <button string="Cancel" name="archive_equipment_request" type="object" invisible="1"/>
-                </xpath>
+<!--                <xpath expr="//button[@name='archive_equipment_request']" position="replace">-->
+<!--                    <button string="Cancel" name="archive_equipment_request" type="object" invisible="1"/>-->
+<!--                </xpath>-->
                 <xpath expr="//button[@name='archive_equipment_request']" position="after">
                     <button type="action" name="%(maintenance_custom.act_menu_receipt)d"
                             string="Receipt"
                             domain="[('stage_id.done', '=', False)]" attrs="{'invisible': [('receipt_created', '=', True)]}"/>
-                    <button type="object" name="action_inspection"
+                    <button type="action" name="%(maintenance_custom.act_menu_inspection)d"
                             string="Inspection"
                             attrs="{'invisible': ['|','|','|',('receipt_created', '=', False), ('stage_name', '!=', 'New Request'), ('shnider_stage_id', '!=', 'new_request'),('picking_id_stage', '!=', 'done')]}"/>
                     <button type="object" name="action_fixable"
@@ -30,13 +40,16 @@
                             attrs="{'invisible': ['|',('stage_name', '!=', 'fixable'),('type','=','shnider')]}"/>
                     <button type="object" name="action_tested"
                             string="Test"
-                            attrs="{'invisible': [('stage_name', '!=', 'Created SO')]}" groups="maintenance_custom.group_maintenance_manager"/>
+                            attrs="{'invisible': [('stage_name', '!=', 'Confirmed SO')]}" groups="maintenance_custom.group_maintenance_manager"/>
                     <button type="object" name="action_closed"
                             string="Close"
                             attrs="{'invisible': [('stage_name', '!=', 'Tested')]}" groups="maintenance_custom.group_maintenance_manager"/>
                     <button type="object" name="action_create_delivery_order"
                             string="Create DO"
                             attrs="{'invisible': ['&amp;',('stage_name', '!=', 'Closed'),('shnider_stage_id','!=', 'tested')]}"/>
+                    <button type="object" name="action_create_invoice"
+                            string="Create CI"
+                            attrs="{'invisible': ['|','|',('type','=','shnider'),('archive','=', False), ('stage_name','=', 'Created CI')]}"/>
                 </xpath>
                 <xpath expr="//sheet/div[@class='oe_right']" position="after">
                     <div class="oe_button_box" name="button_box">
@@ -54,6 +67,9 @@
                     <field name="delivery_order_id" readonly="1"/>
                     <field name="picking_id_stage" invisible="1"/>
                 </xpath>
+                <xpath expr="//field[@name='request_date']" position="after">
+                    <field name="site"/>
+                </xpath>
                 <xpath expr="//field[@name='maintenance_type']" position="replace">
                     <field name="maintenance_type" invisible="1"/>
                 </xpath>
@@ -63,6 +79,10 @@
                 <xpath expr="//field[@name='close_date']" position="replace">
                     <field name="close_date" invisible="1"/>
                 </xpath>
+                <xpath expr="//span[@class='ml8']" position="replace">
+                    <span class="ml-2">days</span>
+                </xpath>
+
             </field>
         </record>
 

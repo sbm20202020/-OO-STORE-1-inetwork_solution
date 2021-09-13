@@ -28,9 +28,10 @@ class MaintenanceStage(models.Model):
         ('cancel', 'Cancelled'),
     ], related='picking_id.state')
     priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Medium'), ('3', 'High')], string='Priority')
-    request_date = fields.Date('Request Date', related='equipment_id.assign_date')
+    # request_date = fields.Date('Request Date', related='equipment_id.assign_date')
     confirm_user_id=fields.Many2one('res.users',string='confirmed user', readonly=1)
     confirm_date=fields.Date('confirm date')
+    site = fields.Char('Site', required=True)
 
     # @api.onchange('user_id')
     # def onchange_company_id(self):
@@ -56,16 +57,16 @@ class MaintenanceStage(models.Model):
             self.category_id = self.equipment_id.category_id
             if self.equipment_id.maintenance_team_id:
                 self.maintenance_team_id = self.equipment_id.maintenance_team_id.id
-            if self.equipment_id.assign_date:
-                self.request_date = self.equipment_id.assign_date
+            # if self.equipment_id.assign_date:
+            #     self.request_date = self.equipment_id.assign_date
 
-    def action_inspection(self):
-        if self.type == 'standard':
-            stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Inspection')])
-            self.stage_id = stage_obj.id
-        else:
-            self.shnider_stage_id = 'inspection'
-        self.stage_name = 'Inspection'
+    # def action_inspection(self):
+    #     if self.type == 'standard':
+    #         stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Inspection')])
+    #         self.stage_id = stage_obj.id
+    #     else:
+    #         self.shnider_stage_id = 'inspection'
+    #     self.stage_name = 'Inspection'
         # threaded_calculation = threading.Thread(target=self._procure_calculation_orderpoint, args=())
         # threaded_calculation.start()
         # notification_ids = []
@@ -139,8 +140,8 @@ class MaintenanceStage(models.Model):
             'origin': self.name,
             'partner_id': picking_id.partner_id.id,
             'picking_type_code': 'outgoing',
-            'location_id': picking_id.location_id.id,
-            'location_dest_id': picking_id.location_dest_id.id,
+            'location_id': picking_id.location_dest_id.id,
+            'location_dest_id': picking_id.location_id.id,
             # 'group_id': self.rma_id.order_id.procurement_group_id.id,
         })
         for line in picking_id.move_ids_without_package:
@@ -205,6 +206,7 @@ class MaintenanceStage(models.Model):
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
         ir_model_data = self.env['ir.model.data']
@@ -215,51 +217,9 @@ class SaleOrder(models.Model):
         for rec in maintenance_obj:
             rec.confirm_user_id=self.env.user.id
             rec.confirm_date=fields.Date.today()
-
-        # users = self.env['res.users'].search([])
-        # contracts = self.search([])
-        # contract_list = []
-
-        template_id = ir_model_data.get_object_reference('maintenance_custom',
-                                                         'sales_order_confirmation_template')[1]
-        template = template_res.browse(template_id)
-
-        email_values = {
-            'email_to': maintenance_obj.user_id.email,
-            'email_from': res.user_id.email,
-            'subject': 'Sales Order Confirmed',
-        }
-        template.body_html = '<p>Dear ${(object.name)},''<br/><br/>Kindly be noted that this sale Order is Confirmed ,<br/>' + str(
-            res.name) + 'Thanks,<br/>' \
-                         '${(object.company_id.name)}'
-
-        template.send_mail(res.user_id.id, force_send=True, email_values=email_values)
-        return res
-
-    # def send_email_notification(self):
-    #     ir_model_data = self.env['ir.model.data']
-    #     template_res = self.env['mail.template']
-    #     maintenance_obj = self.env['maintenance.request'].search([('sales_order_id', '=', self.id)])
-    #
-    #     # users = self.env['res.users'].search([])
-    #     # contracts = self.search([])
-    #     # contract_list = []
-    #
-    #     template_id = ir_model_data.get_object_reference('maintenance_custom',
-    #                                                      'sales_order_confirmation_template')[1]
-    #     template = template_res.browse(template_id)
-    #
-    #     email_values = {
-    #         'email_to': maintenance_obj.user_id.email,
-    #         'email_from': self.user_id.email,
-    #         'subject': 'Contract End Date',
-    #     }
-    #     template.body_html = '<p>Dear ${(object.name)},''<br/><br/>Kindly be noted that this sale Order is Confirmed ' + str(
-    #         self.name) +  'Thanks,<br/>' \
-    #                          '${(object.company_id.name)}'
-    #
-    #     template.send_mail(self.user_id.id, force_send=True, email_values=email_values)
-
-
-
-
+            if rec.type == 'standard':
+                stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Confirmed SO')])
+                rec.stage_id = stage_obj.id
+            # else:
+            #     rec.shnider_stage_id = 'confirmed_so'
+            rec.stage_name = 'Confirmed SO'

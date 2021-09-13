@@ -16,7 +16,7 @@ class ShniderServiceRequest(models.Model):
         ('closed_without_fees', 'Closed Without Fees'),
         ('create_DO_to_MT', 'Create DO to MT'),
         ('create_DO_to_Shnider', 'Create DO to Shnider'),
-        ('created_CI', 'Created CI'),
+        # ('created_CI', 'Created CI'),
     ], 'Stage', default='new_request')
     product_ids = fields.Many2many('product.product', string="Products")
     product_id = fields.Many2one('product.product', string="Product")
@@ -66,8 +66,9 @@ class ShniderServiceRequest(models.Model):
                 "price_unit": line.lst_price,
             })
         self.invoice_id = invoice.id
-        if self.type == 'shnider':
-            self.shnider_stage_id = 'created_CI'
+        if self.type == 'standard':
+            stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Created CI')])
+            self.stage_id = stage_obj.id
             self.stage_name = 'Created CI'
         return invoice
 

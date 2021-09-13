@@ -37,5 +37,16 @@
         <field name="fold" eval="False" />
         <field name="done" eval="True" />
     </record>
+    <record id="stage_8" model="maintenance.stage">
+        <field name="name">Confirmed SO</field>
+        <field name="sequence" eval="4" />
+        <field name="fold" eval="False" />
+    </record>
+    <record id="stage_9" model="maintenance.stage">
+        <field name="name">Created CI</field>
+        <field name="sequence" eval="8" />
+        <field name="fold" eval="False" />
+        <field name="done" eval="True" />
+    </record>
 </data>
 </odoo>

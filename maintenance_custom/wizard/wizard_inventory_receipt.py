@@ -19,10 +19,10 @@ class StockInventoryWizard(models.TransientModel):
     picking_type_id = fields.Many2one('stock.picking.type', 'Picking Type',
                                       help="This will determine picking type of outgoing shipment", required=True, default=_get_picking_in)
     des_location_id = fields.Many2one('stock.location', 'Destination Location', required=True, domain=[('usage', '<>', 'view')])
-    location_id = fields.Many2one('stock.location', "Location", required=True, domain=[('usage', '<>', 'view')])
+    location_id = fields.Many2one('stock.location', "Location", required=True, domain=[ ('usage', '=', 'customer')])
     product_id = fields.Many2one('product.product', 'Device', required=True)
-    serial = fields.Many2one('stock.production.lot', 'Serial', domain="[('product_id', '=', product_id)]")
-    qty = fields.Float('QTY', required=True)
+    serial = fields.Char(string='Serial', required=True)
+    qty = fields.Float('QTY', required=True, default=1)
     partner = fields.Many2one('res.partner', required=True)
     description = fields.Char('description', required=True)
 
@@ -48,7 +48,8 @@ class StockInventoryWizard(models.TransientModel):
             'picking_type_code': 'incoming',
             'location_id': self.location_id.id,
             'location_dest_id': self.des_location_id.id,
-            # 'group_id': self.rma_id.order_id.procurement_group_id.id,
+            'x_studio_creation_date': maintenance.request_date,
+            'x_studio_site': maintenance.site,
         })
         x = self.env["stock.move"].create({
             'product_id': self.product_id.id,
@@ -86,20 +87,40 @@ class SalesOrderWizard(models.TransientModel):
             'company_id': maintenance.picking_id.company_id.id,
             'partner_id': maintenance.picking_id.partner_id.id,
             'date_order': self.date_order,
-            # 'description': maintenance.name,
+            'description': maintenance.name,
+            'site_name': maintenance.site,
         })
-        for line in maintenance.picking_id.move_ids_without_package:
-            sol = self.env['sale.order.line'].create({
-                'product_id': line.product_id.id,
-                'order_id': new_order.id,
-                'name': line.product_id.name,
-                'product_uom_qty': float(line.product_uom_qty),
-                'product_uom': line.product_id.uom_id.id,
-                'price_unit': line.product_id.list_price,
-            })
         stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Created SO')])
         maintenance.stage_id = stage_obj.id
         maintenance.stage_name = 'Created SO'
         maintenance.sales_order_id = new_order.id
 
         return new_order
+
+
+class InspectionDataWizard(models.TransientModel):
+    _name = "inspection.data"
+    _description = "Inspection Data"
+
+    symptoms_description = fields.Char(String='Symptoms description ', required=True)
+    assessment_performed = fields.Char(String='Assessment performed ', required=True)
+    observations = fields.Char(String='Observations ', required=True)
+    assessment_results = fields.Char(String='Assessment results and conclusions ', required=True)
+    recommendations_further = fields.Char(String='Recommendations and Further Actions ', required=True)
+
+    def update_inspection_data(self):
+        self.ensure_one()
+        active_id = self._context.get('active_ids', []) or []
+        maintenance = self.env['maintenance.request'].browse(active_id)
+        maintenance.symptoms_description = self.symptoms_description
+        maintenance.assessment_performed = self.assessment_performed
+        maintenance.observations = self.observations
+        maintenance.assessment_results = self.assessment_results
+        maintenance.recommendations_further = self.recommendations_further
+
+        if maintenance.type == 'standard':
+            stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Inspection')])
+            maintenance.stage_id = stage_obj.id
+        else:
+            maintenance.shnider_stage_id = 'inspection'
+        maintenance.stage_name = 'Inspection'

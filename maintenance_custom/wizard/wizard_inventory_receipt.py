@@ -88,7 +88,7 @@ class SalesOrderWizard(models.TransientModel):
             'partner_id': maintenance.picking_id.partner_id.id,
             'date_order': self.date_order,
             # 'description': maintenance.name,
-            'site_name': maintenance.site,
+            # 'site_name': maintenance.site,
         })
         stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Created SO')])
         maintenance.stage_id = stage_obj.id

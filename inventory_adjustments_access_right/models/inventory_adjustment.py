@@ -103,21 +103,21 @@ class StockInventoryLine(models.Model):
     _inherit = 'stock.inventory.line'
     check_activity_sent = fields.Boolean(string='Check Activity Sent', default=False)
 
-    @api.model
-    def create(self, vals):
-        res = super(StockInventoryLine, self).create(vals)
-        users = self.env['res.users'].search([])
-        if vals.get('inventory_id'):
-            inventory_obj = self.env['stock.inventory'].browse(vals.get('inventory_id'))
-            for user in users:
-                if res.check_activity_sent == False and user.has_group(
-                        'inventory_adjustments_access_right.group_inventory_adjustments_access_right') and not user.has_group(
-                    'base.group_system'):
-                    inventory_obj.activity_schedule(
-                        'inventory_adjustments_access_right.schdule_activity_stock_inventory_manager_id',
-                        user_id=user.id,
-                        summary='Inventory Adjustment' + ' ' + str(
-                            inventory_obj.name) + ' ' + 'still not validated')
-                    vals['check_activity_sent'] = True
-
-        return res
+    # @api.model
+    # def create(self, vals):
+    #     res = super(StockInventoryLine, self).create(vals)
+    #     users = self.env['res.users'].search([])
+    #     if vals.get('inventory_id'):
+    #         inventory_obj = self.env['stock.inventory'].browse(vals.get('inventory_id'))
+    #         for user in users:
+    #             if res.check_activity_sent == False and user.has_group(
+    #                     'inventory_adjustments_access_right.group_inventory_adjustments_access_right') and not user.has_group(
+    #                 'base.group_system'):
+    #                 inventory_obj.activity_schedule(
+    #                     'inventory_adjustments_access_right.schdule_activity_stock_inventory_manager_id',
+    #                     user_id=user.id,
+    #                     summary='Inventory Adjustment' + ' ' + str(
+    #                         inventory_obj.name) + ' ' + 'still not validated')
+    #                 vals['check_activity_sent'] = True
+    #
+    #     return res

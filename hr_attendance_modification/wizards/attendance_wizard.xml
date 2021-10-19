@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+         <record id="att_sheet_wizard_from_view" model="ir.ui.view">
+        <field name="name">att.data.wizard.from.view</field>
+        <field name="model">attendance.sheet.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bulk sheets">
+                <sheet>
+<!--                    <group>-->
+<!--                      <field name="company_id" />-->
+<!--                    </group>-->
+                    <group>
+
+                        <group>
+
+                            <field name="date_from" />
+
+                        </group>
+                        <group>
+                              <field name="date_to"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Employess">
+                            <group>
+                                <field name="employees_ids"/>
+                            </group>
+                        </page>
+<!--                           <page string="Positions">-->
+<!--                            <group>-->
+<!--                                <field name="positions_ids"/>-->
+<!--                            </group>-->
+<!--                        </page>-->
+<!--                          <page string="Departments">-->
+<!--                            <group>-->
+<!--                                <field name="department_ids"/>-->
+<!--                            </group>-->
+<!--                        </page>-->
+<!--                            <page string="Branchs">-->
+<!--                            <group>-->
+<!--                                <field name="branch_ids"/>-->
+<!--                            </group>-->
+<!--                        </page>-->
+                    </notebook>
+
+                </sheet>
+                 <footer>
+                      <button name="apply" string="_Apply" type="object" class="btn-primary"/>
+                      <button string="Cancel" class="btn-default" special="cancel" />
+                  </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_Bulk_sheets" model="ir.actions.act_window">
+        <field name="name">Bulk sheets</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attendance.sheet.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="att_sheet_wizard_from_view"/>
+        <field name="target">new</field>
+    </record>
+
+   <menuitem id="menu_bulk_sheet_view" name="Bulk sheets" parent="rm_hr_attendance_sheet.attendance_sheet_menu" action="action_Bulk_sheets" sequence="11"/>
+
+    </data>
+</odoo>

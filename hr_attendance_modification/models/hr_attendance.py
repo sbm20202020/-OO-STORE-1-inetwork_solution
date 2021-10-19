@@ -535,6 +535,7 @@ class AttendanceSheet(models.Model):
                                 s_tem_overtime = 0
                                 s_tem_overtime_value = 0
                                 float_overtime_line = 0
+                                float_overtime1=0
                                 flag = False
                                 flag1 = False
                                 first_sign_out = float(overtime_policy['wd_f_sign_out'])
@@ -630,6 +631,7 @@ class AttendanceSheet(models.Model):
                                     s_tem_overtime = 0
                                     s_tem_overtime_value = 0
                                     float_overtime_line = 0
+                                    float_overtime1=0
                                     flag = False
                                     flag1 = False
                                     first_sign_out = float(overtime_policy['wd_f_sign_out'])

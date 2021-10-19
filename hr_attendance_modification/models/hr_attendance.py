@@ -565,13 +565,13 @@ class AttendanceSheet(models.Model):
                                                 # print('sectemp', s_tem_overtime, s_tem_overtime_value)
                                     elif ac_sign_out >= float(line.request_hour_from) and ac_sign_out <= hour_to:
                                         act_float_overtime = float_overtime
-                                        float_overtime = float_overtime - (f_tem_overtime + s_tem_overtime)
-                                        float_overtime_line = float_overtime * line.rate
+                                        float_overtime1 = float_overtime - (f_tem_overtime + s_tem_overtime)
+                                        float_overtime_line = float_overtime1 * line.rate
                                 float_overtime_line = float_overtime_line + f_tem_overtime_value + s_tem_overtime_value
-                                float_overtime_hour = s_tem_overtime + f_tem_overtime + float_overtime
+                                float_overtime_hour = s_tem_overtime + f_tem_overtime + float_overtime1
                                 if float_overtime_line > 0:
                                     float_overtime = float_overtime_line
-                                    act_float_overtime = act_float_overtime
+                                    act_float_overtime = float_overtime
                                 else:
                                     act_float_overtime = float_overtime = 0
                             else:
@@ -660,13 +660,13 @@ class AttendanceSheet(models.Model):
                                                     # print('sectemp', s_tem_overtime, s_tem_overtime_value)
                                         elif ac_sign_out >= float(line.request_hour_from) and ac_sign_out <= hour_to:
                                             act_float_overtime = float_overtime
-                                            float_overtime = float_overtime - (f_tem_overtime + s_tem_overtime)
-                                            float_overtime_line = float_overtime * line.rate
+                                            float_overtime1 = float_overtime - (f_tem_overtime + s_tem_overtime)
+                                            float_overtime_line = float_overtime1 * line.rate
                                     float_overtime_line = float_overtime_line + f_tem_overtime_value + s_tem_overtime_value
-                                    float_overtime_hour = s_tem_overtime + f_tem_overtime + float_overtime
+                                    float_overtime_hour = s_tem_overtime + f_tem_overtime + float_overtime1
                                     if float_overtime_line > 0:
                                         float_overtime = float_overtime_line
-                                        act_float_overtime = act_float_overtime
+                                        act_float_overtime = float_overtime
                                     else:
                                         act_float_overtime = float_overtime = 0
                                 else:

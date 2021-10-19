@@ -572,7 +572,7 @@ class AttendanceSheet(models.Model):
                                 float_overtime_hour = s_tem_overtime + f_tem_overtime + float_overtime1
                                 if float_overtime_line > 0:
                                     float_overtime = float_overtime_line
-                                    act_float_overtime = float_overtime
+                                    act_float_overtime = float_overtime_hour
                                 else:
                                     act_float_overtime = float_overtime = 0
                             else:
@@ -668,7 +668,7 @@ class AttendanceSheet(models.Model):
                                     float_overtime_hour = s_tem_overtime + f_tem_overtime + float_overtime1
                                     if float_overtime_line > 0:
                                         float_overtime = float_overtime_line
-                                        act_float_overtime = float_overtime
+                                        act_float_overtime = float_overtime_hour
                                     else:
                                         act_float_overtime = float_overtime = 0
                                 else:

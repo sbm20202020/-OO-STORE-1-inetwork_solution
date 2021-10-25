@@ -98,6 +98,8 @@ class AccountWizard(models.TransientModel):
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  WHERE aml.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(data['date_to']) + state +partner+account+\
                      """GROUP BY date_aml,account,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id,due_date,move_id """
+                     """ORDER BY move_id """
+
             cr = self._cr
             tuples=()
             if len(data['account_ids']) > 0 and len(data["partner_ids"]) <=0:
@@ -117,6 +119,8 @@ class AccountWizard(models.TransientModel):
                                  WHERE aml.date < '""" + str(data['date_from']) +\
                       state +partner+account+\
                      """GROUP BY date_aml,account,partner,currency,total_balance,name_aml,partner_id,account_id,due_date,move_id"""
+                     """ORDER BY move_id """
+
             cr = self._cr
             cr.execute(query2,tuples)
             previous_balance = cr.dictfetchall()

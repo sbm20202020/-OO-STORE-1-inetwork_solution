@@ -91,13 +91,13 @@ class AccountWizard(models.TransientModel):
             account= """AND aml.account_id IN %s""" if len(data['account_ids']) > 0 else """"""
             partner = """'AND aml.partner_id IN %s""" if len(data['partner_ids']) > 0 else """'"""
             state = """'AND aml.parent_state ='"""+str('posted') if data['target_move'] == 'posted' else """"""
-            query3 = """SELECT aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as date_aml,aml.date_maturity as due_date,
+            query3 = """SELECT aml.move_id as move_id , aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as date_aml,aml.date_maturity as due_date,
                         aml.debit AS total_debit, aml.credit AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
                                  INNER JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
                                  LEFT JOIN res_currency cc ON cc.id = aa.currency_id
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  WHERE aml.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(data['date_to']) + state +partner+account+\
-                     """GROUP BY name_aml,date_aml,account,partner,currency,total_debit,total_credit,total_balance,partner_id,account_id,due_date"""
+                     """GROUP BY move_id , name_aml,date_aml,account,partner,currency,total_debit,total_credit,total_balance,partner_id,account_id,due_date"""
             cr = self._cr
             tuples=()
             if len(data['account_ids']) > 0 and len(data["partner_ids"]) <=0:
@@ -109,14 +109,14 @@ class AccountWizard(models.TransientModel):
             cr.execute(query3,tuples)
             fetched_data = cr.dictfetchall()
 
-            query2 = """SELECT aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
+            query2 = """SELECT aml.move_id as move_id , aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
                         sum(aml.debit) AS total_debit, sum(aml.credit) AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
                                  INNER JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
                                  LEFT JOIN res_currency cc ON cc.id = aa.currency_id
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  WHERE aml.date < '""" + str(data['date_from']) +\
                       state +partner+account+\
-                     """GROUP BY name_aml,due_date,account,partner,currency,total_balance,partner_id,account_id"""
+                     """GROUP BY move_id , name_aml,due_date,account,partner,currency,total_balance,partner_id,account_id"""
             cr = self._cr
             cr.execute(query2,tuples)
             previous_balance = cr.dictfetchall()

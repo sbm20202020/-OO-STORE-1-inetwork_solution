@@ -116,7 +116,7 @@ class AccountWizard(models.TransientModel):
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  WHERE aml.date < '""" + str(data['date_from']) +\
                       state +partner+account+\
-                     """GROUP BY move_id , name_aml,due_date,account,partner,currency,total_balance,partner_id,account_id"""
+                     """GROUP BY move_id , due_date,account,partner,currency,total_balance, name_aml,partner_id,account_id"""
             cr = self._cr
             cr.execute(query2,tuples)
             previous_balance = cr.dictfetchall()

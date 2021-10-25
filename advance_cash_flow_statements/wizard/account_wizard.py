@@ -282,8 +282,6 @@ class AccountWizard(models.TransientModel):
         sheet.write('I10', '', opening_balance)
 
 
-        print('fetched_data_list',fetched_data_list)
-#         sorted(fetched_data_list,key=lambda self: self.move_id)
         for i in fetched_data_list:
             if data['levels'] == 'summary':
                 sheet.write(row_num + 1, col_num,str(datetime.strptime(str(i['date_aml']), '%Y-%m-%d').date()) if i['date_aml'] !=None else None, txt_left)

@@ -97,8 +97,9 @@ class AccountWizard(models.TransientModel):
                                  LEFT JOIN res_currency cc ON cc.id = aa.currency_id
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  WHERE aml.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(data['date_to']) + state +partner+account+\
-                     """GROUP BY date_aml,account,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id,due_date,move_id """
-                     """ORDER BY move_id """
+                     """GROUP BY date_aml,account,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id,due_date,move_id 
+                     ORDER BY move_id desc"""
+                     
 
             cr = self._cr
             tuples=()
@@ -118,8 +119,9 @@ class AccountWizard(models.TransientModel):
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  WHERE aml.date < '""" + str(data['date_from']) +\
                       state +partner+account+\
-                     """GROUP BY date_aml,account,partner,currency,total_balance,name_aml,partner_id,account_id,due_date,move_id"""
-                     """ORDER BY move_id """
+                     """GROUP BY date_aml,account,partner,currency,total_balance,name_aml,partner_id,account_id,due_date,move_id  
+                     ORDER BY move_id desc"""
+
 
             cr = self._cr
             cr.execute(query2,tuples)

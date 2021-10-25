@@ -283,7 +283,7 @@ class AccountWizard(models.TransientModel):
 
 
 
-        for i in sorted(fetched_data_list,key=move_id):
+        for i in sorted(fetched_data_list,key=lambda self: self.move_id):
             if data['levels'] == 'summary':
                 sheet.write(row_num + 1, col_num,str(datetime.strptime(str(i['date_aml']), '%Y-%m-%d').date()) if i['date_aml'] !=None else None, txt_left)
                 sheet.write(row_num + 1, col_num+1,str(datetime.strptime(str(i['due_date']), '%Y-%m-%d').date()) if i['due_date'] !=None else None, txt_left)

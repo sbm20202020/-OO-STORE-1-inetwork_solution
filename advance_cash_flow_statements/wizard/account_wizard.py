@@ -97,7 +97,7 @@ class AccountWizard(models.TransientModel):
                                  LEFT JOIN res_currency cc ON cc.id = aa.currency_id
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  WHERE aml.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(data['date_to']) + state +partner+account+\
-                     """GROUP BY date_aml,account,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id,due_date,move_id"""
+                     """GROUP BY move_id ,date_aml,account,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id,due_date"""
             cr = self._cr
             tuples=()
             if len(data['account_ids']) > 0 and len(data["partner_ids"]) <=0:
@@ -116,7 +116,7 @@ class AccountWizard(models.TransientModel):
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  WHERE aml.date < '""" + str(data['date_from']) +\
                       state +partner+account+\
-                     """GROUP BY  account,partner,currency,total_balance,name_aml,partner_id,account_id,due_date,move_id"""
+                     """GROUP BY  move_id , account,partner,currency,total_balance,name_aml,partner_id,account_id,due_date"""
             cr = self._cr
             cr.execute(query2,tuples)
             previous_balance = cr.dictfetchall()
@@ -282,8 +282,9 @@ class AccountWizard(models.TransientModel):
         sheet.write('I10', '', opening_balance)
 
 
-
-        for i in sorted(fetched_data_list,key=lambda self: self.move_id):
+        print('fetched_data_list',fetched_data_list)
+#         sorted(fetched_data_list,key=lambda self: self.move_id)
+        for i in fetched_data_list:
             if data['levels'] == 'summary':
                 sheet.write(row_num + 1, col_num,str(datetime.strptime(str(i['date_aml']), '%Y-%m-%d').date()) if i['date_aml'] !=None else None, txt_left)
                 sheet.write(row_num + 1, col_num+1,str(datetime.strptime(str(i['due_date']), '%Y-%m-%d').date()) if i['due_date'] !=None else None, txt_left)

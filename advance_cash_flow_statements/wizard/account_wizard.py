@@ -109,7 +109,7 @@ class AccountWizard(models.TransientModel):
             cr.execute(query3,tuples)
             fetched_data = cr.dictfetchall()
 
-            query2 = """SELECT aml.move_id as move_id , aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as due_date,
+            query2 = """SELECT aml.move_id as move_id , aml.account_id as account_id ,aa.name as account ,aml.name as name_aml,cc.name as currency,pp.name as partner,aml.partner_id as partner_id,aml.date as date_aml,aml.date_maturity as due_date,
                         sum(aml.debit) AS total_debit, sum(aml.credit) AS total_credit,aml.balance AS total_balance FROM account_move_line as aml
                                  INNER JOIN account_account aa ON aa.id = aml.account_id and aa.is_cash_flow = True
                                  LEFT JOIN res_currency cc ON cc.id = aa.currency_id

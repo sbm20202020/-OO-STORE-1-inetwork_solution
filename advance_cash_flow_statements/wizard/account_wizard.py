@@ -98,7 +98,7 @@ class AccountWizard(models.TransientModel):
                                  LEFT JOIN res_partner pp ON pp.id = aml.partner_id
                                  WHERE aml.date BETWEEN '""" + str(data['date_from']) + """' and '""" + str(data['date_to']) + state +partner+account+\
                      """GROUP BY date_aml,account,partner,currency,total_debit,total_credit,total_balance,name_aml,partner_id,account_id,due_date,move_id 
-                     ORDER BY move_id desc"""
+                     ORDER BY move_id ASC"""
                      
 
             cr = self._cr
@@ -120,7 +120,7 @@ class AccountWizard(models.TransientModel):
                                  WHERE aml.date < '""" + str(data['date_from']) +\
                       state +partner+account+\
                      """GROUP BY date_aml,account,partner,currency,total_balance,name_aml,partner_id,account_id,due_date,move_id  
-                     ORDER BY move_id desc"""
+                     ORDER BY move_id ASC"""
 
 
             cr = self._cr

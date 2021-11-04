@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- FORM VIEW  -->
+
+    <record id="kpi_user_view_tree_new" model="ir.ui.view">
+        <field name="name">kpi.user.tree</field>
+        <field name="model">kpi.user</field>
+        <field name="arch" type="xml">
+            <tree decoration-bf="state in ['draft']" decoration-danger="state in ['validate']">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="commission_amount"/>
+                <field name="state"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="kpi_user_view_form_new" model="ir.ui.view">
+        <field name="name">kpi.user.form</field>
+        <field name="model">kpi.user</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="validate" groups="commission_kpi.kpi_validate_group" string="Validate" type="object"
+                            states="draft" class="oe_highlight"/>
+<!--                    <button name="cancel" string="Cancel" type="object" states="draft"/>-->
+<!--                    <button name="set_to_draft" string="Set To Draft" type="object" states="cancel"/>-->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validate"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                     <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="user_id"/>
+                            <field name="commission_amount"/>
+                            <field name="user_id_kpi" invisible="1"/>
+
+
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="KPI">
+                            <group string="Sales Volume">
+                                <field name="sales_volume" nolabel="1" widget="one2many">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="basic" widget="Percent" sum="True"/>
+                                        <field name="actual" widget="Percent" sum="Actual"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic_sales_volume" widget="Percent"/>
+                                    <field name="total_actual_sales_volume" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                            <group string="Performance">
+                                <field name="performance_value" nolabel="1" widget="one2many">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="basic" sum="Basic"/>
+                                        <field name="actual" sum="Actual"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic_performance_value" widget="Percent"/>
+                                    <field name="total_actual_performance_value" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+
+                            <group string="Market Share">
+                                <field name="market_share" nolabel="1" widget="one2many">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="basic" sum="Basic"/>
+                                        <field name="actual" sum="Actual"/>
+
+                                    </tree>
+                                </field>
+                            </group>
+                            <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic_market_share" widget="Percent"/>
+                                    <field name="total_actual_market_share" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+
+                            <group string="Purchase for Company project ( without sales commision)">
+                                <field name="purchase_sales_commision" nolabel="1" widget="one2many">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="basic" sum="Basic"/>
+                                        <field name="actual" sum="Actual"/>
+
+                                    </tree>
+                                </field>
+
+                            </group>
+                            <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic_purchase_sales_commision" widget="Percent"/>
+                                    <field name="total_actual_purchase_sales_commision" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+
+                            <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic" widget="Percent"/>
+                                    <field name="total_actual" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+
+
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- ACTION     -->
+    <record id="view_kpi_filter" model="ir.ui.view">
+            <field name="name">kpi.user.search</field>
+            <field name="model">kpi.user</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="state"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="user" string="User" domain="[]" context="{'group_by': 'user_id'}"/>
+                        <filter name="state" string="state" domain="[]" context="{'group_by': 'state'}"/>
+                    </group>
+
+                </search>
+             </field>
+        </record>
+
+    <record id="kpi_user_action" model="ir.actions.act_window">
+        <field name="name">KPI</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kpi.user</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+      <menuitem  id="kpi_commission_menu"
+              parent="sale.menu_sale_report"
+              name="KPI Commission"
+              sequence="1"
+              groups="commission_kpi.kpi_commission_group"
+
+    />
+    <menuitem action="kpi_user_action" id="kpi_user_menu"
+              parent="commission_kpi.kpi_commission_menu"
+              name="KPI"
+    />
+
+
+</odoo>

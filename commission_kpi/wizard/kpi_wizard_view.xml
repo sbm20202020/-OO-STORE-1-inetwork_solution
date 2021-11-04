@@ -11,7 +11,8 @@
                        <field name="date_to"/>
                     </group>
                     <group>
-                        <field name="quarter" widget="selection"/>
+                        <field name="quarter_date"/>
+                        <field name="kpi_ref_ids" widget="many2many_tags"/>
                     </group>
                 </group>
                 <group>

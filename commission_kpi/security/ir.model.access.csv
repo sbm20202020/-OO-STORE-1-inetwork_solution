@@ -4,4 +4,5 @@ access_sales_volume,sales_volume,model_sales_volume,,1,1,1,1
 access_performance_value,performance_value,model_performance_value,,1,1,1,1
 access_market_share,market_share,model_market_share,,1,1,1,1
 access_purchase_sales_commision,purchase_sales_commision,model_purchase_sales_commision,,1,1,1,1
+access_kpi_user,kpi_user,model_kpi_user,,1,1,1,1
 

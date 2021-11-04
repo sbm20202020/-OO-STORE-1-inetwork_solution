@@ -1,1 +1,1 @@
-from . import kpi_quarter , configration_kpi , res_users
+from . import kpi_quarter , configration_kpi , res_users , kpi_user

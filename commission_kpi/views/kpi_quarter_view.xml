@@ -73,7 +73,7 @@
 
 
     <menuitem  id="kpi_commission_menu"
-              parent="account.menu_finance_reports"
+              parent="sale.menu_sale_report"
               name="KPI Commission"
               sequence="1"
               groups="commission_kpi.kpi_commission_group"

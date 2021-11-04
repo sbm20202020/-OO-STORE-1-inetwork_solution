@@ -11,6 +11,7 @@ class SalesVolume(models.Model):
     basic=fields.Percent(required=True)
     actual=fields.Percent(required=True)
     user_id=fields.Many2one('res.users')
+    kpi_user_id=fields.Many2one('kpi.user')
 
     @api.onchange('actual')
     def onchange_basic(self):
@@ -24,6 +25,8 @@ class PerformanceValue(models.Model):
     basic=fields.Percent(required=True)
     actual=fields.Percent(required=True)
     user_id=fields.Many2one('res.users')
+    kpi_user_id=fields.Many2one('kpi.user')
+
 
     @api.onchange('actual')
     def onchange_basic(self):
@@ -40,6 +43,8 @@ class MarketShare(models.Model):
     basic=fields.Percent(required=True)
     actual=fields.Percent(required=True)
     user_id=fields.Many2one('res.users')
+    kpi_user_id=fields.Many2one('kpi.user')
+
 
     @api.onchange('actual')
     def onchange_basic(self):
@@ -56,6 +61,8 @@ class PurchaseSalesCommision(models.Model):
     basic=fields.Percent(required=True)
     actual=fields.Percent(required=True)
     user_id=fields.Many2one('res.users')
+    kpi_user_id=fields.Many2one('kpi.user')
+
 
     @api.onchange('actual')
     def onchange_basic(self):

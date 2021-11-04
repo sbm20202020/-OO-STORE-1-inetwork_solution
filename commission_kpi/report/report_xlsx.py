@@ -3,6 +3,8 @@ from datetime import datetime, timedelta, date
 from odoo.http import request
 from odoo import api, fields, models, _
 from io import BytesIO
+from odoo.exceptions import ValidationError, UserError
+
 
 
 class PayslipReportDataXls(models.AbstractModel):
@@ -87,12 +89,12 @@ class PayslipReportDataXls(models.AbstractModel):
         worksheet.write('F1', 'SO Number', header2_format)
         worksheet.write('G1', 'Salesperson', header2_format)
         worksheet.write('H1', 'Untaxed Amount', header2_format)
-        worksheet.write('I1', 'PO Number', header2_format)
-        worksheet.write('J1', 'Cost price', header2_format)
-        worksheet.write('K1', 'Net Profit', header2_format)
-        worksheet.write('L1', 'Percentage', header2_format)
-        worksheet.write('M1', 'Commission Percentage', header2_format)
-        worksheet.write('N1', 'Comm Amount', header2_format)
+        # worksheet.write('I1', 'PO Number', header2_format)
+        worksheet.write('I1', 'Cost price', header2_format)
+        worksheet.write('J1', 'Net Profit', header2_format)
+        worksheet.write('K1', 'Percentage', header2_format)
+        worksheet.write('L1', 'Commission Percentage', header2_format)
+        worksheet.write('M1', 'Comm Amount', header2_format)
         row = 1
         col = 0
         if len(wizard_record.sales_person) == 0:
@@ -104,9 +106,10 @@ class PayslipReportDataXls(models.AbstractModel):
                     total_amount_untaxed = 0.0
                     total_cost = 0.0
                     total_actual_kpi = 0
-                    worksheet.merge_range('A' + str(row + 1) + ':' + 'N' + str(row + 1),salesperson.name or '',header2_format)
+                    worksheet.merge_range('A' + str(row + 1) + ':' + 'M' + str(row + 1),salesperson.name or '',header2_format)
                     row +=1
-                    total_actual_kpi = salesperson.total_actual
+
+                    total_actual_kpi = (wizard_record.kpi_ref_ids.filtered(lambda s: s.user_id == salesperson)).total_actual/100
 
                     for invoice in invoices:
                         if invoice.invoice_user_id == salesperson:
@@ -126,30 +129,31 @@ class PayslipReportDataXls(models.AbstractModel):
                                     worksheet.write(row, col + 3,
                                                     str(datetime.strptime(str(invoice.invoice_date), '%Y-%m-%d').date()),
                                                     header3_format)
-                                    worksheet.write(row, col + 4, wizard_record.quarter.name or '', header3_format)
+                                    worksheet.write(row, col + 4, wizard_record.quarter_date or '', header3_format)
                                     worksheet.write(row, col + 5, invoice.invoice_origin or '', header3_format)
                                     worksheet.write(row, col + 6, invoice.invoice_user_id.name or '', header3_format)
                                     worksheet.write(row, col + 7, "{:.2f}".format(product.price_subtotal), header3_format)
-                                    worksheet.write(row, col + 8, '', header3_format)
-                                    worksheet.write(row, col + 9, "{:.2f}".format(cost_product), header3_format)
-                                    worksheet.write(row, col + 10, "{:.2f}".format(product.price_subtotal- cost_product),
+                                    # worksheet.write(row, col + 8, '', header3_format)
+                                    worksheet.write(row, col + 8, "{:.2f}".format(cost_product), header3_format)
+                                    worksheet.write(row, col + 9, "{:.2f}".format(product.price_subtotal- cost_product),
                                                     header3_format)
-                                    worksheet.write(row, col + 11,
+                                    worksheet.write(row, col + 10,
                                                     str("{:.2f}".format(
                                                         (100 - (cost_product / product.price_subtotal*100))) if product.price_subtotal !=0.0 else 0.0) or '' + '%',
                                                     header3_format)
-                                    worksheet.write(row, col + 12, '5.0%', header3_format)
-                                    worksheet.write(row, col + 13,
+                                    worksheet.write(row, col + 11, '5.0%', header3_format)
+                                    worksheet.write(row, col + 12,
                                                     "{:.2f}".format((product.price_subtotal - cost_product) * 5 / 100),
                                                     header3_format)
                                     row += 1
                             if service:
                                for ser in service:
-                                cost_service = sum(value.value / value.quantity for value in
-                                                   self.env['stock.valuation.layer'].search(
-                                                       [(
-                                                        'stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type != 'product' and value.product_id == ser.product_id)
+                                # cost_service = sum(value.value / value.quantity for value in
+                                #                    self.env['stock.valuation.layer'].search(
+                                #                        [(
+                                #                         'stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type != 'product' and value.product_id == ser.product_id)
                                 total_amount_untaxed += ser.price_subtotal
+                                cost_service=ser.price_subtotal * 70/100
                                 total_cost += cost_service
 
 
@@ -159,20 +163,20 @@ class PayslipReportDataXls(models.AbstractModel):
                                 worksheet.write(row, col + 3,
                                                 str(datetime.strptime(str(invoice.invoice_date), '%Y-%m-%d').date()),
                                                 header3_format)
-                                worksheet.write(row, col + 4, wizard_record.quarter.name or '', header3_format)
+                                worksheet.write(row, col + 4, wizard_record.quarter_date or '', header3_format)
                                 worksheet.write(row, col + 5, invoice.invoice_origin or '', header3_format)
                                 worksheet.write(row, col + 6, invoice.invoice_user_id.name or '', header3_format)
                                 worksheet.write(row, col + 7, "{:.2f}".format(ser.price_subtotal), header3_format)
-                                worksheet.write(row, col + 8, '', header3_format)
-                                worksheet.write(row, col + 9, "{:.2f}".format(cost_service), header3_format)
-                                worksheet.write(row, col + 10, "{:.2f}".format(ser.price_subtotal - cost_service),
+                                # worksheet.write(row, col + 8, '', header3_format)
+                                worksheet.write(row, col + 8, "{:.2f}".format(cost_service), header3_format)
+                                worksheet.write(row, col + 9, "{:.2f}".format(ser.price_subtotal - cost_service),
                                                 header3_format)
-                                worksheet.write(row, col + 11,
+                                worksheet.write(row, col + 10,
                                                 str("{:.2f}".format(
                                                     (100 - (cost_service / ser.price_subtotal*100))) if ser.price_subtotal !=0.0 else 0.0) or '' + '%',
                                                 header3_format)
-                                worksheet.write(row, col + 12, '5.0%', header3_format)
-                                worksheet.write(row, col + 13,
+                                worksheet.write(row, col + 11, '5.0%', header3_format)
+                                worksheet.write(row, col + 12,
                                                 "{:.2f}".format((ser.price_subtotal - cost_service) * 5 / 100),
                                                 header3_format)
                                 row += 1
@@ -189,21 +193,21 @@ class PayslipReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 5, '', header4_format)
                     worksheet.write(row, col + 6, '', header4_format)
                     worksheet.write(row, col + 7, "{:.2f}".format(total_amount_untaxed), header4_format)
-                    worksheet.write(row, col + 8, '', header4_format)
-                    worksheet.write(row, col + 9, "{:.2f}".format(total_cost), header4_format)
-                    worksheet.write(row, col + 10, "{:.2f}".format(total_net_profit), header4_format)
-                    worksheet.write(row, col + 11, str("{:.2f}".format(total_percentage)) or '' + '%', header4_format)
-                    worksheet.write(row, col + 12, '', header4_format)
-                    worksheet.write(row, col + 13, "{:.2f}".format(total_comm_amount), header4_format)
+                    # worksheet.write(row, col + 8, '', header4_format)
+                    worksheet.write(row, col + 8, "{:.2f}".format(total_cost), header4_format)
+                    worksheet.write(row, col + 9, "{:.2f}".format(total_net_profit), header4_format)
+                    worksheet.write(row, col + 10, str("{:.2f}".format(total_percentage)) or '' + '%', header4_format)
+                    worksheet.write(row, col + 11, '', header4_format)
+                    worksheet.write(row, col + 12, "{:.2f}".format(total_comm_amount), header4_format)
 
                     row += 1
-                    worksheet.write(row, col + 11, (str("{:.2f}".format(total_actual_kpi)) or '')+ '%', header3_format)
-                    worksheet.write(row, col + 12, 'After KPI', header3_format)
-                    worksheet.write(row, col + 13, "{:.2f}".format(after_kpi), header3_format)
+                    worksheet.write(row, col + 10, (str("{:.2f}".format(total_actual_kpi)) or '')+ '%', header3_format)
+                    worksheet.write(row, col + 11, 'After KPI', header3_format)
+                    worksheet.write(row, col + 12, "{:.2f}".format(after_kpi), header3_format)
 
                     row += 1
-                    worksheet.write(row, col + 12, 'Net After Taxs', header3_format)
-                    worksheet.write(row, col + 13, "{:.2f}".format(net_after_taxs), header3_format)
+                    worksheet.write(row, col + 11, 'Net After Taxs', header3_format)
+                    worksheet.write(row, col + 12, "{:.2f}".format(net_after_taxs), header3_format)
                     row += 1
 
 
@@ -216,9 +220,9 @@ class PayslipReportDataXls(models.AbstractModel):
                     total_amount_untaxed = 0.0
                     total_cost = 0.0
                     total_actual_kpi = 0
-                    worksheet.merge_range('A' + str(row + 1) + ':' + 'N' + str(row + 1),salesperson.name or '',header2_format)
+                    worksheet.merge_range('A' + str(row + 1) + ':' + 'M' + str(row + 1),salesperson.name or '',header2_format)
                     row +=1
-                    total_actual_kpi = salesperson.total_actual
+                    total_actual_kpi = (wizard_record.kpi_ref_ids.filtered(lambda s: s.user_id == salesperson)).total_actual/100
 
                     for invoice in invoices:
                         if invoice.invoice_user_id == salesperson:
@@ -238,30 +242,31 @@ class PayslipReportDataXls(models.AbstractModel):
                                     worksheet.write(row, col + 3,
                                                     str(datetime.strptime(str(invoice.invoice_date), '%Y-%m-%d').date()),
                                                     header3_format)
-                                    worksheet.write(row, col + 4, wizard_record.quarter.name or '', header3_format)
+                                    worksheet.write(row, col + 4, wizard_record.quarter_date or '', header3_format)
                                     worksheet.write(row, col + 5, invoice.invoice_origin or '', header3_format)
                                     worksheet.write(row, col + 6, invoice.invoice_user_id.name or '', header3_format)
                                     worksheet.write(row, col + 7, "{:.2f}".format(product.price_subtotal), header3_format)
-                                    worksheet.write(row, col + 8, '', header3_format)
-                                    worksheet.write(row, col + 9, "{:.2f}".format(cost_product), header3_format)
-                                    worksheet.write(row, col + 10, "{:.2f}".format(product.price_subtotal- cost_product),
+                                    # worksheet.write(row, col + 8, '', header3_format)
+                                    worksheet.write(row, col + 8, "{:.2f}".format(cost_product), header3_format)
+                                    worksheet.write(row, col + 9, "{:.2f}".format(product.price_subtotal- cost_product),
                                                     header3_format)
-                                    worksheet.write(row, col + 11,
+                                    worksheet.write(row, col + 10,
                                                     (str("{:.2f}".format(
                                                         (100 - (cost_product / product.price_subtotal*100))) if product.price_subtotal !=0.0 else 0.0) or '' )+ '%',
                                                     header3_format)
-                                    worksheet.write(row, col + 12, '5.0%', header3_format)
-                                    worksheet.write(row, col + 13,
+                                    worksheet.write(row, col + 11, '5.0%', header3_format)
+                                    worksheet.write(row, col + 12,
                                                     "{:.2f}".format((product.price_subtotal - cost_product) * 5 / 100),
                                                     header3_format)
                                     row += 1
                             if service:
                                for ser in service:
-                                cost_service = sum(value.value / value.quantity for value in
-                                                   self.env['stock.valuation.layer'].search(
-                                                       [(
-                                                        'stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type != 'product' and value.product_id == ser.product_id)
+                                # cost_service = sum(value.value / value.quantity for value in
+                                #                    self.env['stock.valuation.layer'].search(
+                                #                        [(
+                                #                         'stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type != 'product' and value.product_id == ser.product_id)
                                 total_amount_untaxed += ser.price_subtotal
+                                cost_service=ser.price_subtotal * 70/100
                                 total_cost += cost_service
 
 
@@ -271,20 +276,20 @@ class PayslipReportDataXls(models.AbstractModel):
                                 worksheet.write(row, col + 3,
                                                 str(datetime.strptime(str(invoice.invoice_date), '%Y-%m-%d').date()),
                                                 header3_format)
-                                worksheet.write(row, col + 4, wizard_record.quarter.name or '', header3_format)
+                                worksheet.write(row, col + 4, wizard_record.quarter_date or '', header3_format)
                                 worksheet.write(row, col + 5, invoice.invoice_origin or '', header3_format)
                                 worksheet.write(row, col + 6, invoice.invoice_user_id.name or '', header3_format)
                                 worksheet.write(row, col + 7, "{:.2f}".format(ser.price_subtotal), header3_format)
-                                worksheet.write(row, col + 8, '', header3_format)
-                                worksheet.write(row, col + 9, "{:.2f}".format(cost_service), header3_format)
-                                worksheet.write(row, col + 10, "{:.2f}".format(ser.price_subtotal - cost_service),
+                                # worksheet.write(row, col + 8, '', header3_format)
+                                worksheet.write(row, col + 8, "{:.2f}".format(cost_service), header3_format)
+                                worksheet.write(row, col + 9, "{:.2f}".format(ser.price_subtotal - cost_service),
                                                 header3_format)
-                                worksheet.write(row, col + 11,
+                                worksheet.write(row, col + 10,
                                                 (str("{:.2f}".format(
                                                     (100 - (cost_service / ser.price_subtotal*100))) if ser.price_subtotal !=0.0 else 0.0) or '') + '%',
                                                 header3_format)
-                                worksheet.write(row, col + 12, '5.0%', header3_format)
-                                worksheet.write(row, col + 13,
+                                worksheet.write(row, col + 11, '5.0%', header3_format)
+                                worksheet.write(row, col + 12,
                                                 "{:.2f}".format((ser.price_subtotal - cost_service) * 5 / 100),
                                                 header3_format)
                                 row += 1
@@ -301,21 +306,21 @@ class PayslipReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 5, '', header4_format)
                     worksheet.write(row, col + 6, '', header4_format)
                     worksheet.write(row, col + 7, "{:.2f}".format(total_amount_untaxed), header4_format)
-                    worksheet.write(row, col + 8, '', header4_format)
-                    worksheet.write(row, col + 9, "{:.2f}".format(total_cost), header4_format)
-                    worksheet.write(row, col + 10, "{:.2f}".format(total_net_profit), header4_format)
-                    worksheet.write(row, col + 11, (str("{:.2f}".format(total_percentage)) or '')+ '%', header4_format)
-                    worksheet.write(row, col + 12, '', header4_format)
-                    worksheet.write(row, col + 13, "{:.2f}".format(total_comm_amount), header4_format)
+                    # worksheet.write(row, col + 8, '', header4_format)
+                    worksheet.write(row, col + 8, "{:.2f}".format(total_cost), header4_format)
+                    worksheet.write(row, col + 9, "{:.2f}".format(total_net_profit), header4_format)
+                    worksheet.write(row, col + 10, (str("{:.2f}".format(total_percentage)) or '')+ '%', header4_format)
+                    worksheet.write(row, col + 11, '', header4_format)
+                    worksheet.write(row, col + 12, "{:.2f}".format(total_comm_amount), header4_format)
 
                     row += 1
-                    worksheet.write(row, col + 11, (str("{:.2f}".format(total_actual_kpi)) or '')+ '%', header3_format)
-                    worksheet.write(row, col + 12, 'After KPI', header3_format)
-                    worksheet.write(row, col + 13, "{:.2f}".format(after_kpi), header3_format)
+                    worksheet.write(row, col + 10, (str("{:.2f}".format(total_actual_kpi)) or '')+ '%', header3_format)
+                    worksheet.write(row, col + 11, 'After KPI', header3_format)
+                    worksheet.write(row, col + 12, "{:.2f}".format(after_kpi), header3_format)
 
                     row += 1
-                    worksheet.write(row, col + 12, 'Net After Taxs', header3_format)
-                    worksheet.write(row, col + 13, "{:.2f}".format(net_after_taxs), header3_format)
+                    worksheet.write(row, col + 11, 'Net After Taxs', header3_format)
+                    worksheet.write(row, col + 12, "{:.2f}".format(net_after_taxs), header3_format)
                     row += 1
 
         return

@@ -203,6 +203,50 @@ class MaintenanceStage(models.Model):
             self.stage_name = 'Created DO'
         return new_delivery_order, picking_type_id
 
+
+    def action_create_delivery_order_shinder(self):
+        self.ensure_one()
+
+        # Create new Delivery Order for products
+        picking_id = self.picking_id
+        picking_type_id = self.env.ref('stock.picking_type_out')
+        new_delivery_order = self.env["stock.picking"].create({
+            'move_lines': [],
+            'picking_type_id': picking_type_id.id,
+            'state': 'draft',
+            'origin': self.name,
+            'maintenance_request_id': self.id,
+            'partner_id': picking_id.partner_id.id,
+            'picking_type_code': 'outgoing',
+            'location_id': picking_id.location_dest_id.id,
+            'location_dest_id': picking_id.location_id.id,
+            # 'group_id': self.rma_id.order_id.procurement_group_id.id,
+        })
+        for line in picking_id.move_ids_without_package:
+            x = self.env["stock.move"].create({
+                'product_id': line.product_id.id,
+                'product_uom_qty': float(line.product_uom_qty),
+                'name': line.product_id.partner_ref,
+                'product_uom': line.product_id.uom_id.id,
+                'picking_id': new_delivery_order.id,
+                'state': 'draft',
+                'origin': line.origin,
+                'location_id': line.location_dest_id.id,
+                'location_dest_id': line.location_id.id,
+                'picking_type_id': picking_type_id.id,
+                'warehouse_id': picking_type_id.warehouse_id.id,
+                'procure_method': 'make_to_order',
+            })
+        self.delivery_order_id = new_delivery_order.id
+        if self.type == 'shnider':
+            self.shnider_stage_id = 'created_DO'
+            self.stage_name = 'Created DO'
+        else:
+            stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Created DO')])
+            self.stage_id = stage_obj.id
+            self.stage_name = 'Created DO'
+        return new_delivery_order, picking_type_id
+
     # def action_inspection(self):
     #     ir_model_data = self.env['ir.model.data']
     #     template_res = self.env['mail.template']

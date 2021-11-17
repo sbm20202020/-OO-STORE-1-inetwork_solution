@@ -16,15 +16,38 @@ class StockInventoryWizard(models.TransientModel):
             )
         return pick_in
 
+    def  _get_maintenaed_location (self):
+
+        location = self.env['stock.location'].search(
+            [('maintaince_location', '=', True)],
+            limit=1,
+        )
+        return location
+
+    def _get_source_location (self):
+        location = self.env['stock.location'].search(
+            [('usage', '=', 'customer')],
+            limit=1,
+        )
+        return location
+
     picking_type_id = fields.Many2one('stock.picking.type', 'Picking Type',
                                       help="This will determine picking type of outgoing shipment", required=True, default=_get_picking_in)
-    des_location_id = fields.Many2one('stock.location', 'Destination Location', required=True, domain=[('usage', '<>', 'view')])
-    location_id = fields.Many2one('stock.location', "Location", required=True, domain=[ ('usage', '=', 'customer')])
+    des_location_id = fields.Many2one('stock.location', 'Destination Location', required=True,  default=_get_maintenaed_location)
+    location_id = fields.Many2one('stock.location', "Location", required=True ,default=_get_source_location)
     product_id = fields.Many2one('product.product', 'Device', required=True)
     serial = fields.Char(string='Serial', required=True)
     qty = fields.Float('QTY', required=True, default=1)
     partner = fields.Many2one('res.partner', required=True)
     description = fields.Char('description', required=True)
+
+    @api.model
+    def default_get(self, default_fields):
+        res = super(StockInventoryWizard, self).default_get(default_fields)
+        data =self.env['maintenance.request'].browse(self._context.get('active_ids', []))
+        res['serial']=data.serial
+        # res['product_id'] = data.equipment_id.product_id.id,
+        return res
 
     @api.constrains('qty')
     def not_minus(self):
@@ -47,9 +70,11 @@ class StockInventoryWizard(models.TransientModel):
             'partner_id': self.partner.id,
             'picking_type_code': 'incoming',
             'location_id': self.location_id.id,
+            'maintenance_request_id': maintenance.id,
             'location_dest_id': self.des_location_id.id,
             'x_studio_creation_date': maintenance.request_date,
-            'x_studio_site': maintenance.site,
+            'site_name': maintenance.site,
+
         })
         x = self.env["stock.move"].create({
             'product_id': self.product_id.id,

@@ -107,6 +107,17 @@ class MaintenanceStage(models.Model):
             self.stage_id = stage_obj.id
             self.stage_name = 'Closed'
 
+    def action_closed_shinder(self):
+
+        if self.type == 'shnider':
+            picking_obj = self.env['stock.picking'].search([('maintenance_request_id', '=', self.id)])
+            for rec in picking_obj:
+                if rec.state!='done':
+                    raise ValidationError(_("You Should Validate all Picking before"))
+                else:
+                    self.stage_name='Closed'
+                    self.shnider_stage_id = 'closed'
+
     def action_view_picking(self):
         """ This function returns an action that display existing picking orders of given Maintenance ids. When only one found, show the picking immediately.
         """
@@ -128,6 +139,28 @@ class MaintenanceStage(models.Model):
             result['res_id'] = pick_ids.id
         return result
 
+    def compute_picking(self):
+        for line in self:
+            line.picking_count_new = self.env['stock.picking'].search_count([('maintenance_request_id', '=', line.id)])
+    picking_count_new=fields.Integer(string='Picking count',compute='compute_picking')
+
+    def collect_picking_view(self):
+        self.ensure_one()
+        domain = [
+            ('maintenance_request_id', '=', self.id)
+        ]
+        return {
+            'name': _('Pickings'),
+            'domain': domain,
+            'res_model': 'stock.picking',
+            'type': 'ir.actions.act_window',
+            'view_id': False,
+            'view_mode': 'tree,form',
+            'view_type': 'form',
+
+        }
+
+
     def action_create_delivery_order(self):
         self.ensure_one()
         # Create new Delivery Order for products
@@ -138,6 +171,7 @@ class MaintenanceStage(models.Model):
             'picking_type_id': picking_type_id.id,
             'state': 'draft',
             'origin': self.name,
+            'maintenance_request_id': self.id,
             'partner_id': picking_id.partner_id.id,
             'picking_type_code': 'outgoing',
             'location_id': picking_id.location_dest_id.id,
@@ -223,3 +257,5 @@ class SaleOrder(models.Model):
             # else:
             #     rec.shnider_stage_id = 'confirmed_so'
             rec.stage_name = 'Confirmed SO'
+
+

@@ -14,19 +14,22 @@ class ShniderServiceRequest(models.Model):
         ('created_DO', 'Created DO'),
         ('replaced', 'Replaced'),
         ('closed_without_fees', 'Closed Without Fees'),
+        ('create_DO_to_CL', 'Create DO to CL'),
+        ('closed', 'Closed'),
         ('create_DO_to_MT', 'Create DO to MT'),
-        ('create_DO_to_Shnider', 'Create DO to Shnider'),
+        ('create_DO_to_Shnider', 'Create DO to Schneider'),
         # ('created_CI', 'Created CI'),
     ], 'Stage', default='new_request')
     product_ids = fields.Many2many('product.product', string="Products")
     product_id = fields.Many2one('product.product', string="Product")
+    product_price=fields.Float(related='product_id.lst_price')
     # replaced_product_ids = fields.Many2many('product.product', string="Replaced Products")
     invoice_id = fields.Many2one('account.move', 'Customer Invoice')
     delivery_order_id_to_MT = fields.Many2one('stock.picking', string='Delivery Order to MT', copy=False, store=True)
-    delivery_order_id_to_shnider = fields.Many2one('stock.picking', string='Delivery Order to Shnider', copy=False, store=True)
+    delivery_order_id_to_shnider = fields.Many2one('stock.picking', string='Delivery Order to Schneider', copy=False, store=True)
     replaced = fields.Boolean('replaced')
     fixable = fields.Boolean('replaced')
-    type = fields.Selection([('standard', 'Standard'), ('shnider', 'Shnider')], 'Type', store=True)
+    type = fields.Selection([('standard', 'Standard'), ('shnider', 'Schneider')], 'Type', store=True)
 
 
     def action_not_replace(self):
@@ -72,6 +75,95 @@ class ShniderServiceRequest(models.Model):
             self.stage_name = 'Created CI'
         return invoice
 
+    def action_create_delivery_order_to_cl2(self):
+        self.ensure_one()
+
+        location = self.env['stock.location'].search(
+            [('main_location', '=', True)],
+            limit=1,
+        )
+
+        # Create new Delivery Order for products
+        picking_id = self.picking_id
+        picking_type_id = self.env.ref('stock.picking_type_out')
+        new_delivery_order = self.env["stock.picking"].create({
+            'move_lines': [],
+            'picking_type_id': picking_type_id.id,
+            'state': 'draft',
+            'origin': self.name,
+            'maintenance_request_id': self.id,
+            'partner_id': picking_id.partner_id.id,
+            'picking_type_code': 'outgoing',
+            'location_id': location.id,
+            'location_dest_id': picking_id.location_id.id,
+        })
+
+        for line in picking_id.move_ids_without_package:
+            x = self.env["stock.move"].create({
+                'product_id': self.product_id.id,
+                'product_uom_qty': float(line.product_uom_qty),
+                'name': self.product_id.partner_ref,
+                'product_uom': self.product_id.uom_id.id,
+                'picking_id': new_delivery_order.id,
+                'state': 'draft',
+                'origin': line.origin,
+                'location_id': line.location_id.id,
+                'location_dest_id': line.location_dest_id.id,
+                'picking_type_id': picking_type_id.id,
+                'warehouse_id': picking_type_id.warehouse_id.id,
+                'procure_method': 'make_to_order',
+            })
+
+    def action_create_delivery_order_to_cl(self):
+        self.ensure_one()
+        # Create new Delivery Order for products
+        location = self.env['stock.location'].search(
+            [('shnider_location', '=', True)],
+            limit=1,
+        )
+
+        picking_internal = self.env['stock.picking.type'].search(
+            [('code', '=', 'internal')],
+            limit=1,
+        )
+
+        picking_id = self.picking_id
+        picking_type_id = self.env.ref('stock.picking_type_out')
+        new_delivery_order = self.env["stock.picking"].create({
+            'move_lines': [],
+            'picking_type_id': picking_internal.id,
+            'state': 'draft',
+            'origin': self.name,
+            'maintenance_request_id': self.id,
+            'partner_id': picking_id.partner_id.id,
+            'picking_type_code': 'internal',
+            'location_id': picking_id.location_dest_id.id,
+            'location_dest_id': location.id,
+        })
+
+        for line in picking_id.move_ids_without_package:
+            x = self.env["stock.move"].create({
+                'product_id': line.product_id.id,
+                'product_uom_qty': float(line.product_uom_qty),
+                 'name': self.product_id.partner_ref,
+                'product_uom': self.product_id.uom_id.id,
+                'picking_id': new_delivery_order.id,
+                'state': 'draft',
+                'origin': line.origin,
+                'location_id': line.location_dest_id.id,
+                'location_dest_id': location.id,
+                'picking_type_id': picking_internal.id,
+                'warehouse_id': picking_type_id.warehouse_id.id,
+                'procure_method': 'make_to_order',
+            })
+        self.action_create_delivery_order_to_cl2()
+        if self.type == 'shnider':
+            self.shnider_stage_id = 'create_DO_to_CL'
+            self.stage_name = 'create_DO_to_CL'
+
+        return new_delivery_order,picking_type_id
+
+
     def action_create_delivery_order_to_mt(self):
         self.ensure_one()
         # Create new Delivery Order for products
@@ -83,6 +175,7 @@ class ShniderServiceRequest(models.Model):
             'state': 'draft',
             'origin': self.name,
             'partner_id': picking_id.partner_id.id,
+            'maintenance_request_id': self.id,
             'picking_type_code': 'outgoing',
             'location_id': picking_id.location_id.id,
             'location_dest_id': picking_id.location_dest_id.id,
@@ -121,6 +214,7 @@ class ShniderServiceRequest(models.Model):
             'state': 'draft',
             'origin': self.name,
             'partner_id': picking_id.partner_id.id,
+            'maintenance_request_id':self.id,
             'picking_type_code': 'outgoing',
             'location_id': picking_id.location_id.id,
             'location_dest_id': picking_id.location_dest_id.id,
@@ -146,3 +240,16 @@ class ShniderServiceRequest(models.Model):
             self.shnider_stage_id = 'create_DO_to_Shnider'
             self.stage_name = 'create_DO_to_Shnider'
         return new_delivery_order, picking_type_id
+
+
+class StockLocation(models.Model):
+    _inherit = 'stock.location'
+
+    main_location=fields.Boolean('Main Location')
+    maintaince_location=fields.Boolean('Maintained Location')
+    shnider_location=fields.Boolean('Schneider Location')
+
+
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
+    maintenance_request_id=fields.Many2one('maintenance.request',string='Maintainece')

@@ -100,7 +100,7 @@ class ShniderServiceRequest(models.Model):
 
         for line in picking_id.move_ids_without_package:
             x = self.env["stock.move"].create({
-                'product_id': self.product_id.id,
+                'product_id': line.product_id.id,
                 'product_uom_qty': float(line.product_uom_qty),
                 'name': self.product_id.partner_ref,
                 'product_uom': self.product_id.uom_id.id,
@@ -143,7 +143,7 @@ class ShniderServiceRequest(models.Model):
 
         for line in picking_id.move_ids_without_package:
             x = self.env["stock.move"].create({
-                'product_id': line.product_id.id,
+                'product_id': self.product_id.id,
                 'product_uom_qty': float(line.product_uom_qty),
                  'name': self.product_id.partner_ref,
                 'product_uom': self.product_id.uom_id.id,

@@ -1,0 +1,57 @@
+<odoo>
+  <data>
+
+      <!--department sequence
+      -->
+        <record id="hr_department_add_code" model="ir.sequence">
+            <field name="name">Department Code</field>
+            <field name="code">hr.department.code</field>
+            <field name="prefix"></field>
+            <field name="padding">1</field>
+            <field eval="False" name="company_id"/>
+        </record>
+
+
+
+
+    <record id="view_hr_department_form_add_sequence_code" model="ir.ui.view">
+            <field name="name">hr.department.form</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <record id="view_hr_department_tree_inherite" model="ir.ui.view">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="before">
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+      <record id="employee_location_action" model="ir.actions.act_window">
+            <field name="name"> Locations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+       <menuitem
+               action="employee_location_action"
+               id="employee_location_menu"
+            parent="hr.menu_human_resources_configuration"
+                  name="Locations"
+            />
+
+  </data>
+</odoo>

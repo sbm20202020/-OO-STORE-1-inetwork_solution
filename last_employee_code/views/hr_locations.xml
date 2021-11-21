@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+
+        <!--department sequence
+      -->
+        <record id="hr_location_add_code" model="ir.sequence">
+            <field name="name">Location Code</field>
+            <field name="code">hr.location.code</field>
+            <field name="prefix"></field>
+            <field name="padding">1</field>
+            <field eval="False" name="company_id"/>
+        </record>
+
+
+
+         <record id="employee_location_tree_view" model="ir.ui.view">
+            <field name="name">hr.location.tree</field>
+            <field name="model">hr.location</field>
+            <field name="arch" type="xml">
+                <tree  >
+                    <field name="name" />
+                    <field name="code" />
+
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="employee_locations_view_form" model="ir.ui.view">
+            <field name="name">hr.locations.form</field>
+            <field name="model">hr.location</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                           <field name="name" />
+                            <field name="code" />
+                             </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="employee_wlocation_search_new" model="ir.ui.view">
+            <field name="name">hr.location.search</field>
+            <field name="model">hr.location</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code" />
+
+                    <group string="Group By..." expand="0" name="groupby">
+                        <filter string="Location Name" name="name" context="{'group_by': 'name'}"/>
+                        <filter string="Code" name="code" context="{'group_by': 'code'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

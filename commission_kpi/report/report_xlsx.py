@@ -117,7 +117,7 @@ class PayslipReportDataXls(models.AbstractModel):
                             service = invoice.invoice_line_ids.filtered(lambda self: self.product_id.type != 'product')
                             if products:
                                for product in products:
-                                    cost_product = sum(value.value / value.quantity for value in
+                                    cost_product = product.quantity * sum(value.value / value.quantity for value in
                                                       self.env['stock.valuation.layer'].search(
                                                           [('stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type == 'product' and value.product_id == product.product_id)
                                     total_amount_untaxed += product.price_subtotal
@@ -234,7 +234,7 @@ class PayslipReportDataXls(models.AbstractModel):
                             service = invoice.invoice_line_ids.filtered(lambda self: self.product_id.type != 'product')
                             if products:
                                for product in products:
-                                    cost_product = sum(value.value / value.quantity for value in
+                                    cost_product = product.quantity * sum(value.value / value.quantity for value in
                                                       self.env['stock.valuation.layer'].search(
                                                           [('stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type == 'product' and value.product_id == product.product_id)
                                     total_amount_untaxed += product.price_subtotal

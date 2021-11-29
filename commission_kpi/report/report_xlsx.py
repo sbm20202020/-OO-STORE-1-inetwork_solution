@@ -184,7 +184,8 @@ class PayslipReportDataXls(models.AbstractModel):
                                                 header3_format)
                                 row += 1
                     total_net_profit = total_amount_untaxed - total_cost
-                    total_percentage = (100 - (total_cost/total_amount_untaxed*100)) if total_amount_untaxed !=0.0 else 0.0
+                    # total_percentage = (100 - (total_cost/total_amount_untaxed*100)) if total_amount_untaxed !=0.0 else 0.0
+                    total_percentage = ((total_amount_untaxed - total_cost) / total_cost if total_cost != 0.0 else 0.0) * 100
                     total_comm_amount = total_net_profit * 5 / 100
                     after_kpi = total_comm_amount * total_actual_kpi
                     net_after_taxs = after_kpi * 0.9
@@ -301,7 +302,9 @@ class PayslipReportDataXls(models.AbstractModel):
                                                 header3_format)
                                 row += 1
                     total_net_profit = total_amount_untaxed - total_cost
-                    total_percentage = (100 - (total_cost/total_amount_untaxed*100)) if total_amount_untaxed !=0.0 else 0.0
+                    # total_percentage = (100 - (total_cost/total_amount_untaxed*100)) if total_amount_untaxed !=0.0 else 0.0
+                    total_percentage = ((total_amount_untaxed - total_cost) / total_cost if total_cost != 0.0 else 0.0) * 100
+
                     total_comm_amount = total_net_profit * 5 / 100
                     after_kpi = total_comm_amount * total_actual_kpi
                     net_after_taxs = after_kpi * 0.9

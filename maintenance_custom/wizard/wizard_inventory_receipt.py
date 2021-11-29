@@ -146,6 +146,10 @@ class InspectionDataWizard(models.TransientModel):
         if maintenance.type == 'standard':
             stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Inspection')])
             maintenance.stage_id = stage_obj.id
+            maintenance.confirm_date=fields.Date.today()
+
+
         else:
             maintenance.shnider_stage_id = 'inspection'
+            maintenance.confirm_date = fields.Date.today()
         maintenance.stage_name = 'Inspection'

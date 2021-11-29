@@ -293,8 +293,8 @@ class SaleOrder(models.Model):
 
         # add by marwa
         for rec in maintenance_obj:
-            rec.confirm_user_id=self.env.user.id
-            rec.confirm_date=fields.Date.today()
+            # rec.confirm_user_id=self.env.user.id
+            # rec.confirm_date=fields.Date.today()
             if rec.type == 'standard':
                 stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Confirmed SO')])
                 rec.stage_id = stage_obj.id

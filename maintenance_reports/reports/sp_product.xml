@@ -131,7 +131,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span t-field="o.product_id.name"></span>
+                                                        <span t-field="o.equipment_id.product_id.name"></span>
 
                                                     </td>
 
@@ -350,7 +350,8 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                    <span  t-field="o.create_uid"/>
+<!--                                    <span  t-field="o.create_uid"/>-->
+                                                        <span t-field="o.employee_id.name"/>
                                                     </td>
 
                                                 </table>
@@ -380,7 +381,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span t-field="o.confirm_user_id"/>
+                                                        <span t-field="o.user_id.name"/>
 
                                                     </td>
 

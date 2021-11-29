@@ -137,7 +137,7 @@
                                     </th>
 
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">CST PO
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Case
                                             Number
                                         </strong>
 
@@ -151,23 +151,39 @@
                                 </tr>
 
                                 <tr>
-                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Ship To
+<!--                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">-->
+<!--                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Ship To-->
+<!--                                        </strong>-->
+
+<!--                                    </th>-->
+<!--                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;" t-if="o.partner_id.street"-->
+<!--                                              t-field="o.partner_id.street"/>-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-field="o.partner_id.street2"/>-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.city"/>-->
+<!--                                        ,-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-field="o.partner_id.state_id"/>-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-field="o.partner_id.country_id"/>-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.zip"/>-->
+<!--                                    </th>-->
+                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
+                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Contact
                                         </strong>
 
                                     </th>
                                     <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;" t-if="o.partner_id.street"
-                                              t-field="o.partner_id.street"/>
                                         <span style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.partner_id.street2"/>
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.city"/>
-                                        ,
-                                        <span style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.partner_id.state_id"/>
-                                        <span style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.partner_id.country_id"/>
-                                        <span style="font-size:15px;font-weight: lighter;" t-field="o.partner_id.zip"/>
+                                              t-field="o.employee_id.name"/>
+<!--                                        <span style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-field="o.attention.parent_id.name"/>-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-if="o.attention.parent_id.name">,-->
+<!--                                        </span>-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-field="o.attention.name"></span>-->
                                     </th>
 
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
@@ -184,32 +200,32 @@
 
                                 </tr>
                                 <tr>
-                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Contact
-                                        </strong>
+<!--                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">-->
+<!--                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Contact-->
+<!--                                        </strong>-->
 
-                                    </th>
-                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.attention.parent_id.name"/>
-                                        <span style="font-size:15px;font-weight: lighter;"
-                                              t-if="o.attention.parent_id.name">,
-                                        </span>
-                                        <span style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.attention.name"></span>
-                                    </th>
+<!--                                    </th>-->
+<!--                                    <th style="border: 1px solid #D9D0D0;width:30%" class="text-left">-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-field="o.attention.parent_id.name"/>-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-if="o.attention.parent_id.name">,-->
+<!--                                        </span>-->
+<!--                                        <span style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-field="o.attention.name"></span>-->
+<!--                                    </th>-->
 
-                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">
-                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Sales person
-                                        </strong>
+<!--                                    <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">-->
+<!--                                        <strong style="font-size:15px;font-weight:bolder" class="text-center">Sales person-->
+<!--                                        </strong>-->
 
-                                    </th>
-                                    <th  style="border: 1px solid #D9D0D0;width:30%" class="text-left">
-                                        <span t-if="o.sale_id" style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.sale_id.user_id.name"/>
-                                        <span t-if="o.purchase_id" style="font-size:15px;font-weight: lighter;"
-                                              t-field="o.purchase_id.user_id.name"/>
-                                    </th>
+<!--                                    </th>-->
+<!--                                    <th  style="border: 1px solid #D9D0D0;width:30%" class="text-left">-->
+<!--                                        <span t-if="o.sale_id" style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-field="o.sale_id.user_id.name"/>-->
+<!--                                        <span t-if="o.purchase_id" style="font-size:15px;font-weight: lighter;"-->
+<!--                                              t-field="o.purchase_id.user_id.name"/>-->
+<!--                                    </th>-->
                                 </tr>
                                 <tr>
                                     <th style="border: 1px solid #D9D0D0;width:20%" class="text-left">

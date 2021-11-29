@@ -1,0 +1,14 @@
+<odoo>
+	<report
+                id="commission_kpi_report_excel_id"
+                model="sale.order"
+                string="KPI Commission Report XLSX"
+                report_type="xlsx"
+                name="commission_kpi.commission_kpi_report_excel"
+                file="KPI Commission Report"
+                attachment_use="False"
+                menu="False"
+
+
+        />
+</odoo>

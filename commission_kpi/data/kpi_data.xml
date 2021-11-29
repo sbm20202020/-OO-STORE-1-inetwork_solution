@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+<!--Sales Volume-->
+        <record model="sales.volume" id="sales_volume_1">
+            <field name="name">Average net Margin 15%</field>
+            <field name="basic">35</field>
+            <field name="actual">0</field>
+        </record>
+
+        <record model="sales.volume" id="sales_volume_2">
+            <field name="name">Product Performance ( at least 3 diffirent products )</field>
+            <field name="basic">10</field>
+            <field name="actual">0</field>
+
+        </record>
+
+        <record model="sales.volume" id="sales_volume_3">
+            <field name="name">Stock Edging ( Max 2 months )</field>
+            <field name="basic">5</field>
+            <field name="actual">0</field>
+
+        </record>
+
+        <record model="sales.volume" id="sales_volume_4">
+            <field name="name">Customer collection</field>
+            <field name="basic">5</field>
+            <field name="actual">0</field>
+
+        </record>
+     <!--performance-->
+        <record model="performance.value" id="performance_value_1">
+            <field name="name">Replying mails )(busniess writing ) and calls ( SLA 24 Hours)</field>
+            <field name="basic">5</field>
+            <field name="actual">0</field>
+
+        </record>
+
+        <record model="performance.value" id="performance_value_2">
+            <field name="name">Appearanc &amp; Attitude</field>
+            <field name="basic">5</field>
+            <field name="actual">0</field>
+
+        </record>
+        <record model="performance.value" id="performance_value_3">
+            <field name="name">Internal Communications (using mails )</field>
+            <field name="basic">3</field>
+            <field name="actual">0</field>
+
+        </record>
+        <record model="performance.value" id="performance_value_4">
+            <field name="name">using System</field>
+            <field name="basic">3</field>
+            <field name="actual">0</field>
+
+        </record>
+
+        <record model="performance.value" id="performance_value_5">
+            <field name="name">Company Policy adhere</field>
+            <field name="basic">4</field>
+            <field name="actual">0</field>
+
+        </record>
+
+
+<!--        Market Share-->
+        <record model="market.share" id="market_share_1">
+            <field name="name">Create New leasds ( at least 6 leads)</field>
+            <field name="basic">5</field>
+            <field name="actual">0</field>
+
+        </record>
+        <record model="market.share" id="market_share_2">
+            <field name="name">Customer Retention rates</field>
+            <field name="basic">5</field>
+            <field name="actual">0</field>
+
+        </record>
+        <record model="market.share" id="market_share_3">
+            <field name="name">Busniess sector variety ( at least 3 different sectors )</field>
+            <field name="basic">5</field>
+            <field name="actual">0</field>
+
+        </record>
+
+        <record model="market.share" id="market_share_4">
+            <field name="name">Project and contractors deals ( Services )</field>
+            <field name="basic">5</field>
+            <field name="actual">0</field>
+
+        </record>
+
+<!--Purchase for Company project ( without sales commision)-->
+        <record model="purchase.sales.commision" id="purchase_sales_commision_1">
+            <field name="name">Maintan Stock ( BOM and Availabilty ) </field>
+            <field name="basic">2</field>
+            <field name="actual">0</field>
+
+        </record>
+        <record model="purchase.sales.commision" id="purchase_sales_commision_2">
+            <field name="name">Negoition process</field>
+            <field name="basic">3</field>
+            <field name="actual">0</field>
+
+        </record>
+
+
+
+
+    </data>
+</odoo>

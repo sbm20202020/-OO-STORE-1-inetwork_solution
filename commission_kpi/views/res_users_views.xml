@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_res_users_inherit_kpi">
+        <field name="name">res.users.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="KPI">
+                    <group string="Sales Volume">
+                        <field name="sales_volume" nolabel="1" widget="one2many">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="basic" widget="Percent" sum="True"/>
+                                <field name="actual" widget="Percent" sum="Actual"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic_sales_volume"  widget="Percent"/>
+                                    <field name="total_actual_sales_volume" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                    </group>
+                    <group string="Performance">
+                        <field name="performance_value" nolabel="1" widget="one2many">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="basic" sum="Basic"/>
+                                <field name="actual" sum="Actual"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic_performance_value"  widget="Percent"/>
+                                    <field name="total_actual_performance_value" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                    </group>
+
+                    <group string="Market Share">
+                        <field name="market_share" nolabel="1" widget="one2many">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="basic" sum="Basic"/>
+                                <field name="actual" sum="Actual"/>
+
+                            </tree>
+                        </field>
+                    </group>
+                    <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic_market_share"  widget="Percent"/>
+                                    <field name="total_actual_market_share" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                    </group>
+
+                    <group string="Purchase for Company project ( without sales commision)">
+                        <field name="purchase_sales_commision" nolabel="1" widget="one2many">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="basic" sum="Basic"/>
+                                <field name="actual" sum="Actual"/>
+
+                            </tree>
+                        </field>
+
+                    </group>
+                    <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic_purchase_sales_commision"  widget="Percent"/>
+                                    <field name="total_actual_purchase_sales_commision" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                    </group>
+
+                    <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_basic"  widget="Percent"/>
+                                    <field name="total_actual" widget="Percent"/>
+                                </group>
+                                <div class="oe_clear"/>
+                    </group>
+
+
+
+
+
+                </page>
+            </xpath>
+
+
+
+        </field>
+    </record>
+
+
+    <record id="issue_job" model="ir.cron">
+        <field name="name">Base:Default KPI</field>
+        <field name="model_id" ref="model_res_users"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_default()</field>
+        <field name='interval_number'>1</field>
+        <field name='interval_type'>days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+</odoo>

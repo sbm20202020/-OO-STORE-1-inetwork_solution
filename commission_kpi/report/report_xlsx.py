@@ -120,7 +120,7 @@ class PayslipReportDataXls(models.AbstractModel):
                                     cost_product = abs(sum(value.value for value in
                                                       self.env['stock.valuation.layer'].search(
                                                           [('stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type == 'product' and value.product_id == product.product_id))
-                                    total_amount_untaxed += product.price_subtotal
+                                    total_amount_untaxed += product.credit
                                     total_cost += cost_product
 
                                     worksheet.write(row, col, invoice.name, header3_format)
@@ -132,19 +132,19 @@ class PayslipReportDataXls(models.AbstractModel):
                                     worksheet.write(row, col + 4, wizard_record.quarter_date or '', header3_format)
                                     worksheet.write(row, col + 5, invoice.invoice_origin or '', header3_format)
                                     worksheet.write(row, col + 6, invoice.invoice_user_id.name or '', header3_format)
-                                    worksheet.write(row, col + 7, "{:.2f}".format(product.price_subtotal), header3_format)
+                                    worksheet.write(row, col + 7, "{:.2f}".format(product.credit), header3_format)
                                     # worksheet.write(row, col + 8, '', header3_format)
                                     worksheet.write(row, col + 8, "{:.2f}".format(cost_product), header3_format)
-                                    worksheet.write(row, col + 9, "{:.2f}".format(product.price_subtotal- cost_product),
+                                    worksheet.write(row, col + 9, "{:.2f}".format(product.credit- cost_product),
                                                     header3_format)
-                                    percentage=((product.price_subtotal- cost_product)/cost_product if cost_product !=0.0 else 0.0)*100
+                                    percentage=((product.credit- cost_product)/cost_product if cost_product !=0.0 else 0.0)*100
                                     worksheet.write(row, col + 10,
                                                     str("{:.2f}".format(
                                                         (percentage))) or '' + '%',
                                                     header3_format)
                                     worksheet.write(row, col + 11, '5.0%', header3_format)
                                     worksheet.write(row, col + 12,
-                                                    "{:.2f}".format((product.price_subtotal - cost_product) * 5 / 100),
+                                                    "{:.2f}".format((product.credit - cost_product) * 5 / 100),
                                                     header3_format)
                                     row += 1
                             if service:
@@ -153,8 +153,8 @@ class PayslipReportDataXls(models.AbstractModel):
                                 #                    self.env['stock.valuation.layer'].search(
                                 #                        [(
                                 #                         'stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type != 'product' and value.product_id == ser.product_id)
-                                total_amount_untaxed += ser.price_subtotal
-                                cost_service=ser.price_subtotal * 70/100
+                                total_amount_untaxed += ser.credit
+                                cost_service=ser.credit * 70/100
                                 total_cost += cost_service
 
 
@@ -167,12 +167,12 @@ class PayslipReportDataXls(models.AbstractModel):
                                 worksheet.write(row, col + 4, wizard_record.quarter_date or '', header3_format)
                                 worksheet.write(row, col + 5, invoice.invoice_origin or '', header3_format)
                                 worksheet.write(row, col + 6, invoice.invoice_user_id.name or '', header3_format)
-                                worksheet.write(row, col + 7, "{:.2f}".format(ser.price_subtotal), header3_format)
+                                worksheet.write(row, col + 7, "{:.2f}".format(ser.credit), header3_format)
                                 # worksheet.write(row, col + 8, '', header3_format)
                                 worksheet.write(row, col + 8, "{:.2f}".format(cost_service), header3_format)
-                                worksheet.write(row, col + 9, "{:.2f}".format(ser.price_subtotal - cost_service),
+                                worksheet.write(row, col + 9, "{:.2f}".format(ser.credit - cost_service),
                                                 header3_format)
-                                percentage = ((ser.price_subtotal - cost_service) / cost_service if cost_service != 0.0 else 0.0) * 100
+                                percentage = ((ser.credit - cost_service) / cost_service if cost_service != 0.0 else 0.0) * 100
 
                                 worksheet.write(row, col + 10,
                                                 str("{:.2f}".format(
@@ -180,7 +180,7 @@ class PayslipReportDataXls(models.AbstractModel):
                                                 header3_format)
                                 worksheet.write(row, col + 11, '5.0%', header3_format)
                                 worksheet.write(row, col + 12,
-                                                "{:.2f}".format((ser.price_subtotal - cost_service) * 5 / 100),
+                                                "{:.2f}".format((ser.credit - cost_service) * 5 / 100),
                                                 header3_format)
                                 row += 1
                     total_net_profit = total_amount_untaxed - total_cost
@@ -237,7 +237,7 @@ class PayslipReportDataXls(models.AbstractModel):
                                     cost_product = abs(sum(value.value for value in
                                                       self.env['stock.valuation.layer'].search(
                                                           [('stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type == 'product' and value.product_id == product.product_id))
-                                    total_amount_untaxed += product.price_subtotal
+                                    total_amount_untaxed += product.credit
                                     total_cost += cost_product
 
                                     worksheet.write(row, col, invoice.name, header3_format)
@@ -249,12 +249,12 @@ class PayslipReportDataXls(models.AbstractModel):
                                     worksheet.write(row, col + 4, wizard_record.quarter_date or '', header3_format)
                                     worksheet.write(row, col + 5, invoice.invoice_origin or '', header3_format)
                                     worksheet.write(row, col + 6, invoice.invoice_user_id.name or '', header3_format)
-                                    worksheet.write(row, col + 7, "{:.2f}".format(product.price_subtotal), header3_format)
+                                    worksheet.write(row, col + 7, "{:.2f}".format(product.credit), header3_format)
                                     # worksheet.write(row, col + 8, '', header3_format)
                                     worksheet.write(row, col + 8, "{:.2f}".format(cost_product), header3_format)
-                                    worksheet.write(row, col + 9, "{:.2f}".format(product.price_subtotal- cost_product),
+                                    worksheet.write(row, col + 9, "{:.2f}".format(product.credit- cost_product),
                                                     header3_format)
-                                    percentage = ((product.price_subtotal - cost_product) / cost_product if cost_product != 0.0 else 0.0) * 100
+                                    percentage = ((product.credit - cost_product) / cost_product if cost_product != 0.0 else 0.0) * 100
 
                                     worksheet.write(row, col + 10,
                                                     (str("{:.2f}".format(
@@ -262,7 +262,7 @@ class PayslipReportDataXls(models.AbstractModel):
                                                     header3_format)
                                     worksheet.write(row, col + 11, '5.0%', header3_format)
                                     worksheet.write(row, col + 12,
-                                                    "{:.2f}".format((product.price_subtotal - cost_product) * 5 / 100),
+                                                    "{:.2f}".format((product.credit - cost_product) * 5 / 100),
                                                     header3_format)
                                     row += 1
                             if service:
@@ -271,8 +271,8 @@ class PayslipReportDataXls(models.AbstractModel):
                                 #                    self.env['stock.valuation.layer'].search(
                                 #                        [(
                                 #                         'stock_move_id.origin', '=', invoice.invoice_origin)]) if value.product_id.type != 'product' and value.product_id == ser.product_id)
-                                total_amount_untaxed += ser.price_subtotal
-                                cost_service=ser.price_subtotal * 70/100
+                                total_amount_untaxed += ser.credit
+                                cost_service=ser.credit * 70/100
                                 total_cost += cost_service
 
 
@@ -285,12 +285,12 @@ class PayslipReportDataXls(models.AbstractModel):
                                 worksheet.write(row, col + 4, wizard_record.quarter_date or '', header3_format)
                                 worksheet.write(row, col + 5, invoice.invoice_origin or '', header3_format)
                                 worksheet.write(row, col + 6, invoice.invoice_user_id.name or '', header3_format)
-                                worksheet.write(row, col + 7, "{:.2f}".format(ser.price_subtotal), header3_format)
+                                worksheet.write(row, col + 7, "{:.2f}".format(ser.credit), header3_format)
                                 # worksheet.write(row, col + 8, '', header3_format)
                                 worksheet.write(row, col + 8, "{:.2f}".format(cost_service), header3_format)
-                                worksheet.write(row, col + 9, "{:.2f}".format(ser.price_subtotal - cost_service),
+                                worksheet.write(row, col + 9, "{:.2f}".format(ser.credit - cost_service),
                                                 header3_format)
-                                percentage = ((ser.price_subtotal - cost_service) / cost_service if cost_service != 0.0 else 0.0) * 100
+                                percentage = ((ser.credit - cost_service) / cost_service if cost_service != 0.0 else 0.0) * 100
 
                                 worksheet.write(row, col + 10,
                                                 (str("{:.2f}".format(
@@ -298,7 +298,7 @@ class PayslipReportDataXls(models.AbstractModel):
                                                 header3_format)
                                 worksheet.write(row, col + 11, '5.0%', header3_format)
                                 worksheet.write(row, col + 12,
-                                                "{:.2f}".format((ser.price_subtotal - cost_service) * 5 / 100),
+                                                "{:.2f}".format((ser.credit - cost_service) * 5 / 100),
                                                 header3_format)
                                 row += 1
                     total_net_profit = total_amount_untaxed - total_cost

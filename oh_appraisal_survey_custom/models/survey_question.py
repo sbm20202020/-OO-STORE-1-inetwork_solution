@@ -33,7 +33,6 @@ class SurveyQuestion(models.Model):
 class SurveyUserInput(models.Model):
     _inherit = "survey.user_input"
 
-    # quizz_passed = fields.Boolean('Quizz Passed', compute='_compute_quizz_passed', store=True, compute_sudo=True)
     @api.depends('user_input_line_ids.answer_score', 'user_input_line_ids.question_id')
     def _compute_quizz_score(self):
         for user_input in self:

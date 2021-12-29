@@ -54,3 +54,7 @@ class HREmployee(models.Model):
 class HrContract(models.Model):
     _inherit= 'hr.contract'
     emp_id = fields.Char("Employee Id", related="employee_id.emp_id", store=True)
+class HREmployeepuplic(models.Model):
+
+    _inherit = 'hr.employee.public'
+    emp_id = fields.Char("Employee Id")

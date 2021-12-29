@@ -33,10 +33,15 @@ class MaintenanceStage(models.Model):
     confirm_date=fields.Date('confirm date')
     site = fields.Char('Site', required=True)
 
-    # @api.onchange('user_id')
-    # def onchange_company_id(self):
-    #     users = self.env.ref('maintenance_custom.group_maintenance_manager').users.ids
-    #     return {'domain': {'user_id': [('id', 'in', users)]}}
+    def _get_default_team_id(self):
+        print("pppppppppppppppppppppppppp")
+        MT = self.env['maintenance.team']
+        team = MT.search([('member_ids', 'in', self.env.user.id)], limit=1)
+        print("ooooooooooooooo",team)
+        if not team:
+            team = MT.search([], limit=1)
+        return team.id
+
 
     @api.constrains('schedule_date')
     def date_constrains(self):

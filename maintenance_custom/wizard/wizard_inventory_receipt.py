@@ -32,12 +32,12 @@ class StockInventoryWizard(models.TransientModel):
         return location
 
     picking_type_id = fields.Many2one('stock.picking.type', 'Picking Type',
-                                      help="This will determine picking type of outgoing shipment", required=True, default=_get_picking_in)
-    des_location_id = fields.Many2one('stock.location', 'Destination Location', required=True,  default=_get_maintenaed_location)
-    location_id = fields.Many2one('stock.location', "Location", required=True ,default=_get_source_location)
+                                      help="This will determine picking type of outgoing shipment", required=True, default=_get_picking_in,readonly=1)
+    des_location_id = fields.Many2one('stock.location', 'Destination Location', required=True,  default=_get_maintenaed_location,readonly=1, domain=[('maintaince_location', '=', True)])
+    location_id = fields.Many2one('stock.location', "Location", required=True ,default=_get_source_location, domain=[('usage', '=','customer')],readonly=1)
     product_id = fields.Many2one('product.product', 'Device', required=True)
     serial = fields.Char(string='Serial', required=True)
-    qty = fields.Float('QTY', required=True, default=1)
+    qty=fields.Float()
     partner = fields.Many2one('res.partner', required=True)
     description = fields.Char('description', required=True)
 
@@ -45,8 +45,10 @@ class StockInventoryWizard(models.TransientModel):
     def default_get(self, default_fields):
         res = super(StockInventoryWizard, self).default_get(default_fields)
         data =self.env['maintenance.request'].browse(self._context.get('active_ids', []))
-        res['serial']=data.serial
-        # res['product_id'] = data.equipment_id.product_id.id,
+        print("data.quantityyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy,",data.quantity,)
+        # res['qty'] = data.quantity,
+        res['serial']=data.serial,
+
         return res
 
     @api.constrains('qty')
@@ -62,9 +64,10 @@ class StockInventoryWizard(models.TransientModel):
         active_id = self._context.get('active_ids', []) or []
         maintenance = self.env['maintenance.request'].browse(active_id)
         pick_type_id = self.picking_type_id.id
-        new_picking = self.env["stock.picking"].create({
+        new_picking =self.env["stock.picking"].create({
             'move_lines': [],
             'picking_type_id': pick_type_id,
+            'employee_id':maintenance.employee_id.id,
             'state': 'draft',
             'origin': maintenance.name,
             'partner_id': self.partner.id,

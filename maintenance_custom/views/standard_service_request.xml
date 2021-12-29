@@ -108,6 +108,18 @@
                 <xpath expr="//span[@class='ml8']" position="replace">
                     <span class="ml-2">days</span>
                 </xpath>
+                 <xpath expr="//field[@name='maintenance_type']" position="replace">
+                    <field name="maintenance_type" invisible="1"/>
+                </xpath>
+                 <xpath expr="//field[@name='equipment_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True,'no_edit': True}</attribute>
+                       <attribute name="string">Device</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True,'no_edit': True}</attribute>
+                </xpath>
 
             </field>
         </record>
@@ -147,6 +159,36 @@
         web_icon="maintenance,static/description/icon.png"
         groups="maintenance.group_equipment_manager"
         sequence="110"/>
+
+         <record id="hr_equipment_request_view_kanaban_order_security" model="ir.ui.view">
+        <field name="name">view.inherit.maintenance.request</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="stortable">0</attribute>
+                <attribute name="disable_drag_drop_record">1</attribute>
+                <attribute name="disable_sort_column">1</attribute>
+                <attribute name="records_draggable">0</attribute>
+            </xpath>
+
+        </field>
+    </record>
+          <record id="hr_equipment_request_view_kanaban_order_security22" model="ir.ui.view">
+        <field name="name">view.inherit.maintenance.request</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance_custom.shnider_service_request_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="stortable">0</attribute>
+                <attribute name="disable_drag_drop_record">1</attribute>
+                <attribute name="disable_sort_column">1</attribute>
+                <attribute name="records_draggable">0</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
 
     </data>
 </odoo>

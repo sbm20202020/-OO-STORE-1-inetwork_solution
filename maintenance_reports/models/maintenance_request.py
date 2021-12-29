@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+
 
 
 class MaintenanceStage(models.Model):
@@ -29,6 +31,11 @@ class MaintenanceStage(models.Model):
     rma_number=fields.Char('RMA Number')
     serial = fields.Char(String='Serial')
 
+    @api.constrains('quantity')
+    def quantity_not_minus(self):
+        for line in self:
+            if line.quantity < 0:
+                raise ValidationError('Please enter a positive number in Quantity')
 
     total_price=fields.Float(compute='calc_total_price')
 

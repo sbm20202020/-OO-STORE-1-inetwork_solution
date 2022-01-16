@@ -121,6 +121,11 @@
                     <attribute name="options">{'no_create': True,'no_edit': True}</attribute>
                 </xpath>
 
+                 <label for="name" position="replace">
+                    <label string="Case Number" for="name"  />
+                  </label>
+
+
             </field>
         </record>
 

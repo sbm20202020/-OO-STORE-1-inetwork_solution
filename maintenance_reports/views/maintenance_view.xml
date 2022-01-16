@@ -23,21 +23,21 @@
 
                                 <group>
                                     <field name="total_price" invisible="1"/>
-                                    <field name="end_user_name"/>
-                                    <field name="issue_problem"/>
-                                    <field name="defective_part_number"/>
-                                    <field name="defective_serial_number"/>
+                                    <field name="end_user_name" attrs="{'required':[('type','=','shnider')]}"/>
+                                    <field name="issue_problem" attrs="{'required':[('type','=','shnider')]}"/>
+                                    <field name="defective_part_number" attrs="{'required':[('type','=','shnider')]}"/>
+                                    <field name="defective_serial_number" attrs="{'required':[('type','=','shnider')]}"/>
                                 </group>
 
                                 <group>
-                                    <field name="replacement_part_number"/>
-                                    <field name="replacement_serial_number"/>
+                                    <field name="replacement_part_number" />
+                                    <field name="replacement_serial_number" />
                                     <field name="purchase_date"/>
                                     <field name="end_user_date"/>
                                 </group>
                                 <group>
-                                    <field name="service_request_number"/>
-                                    <field name="rma_number"/>
+                                    <field name="service_request_number" attrs="{'required':[('type','=','shnider')]}"/>
+                                    <field name="rma_number" attrs="{'required':[('type','=','shnider')]}"/>
 
                                 </group>
 

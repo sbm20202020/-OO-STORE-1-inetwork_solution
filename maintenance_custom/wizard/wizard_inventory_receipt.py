@@ -37,7 +37,7 @@ class StockInventoryWizard(models.TransientModel):
     location_id = fields.Many2one('stock.location', "Location", required=True ,default=_get_source_location, domain=[('usage', '=','customer')],readonly=1)
     product_id = fields.Many2one('product.product', 'Device', required=True)
     serial = fields.Char(string='Serial', required=True)
-    qty=fields.Float()
+    qty=fields.Float(default=1)
     partner = fields.Many2one('res.partner', required=True)
     description = fields.Char('description', required=True)
 
@@ -45,9 +45,10 @@ class StockInventoryWizard(models.TransientModel):
     def default_get(self, default_fields):
         res = super(StockInventoryWizard, self).default_get(default_fields)
         data =self.env['maintenance.request'].browse(self._context.get('active_ids', []))
-        print("data.quantityyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy,",data.quantity,)
-        # res['qty'] = data.quantity,
+
         res['serial']=data.serial,
+        # res['qty'] = data.quantity,
+        res.update({'serial': data.serial,'qty': data.quantity})
 
         return res
 
@@ -70,6 +71,7 @@ class StockInventoryWizard(models.TransientModel):
             'employee_id':maintenance.employee_id.id,
             'state': 'draft',
             'origin': maintenance.name,
+            'cst_po_number': maintenance.name,
             'partner_id': self.partner.id,
             'picking_type_code': 'incoming',
             'location_id': self.location_id.id,

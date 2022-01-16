@@ -34,10 +34,8 @@ class MaintenanceStage(models.Model):
     site = fields.Char('Site', required=True)
 
     def _get_default_team_id(self):
-        print("pppppppppppppppppppppppppp")
         MT = self.env['maintenance.team']
         team = MT.search([('member_ids', 'in', self.env.user.id)], limit=1)
-        print("ooooooooooooooo",team)
         if not team:
             team = MT.search([], limit=1)
         return team.id
@@ -176,7 +174,9 @@ class MaintenanceStage(models.Model):
             'picking_type_id': picking_type_id.id,
             'state': 'draft',
             'origin': self.name,
+            'cst_po_number': self.name,
             'maintenance_request_id': self.id,
+            'employee_id': self.employee_id.id,
             'partner_id': picking_id.partner_id.id,
             'picking_type_code': 'outgoing',
             'location_id': picking_id.location_dest_id.id,
@@ -220,7 +220,10 @@ class MaintenanceStage(models.Model):
             'picking_type_id': picking_type_id.id,
             'state': 'draft',
             'origin': self.name,
+            'cst_po_number': self.name,
             'maintenance_request_id': self.id,
+            'employee_id': self.employee_id.id,
+
             'partner_id': picking_id.partner_id.id,
             'picking_type_code': 'outgoing',
             'location_id': picking_id.location_dest_id.id,

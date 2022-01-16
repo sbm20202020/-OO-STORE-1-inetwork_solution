@@ -92,6 +92,12 @@
                      <field name="confirm_user_id" readonly="1"  attrs="{'invisible':[('stage_name','!=','Confirmed SO')]}" />
                     <field name="confirm_date" readonly="1"  attrs="{'invisible':[('stage_name','!=','Confirmed SO')]}" />
                 </xpath>
+                  <xpath expr="//field[@name='equipment_id']" position="attributes">
+ <attribute name="attrs">
+                    {'invisible': [('type','=','shnider')]}
+                </attribute>
+
+            </xpath>
             </field>
         </record>
         <record id="shnider_request_view_tree" model="ir.ui.view">

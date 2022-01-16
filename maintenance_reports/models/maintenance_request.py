@@ -29,7 +29,7 @@ class MaintenanceStage(models.Model):
     end_user_date=fields.Date('Date End user Obtained Replacement')
     service_request_number=fields.Char('Service Request Number')
     rma_number=fields.Char('RMA Number')
-    serial = fields.Char(String='Serial')
+    serial = fields.Char(String='Serial',required=1)
 
     @api.constrains('quantity')
     def quantity_not_minus(self):

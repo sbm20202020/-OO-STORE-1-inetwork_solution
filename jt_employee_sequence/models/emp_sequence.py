@@ -24,6 +24,12 @@
 from odoo import models, fields, api, _
 
 
+
+class HREmployeePublic(models.Model):
+
+    _inherit = 'hr.employee.public'
+    emp_id = fields.Char("Employee Id")
+    
 class HREmployee(models.Model):
 
     _inherit = 'hr.employee'

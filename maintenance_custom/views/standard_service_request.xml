@@ -18,9 +18,9 @@
                 <xpath expr="//field[@name='stage_id']" position="replace">
                     <field name="stage_id" widget="statusbar" attrs="{'invisible': [('archive', '=', True)]}"/>
                 </xpath>
-<!--                <xpath expr="//button[@name='archive_equipment_request']" position="replace">-->
-<!--                    <button string="Cancel" name="archive_equipment_request" type="object" invisible="1"/>-->
-<!--                </xpath>-->
+                <xpath expr="//button[@name='archive_equipment_request']" position="replace">
+                    <button string="Cancel" name="archive_equipment_request" type="object" groups="maintenance_custom.group_maintenance_cancel"/>
+                </xpath>
                 <xpath expr="//button[@name='archive_equipment_request']" position="after">
                     <button type="action" name="%(maintenance_custom.act_menu_receipt)d"
                             string="Receipt"
@@ -58,7 +58,7 @@
 
                     <button type="object" name="action_create_delivery_order_shinder"
                             string="Create DO Sh"
-                             attrs="{'invisible': ['|',('fixable','=', False), ('stage_name', '!=', 'tested')]}"/>
+                             attrs="{'invisible': ['|',('fixable','=', False), ('stage_name', '!=', 'tested')]}" invisible="1"/>
 
 
 

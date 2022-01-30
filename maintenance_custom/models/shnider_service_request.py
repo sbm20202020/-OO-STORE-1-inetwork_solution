@@ -5,6 +5,21 @@ from odoo import models, fields, api, _, SUPERUSER_ID
 class ShniderServiceRequest(models.Model):
     _inherit = 'maintenance.request'
 
+    # shnider_stage_id = fields.Selection([
+    #     ('new_request', 'New Request'),
+    #     ('inspection', 'Inspection'),
+    #     ('fixable', 'Fixable'),
+    #     ('not_fixable', 'Not Fixable'),
+    #     ('tested', 'Tested'),
+    #     ('created_DO', 'Created DO'),
+    #     ('replaced', 'Replaced'),
+    #     ('closed_without_fees', 'Closed Without Fees'),
+    #     ('create_DO_to_CL', 'Create DO to CL'),
+    #     ('closed', 'Closed'),
+    #     ('create_DO_to_MT', 'Create DO to MT'),
+    #     ('create_DO_to_Shnider', 'Create DO to Schneider'),
+    #     # ('created_CI', 'Created CI'),
+    # ], 'Stage', default='new_request')
     shnider_stage_id = fields.Selection([
         ('new_request', 'New Request'),
         ('inspection', 'Inspection'),
@@ -16,8 +31,6 @@ class ShniderServiceRequest(models.Model):
         ('closed_without_fees', 'Closed Without Fees'),
         ('create_DO_to_CL', 'Create DO to CL'),
         ('closed', 'Closed'),
-        ('create_DO_to_MT', 'Create DO to MT'),
-        ('create_DO_to_Shnider', 'Create DO to Schneider'),
         # ('created_CI', 'Created CI'),
     ], 'Stage', default='new_request')
     product_ids = fields.Many2many('product.product', string="Products")
@@ -199,9 +212,9 @@ class ShniderServiceRequest(models.Model):
                 'procure_method': 'make_to_order',
             })
         self.delivery_order_id_to_MT = new_delivery_order.id
-        if self.type == 'shnider':
-            self.shnider_stage_id = 'create_DO_to_MT'
-            self.stage_name = 'create_DO_to_MT'
+        # if self.type == 'shnider':
+        #     self.shnider_stage_id = 'create_DO_to_MT'
+        #     self.stage_name = 'create_DO_to_MT'
 
         return new_delivery_order, picking_type_id
 
@@ -238,9 +251,9 @@ class ShniderServiceRequest(models.Model):
                 'procure_method': 'make_to_order',
             })
         self.delivery_order_id_to_shnider = new_delivery_order.id
-        if self.type == 'shnider':
-            self.shnider_stage_id = 'create_DO_to_Shnider'
-            self.stage_name = 'create_DO_to_Shnider'
+        # if self.type == 'shnider':
+        #     self.shnider_stage_id = 'create_DO_to_Shnider'
+        #     self.stage_name = 'create_DO_to_Shnider'
         return new_delivery_order, picking_type_id
 
 

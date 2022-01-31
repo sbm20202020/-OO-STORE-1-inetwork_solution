@@ -72,13 +72,14 @@ class StockInventoryWizard(models.TransientModel):
             'state': 'draft',
             'origin': maintenance.name,
             'cst_po_number': maintenance.name,
+            'site_name': maintenance.site,
             'partner_id': self.partner.id,
             'picking_type_code': 'incoming',
             'location_id': self.location_id.id,
             'maintenance_request_id': maintenance.id,
             'location_dest_id': self.des_location_id.id,
             'x_studio_creation_date': maintenance.request_date,
-            'site_name': maintenance.site,
+
 
         })
         x = self.env["stock.move"].create({

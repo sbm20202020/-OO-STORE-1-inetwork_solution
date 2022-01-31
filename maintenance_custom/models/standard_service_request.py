@@ -175,6 +175,8 @@ class MaintenanceStage(models.Model):
             'state': 'draft',
             'origin': self.name,
             'cst_po_number': self.name,
+            'site_name': self.site,
+
             'maintenance_request_id': self.id,
             'employee_id': self.employee_id.id,
             'partner_id': picking_id.partner_id.id,
@@ -221,6 +223,8 @@ class MaintenanceStage(models.Model):
             'state': 'draft',
             'origin': self.name,
             'cst_po_number': self.name,
+            'site_name': self.site,
+
             'maintenance_request_id': self.id,
             'employee_id': self.employee_id.id,
 

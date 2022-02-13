@@ -20,7 +20,7 @@
                         <div class="oe_structure"/>
                         <div style="border-bottom: 1px solid">
                             <div style="font-size: 25px;text-align: Center;font-weight:bold;color:black">
-                                <span t-field="o.name"/>
+                                <span style="border-bottom: 1px solid" t-field="o.name"/>
                             </div>
                             <br/>
                             <div align="center">
@@ -173,6 +173,7 @@
                                 </table>
                             </div>
                         </div>
+                        <br/>
                     </t>
                 </div>
             </t>

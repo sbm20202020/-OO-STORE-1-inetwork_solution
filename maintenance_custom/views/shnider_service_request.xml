@@ -84,7 +84,7 @@
                 </xpath>
                 <xpath expr="//field[@name='email_cc']" position="after">
                     <field name="type" readonly="1"/>
-                    <field name="invoice_id" attrs="{'invisible':[('type','=','shnider')]}" readonly="1"/>
+                    <field name="invoice_id" invisible="1" readonly="1"/>
                     <field name="delivery_order_id_to_MT" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1" invisible="1"/>
                     <field name="delivery_order_id_to_shnider" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1" invisible="1"/>
                     <field name="replaced" invisible="1"/>
@@ -93,9 +93,8 @@
                     <field name="confirm_date" readonly="1"  attrs="{'invisible':[('stage_name','!=','Confirmed SO')]}" />
                 </xpath>
                   <xpath expr="//field[@name='equipment_id']" position="attributes">
- <attribute name="attrs">
-                    {'invisible': [('type','=','shnider')]}
-                </attribute>
+                                          <attribute name="invisible">1</attribute>
+
 
             </xpath>
             </field>

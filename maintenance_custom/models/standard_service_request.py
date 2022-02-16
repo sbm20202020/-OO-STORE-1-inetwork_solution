@@ -16,7 +16,7 @@ class MaintenanceStage(models.Model):
     picking_id = fields.Many2one('stock.picking', string='Receipts', copy=False, store=True)
     sales_order_id = fields.Many2one('sale.order', 'Sales Order', copy=False, store=True)
     delivery_order_id = fields.Many2one('stock.picking', string='Delivery Order', copy=False, store=True)
-    picking_count = fields.Integer(string='Picking count', default=0, store=True)
+    picking_count = fields.Integer(string='Picking count', default=0, store=True,copy=False)
     receipt_created = fields.Boolean('Receipt Created')
     stage_name = fields.Char('Stage Name', default='New Request')
     picking_id_stage = fields.Selection([
@@ -141,6 +141,12 @@ class MaintenanceStage(models.Model):
                 result['views'] = form_view
             result['res_id'] = pick_ids.id
         return result
+
+    def unlink(self):
+        for rec in self:
+            if rec.stage_name !='New Request' :
+                raise ValidationError(_("you can not delete This "))
+        return super(MaintenanceStage, self).unlink()
 
     def compute_picking(self):
         for line in self:

@@ -82,10 +82,10 @@ class ShniderServiceRequest(models.Model):
                 "price_unit": line.lst_price,
             })
         self.invoice_id = invoice.id
-        if self.type == 'standard':
-            stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Created CI')])
-            self.stage_id = stage_obj.id
-            self.stage_name = 'Created CI'
+        # if self.type == 'standard':
+        #     stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Created CI')])
+        #     self.stage_id = stage_obj.id
+        #     self.stage_name = 'Created CI'
         return invoice
     def action_create_delivery_order_to_cl(self):
         self.ensure_one()

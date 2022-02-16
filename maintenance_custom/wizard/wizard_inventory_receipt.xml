@@ -54,7 +54,7 @@
             <field name="arch" type="xml">
                 <form>
                     <group>
-                        <field name="date_order"/>
+                        <field name="date_order" readonly="0"/>
                     </group>
                     <footer>
                         <button name="create_so" string="Create SO" type="object" class="btn-primary"/>

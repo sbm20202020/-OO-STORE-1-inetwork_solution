@@ -24,12 +24,6 @@
 from odoo import models, fields, api, _
 
 
-
-class HREmployeePublic(models.Model):
-
-    _inherit = 'hr.employee.public'
-    emp_id = fields.Char("Employee Id")
-    
 class HREmployee(models.Model):
 
     _inherit = 'hr.employee'
@@ -64,3 +58,5 @@ class HREmployeepuplic(models.Model):
 
     _inherit = 'hr.employee.public'
     emp_id = fields.Char("Employee Id")
+    emp_sequence_id = fields.Many2one('ir.sequence', 'Employee Sequence',default=lambda self: self.env['ir.sequence'].search([('code','=','seqemp.seqemp')]).id)
+

@@ -19,6 +19,12 @@ class MaintenanceStage(models.Model):
     partner_id=fields.Char(string='Customer')
     service = fields.Char("service")
 
+    @api.constrains('initial_amount')
+    def not_minus_initial_amount(self):
+        for rec in self:
+            if rec.initial_amount < 0:
+                raise ValidationError('Entitled Amount should not minus. or 0')
+
     end_user_name = fields.Char(String='End User Name ')
     issue_problem = fields.Char(String='Issue/Problem Description ')
     defective_part_number = fields.Char(String='Defective Part Number')

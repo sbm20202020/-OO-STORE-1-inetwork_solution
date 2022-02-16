@@ -65,7 +65,7 @@ class StockInventoryWizard(models.TransientModel):
         active_id = self._context.get('active_ids', []) or []
         maintenance = self.env['maintenance.request'].browse(active_id)
         pick_type_id = self.picking_type_id.id
-        new_picking =self.env["stock.picking"].create({
+        new_picking =self.env["stock.picking"].sudo().create({
             'move_lines': [],
             'picking_type_id': pick_type_id,
             'employee_id':maintenance.employee_id.id,
@@ -109,17 +109,23 @@ class SalesOrderWizard(models.TransientModel):
 
     date_order = fields.Date('Order Date')
 
+
+
     def create_so(self):
         self.ensure_one()
         # Create new sales order for products
         active_id = self._context.get('active_ids', []) or []
         maintenance = self.env['maintenance.request'].browse(active_id)
-        new_order = self.env["sale.order"].create({
+        if self.date_order < maintenance.request_date:
+            raise ValidationError(_('Date Should be greater than Request Date'))
+
+        new_order = self.env["sale.order"].sudo().create({
             'company_id': maintenance.picking_id.company_id.id,
             'partner_id': maintenance.picking_id.partner_id.id,
             'date_order': self.date_order,
-            # 'description': maintenance.name,
-            # 'site_name': maintenance.site,
+            'description': maintenance.name,
+            'cst_po_number': maintenance.name,
+            'site_name': maintenance.site,
         })
         stage_obj = self.env['maintenance.stage'].search([('name', '=', 'Created SO')])
         maintenance.stage_id = stage_obj.id

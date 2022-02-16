@@ -12,7 +12,7 @@
                 <xpath expr="//button[@name='archive_equipment_request']" position="after">
                     <button type="object" name="action_test"
                             string="Test"
-                            attrs="{'invisible': ['&amp;','|',('type','!=','shnider'),('shnider_stage_id','!=','fixable'),('shnider_stage_id','!=','create_DO_to_CL')]}" groups="maintenance_custom.group_maintenance_manager"/>
+                            attrs="{'invisible': ['&amp;','|',('type','!=','shnider'),('shnider_stage_id','!=','fixable'),('shnider_stage_id','!=','create_DO_to_CL')]}" />
 
 <!--                    <button type="object" name="action_create_invoice"-->
 <!--                            string="Create CI"-->
@@ -20,7 +20,7 @@
 
                     <button type="object" name="action_replace"
                             string="Replace"
-                            attrs="{'invisible': ['|',('type','!=','shnider'),('shnider_stage_id','!=','not_fixable')]}" groups="maintenance_custom.group_maintenance_manager"/>
+                            attrs="{'invisible': ['|',('type','!=','shnider'),('shnider_stage_id','!=','not_fixable')]}" />
                     <button type="object" name="action_not_replace"
                             string="Not Replace"
                             attrs="{'invisible': ['|',('type','!=','shnider'),('shnider_stage_id','!=','not_fixable')]}"/>
@@ -108,7 +108,7 @@
                     <field name="request_date" groups="base.group_no_one"/>
                     <field name="owner_user_id"/>
                     <field name="user_id"/>
-                    <field name="category_id" readonly="1" groups="maintenance.group_equipment_manager"/>
+                    <field name="category_id" readonly="1" />
                     <field name="shnider_stage_id"/>
                     <field name="company_id" readonly="1" groups="base.group_multi_company"/>
                 </tree>

@@ -41,11 +41,11 @@
                             attrs="{'invisible': ['|',('stage_name', '!=', 'fixable'),('type','=','shnider')]}"/>
                     <button type="object" name="action_tested"
                             string="Test"
-                            attrs="{'invisible': [('stage_name', '!=', 'Confirmed SO')]}" groups="maintenance_custom.group_maintenance_manager"/>
+                            attrs="{'invisible': [('stage_name', '!=', 'Confirmed SO')]}" />
 
                     <button type="object" name="action_closed"
                             string="Close"
-                            attrs="{'invisible': [('stage_name', '!=', 'Tested')]}" groups="maintenance_custom.group_maintenance_manager"/>
+                            attrs="{'invisible': [('stage_name', '!=', 'Tested')]}" />
 
                     <button type="object" name="action_create_delivery_order"
                             string="Create DO"
@@ -54,7 +54,7 @@
 <!--                       new buttons -->
                     <button type="object" name="action_closed_shinder"
                             string="Close "
-                            attrs="{'invisible': ['|',('fixable','=', True),('stage_name', '!=', 'tested')]}" groups="maintenance_custom.group_maintenance_manager"/>
+                            attrs="{'invisible': ['|',('fixable','=', True),('stage_name', '!=', 'tested')]}" />
 
                     <button type="object" name="action_create_delivery_order_shinder"
                             string="Create DO Sh"

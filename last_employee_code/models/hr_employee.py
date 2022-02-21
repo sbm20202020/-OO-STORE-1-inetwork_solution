@@ -71,4 +71,8 @@ class HrContract(models.Model):
 
 
 
-
+class HrEmployeepublic(models.Model):
+    _inherit = 'hr.employee.public'
+    location_id = fields.Many2one('hr.location', string='Location', required=True)
+    location_code = fields.Char(related='location_id.code', string='Location Code')
+    last_employee_code = fields.Char(string='Last Employee Code', )

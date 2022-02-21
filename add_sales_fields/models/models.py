@@ -8,7 +8,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     site_name = fields.Char(string='Site')
-    cst_po_number= fields.Char(string="CST PO Number")
+    cst_po_number= fields.Char(string="Case Number")
 
 
 

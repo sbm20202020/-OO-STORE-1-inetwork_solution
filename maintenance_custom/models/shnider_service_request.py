@@ -40,8 +40,8 @@ class ShniderServiceRequest(models.Model):
     invoice_id = fields.Many2one('account.move', 'Customer Invoice')
     delivery_order_id_to_MT = fields.Many2one('stock.picking', string='Delivery Order to MT', copy=False, store=True)
     delivery_order_id_to_shnider = fields.Many2one('stock.picking', string='Delivery Order to Schneider', copy=False, store=True)
-    replaced = fields.Boolean('replaced')
-    fixable = fields.Boolean('replaced')
+    replaced = fields.Boolean('replaced',copy=False)
+    fixable = fields.Boolean('replaced',copy=False)
     type = fields.Selection([('standard', 'Standard'), ('shnider', 'Schneider')], 'Type', store=True)
 
 

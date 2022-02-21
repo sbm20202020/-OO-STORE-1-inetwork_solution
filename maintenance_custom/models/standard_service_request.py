@@ -17,7 +17,7 @@ class MaintenanceStage(models.Model):
     sales_order_id = fields.Many2one('sale.order', 'Sales Order', copy=False, store=True)
     delivery_order_id = fields.Many2one('stock.picking', string='Delivery Order', copy=False, store=True)
     picking_count = fields.Integer(string='Picking count', default=0, store=True,copy=False)
-    receipt_created = fields.Boolean('Receipt Created')
+    receipt_created = fields.Boolean('Receipt Created',copy=False)
     stage_name = fields.Char('Stage Name', default='New Request')
     picking_id_stage = fields.Selection([
         ('draft', 'Draft'),
@@ -169,6 +169,28 @@ class MaintenanceStage(models.Model):
 
         }
 
+    def compute_picking_standard(self):
+        for line in self:
+            line.picking_count_standard= self.env['stock.picking'].search_count([('maintenance_request_id', '=', line.id)])
+    picking_count_standard=fields.Integer(string='Picking count',compute='compute_picking_standard')
+
+    def collect_picking_view_standard(self):
+        self.ensure_one()
+        domain = [
+            ('maintenance_request_id', '=', self.id)
+        ]
+        return {
+            'name': _('Pickings'),
+            'domain': domain,
+            'res_model': 'stock.picking',
+            'type': 'ir.actions.act_window',
+            'view_id': False,
+            'view_mode': 'tree,form',
+            'view_type': 'form',
+
+        }
+
+
 
     def action_create_delivery_order(self):
         self.ensure_one()
@@ -182,7 +204,6 @@ class MaintenanceStage(models.Model):
             'origin': self.name,
             'cst_po_number': self.name,
             'site_name': self.site,
-
             'maintenance_request_id': self.id,
             'employee_id': self.employee_id.id,
             'partner_id': picking_id.partner_id.id,

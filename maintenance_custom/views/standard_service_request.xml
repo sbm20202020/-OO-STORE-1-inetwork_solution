@@ -70,9 +70,17 @@
                 </xpath>
                 <xpath expr="//sheet/div[@class='oe_right']" position="after">
                     <div class="oe_button_box" name="button_box">
-                        <button type="object" name="action_view_picking" class="oe_stat_button" icon="fa-truck" attrs="{'invisible':['|',('picking_count','=',0),('type','=','shnider')]}">
-                            <field name="picking_count" widget="statinfo" string="Receipt" help="Incoming Shipments"/>
-                            <field name="picking_id" invisible="1"/>
+<!--                        <button type="object" name="action_view_picking" class="oe_stat_button" icon="fa-truck" attrs="{'invisible':['|',('picking_count','=',0),('type','=','shnider')]}">-->
+<!--                            <field name="picking_count" widget="statinfo" string="Receipt" help="Incoming Shipments"/>-->
+<!--                            <field name="picking_id" invisible="1"/>-->
+<!--                        </button>-->
+
+                         <button name="collect_picking_view_standard"
+                                type="object"
+                               class="oe_stat_button" icon="fa-truck"
+                          attrs="{'invisible':[('type','=','shnider')]}">
+
+                            <field string="view pickings" name="picking_count_standard" widget="statinfo" attrs="{'invisible':[('type','=','shnider')]}"/>
                         </button>
 
                          <button name="collect_picking_view"

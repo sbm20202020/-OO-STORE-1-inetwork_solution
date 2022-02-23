@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record id="concrete_view_move_form" model="ir.ui.view">
+            <field name="name">view.eta.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@id='account_invoice_payment_btn']" position="after">
+                    <button name="action_post_tax" attrs="{'invisible':['|',('type','not in',['out_invoice','out_refund','out_receipt']),('state','!=','posted')]}" type="object" string="Submit to ETA" groups="eta_invoice.group_submit_to_eta"></button>
+                </xpath>
+
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="taxpayer_activity_code"/>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="before">
+                    <field name="total_taxable_fees" optional="hide"/>
+                    <field name="sales_total" optional="hide"/>
+                    <field name="total" optional="hide"/>
+                    <field name="net_total" optional="hide"/>
+                </xpath>
+
+                <xpath expr="//field[@name='amount_by_group']" position="after">
+                    <field name="total_sales_amount"
+                           attrs="{'invisible':[('type','not in',['out_invoice','out_refund'])]}"/>
+                    <field name="total_discount_amount"
+                           attrs="{'invisible':[('type','not in',['out_invoice','out_refund'])]}"/>
+                    <field name="net_amount" attrs="{'invisible':[('type','not in',['out_invoice','out_refund'])]}"/>
+                    <field name="extra_discount_amount"
+                           attrs="{'invisible':[('type','not in',['out_invoice','out_refund'])]}"/>
+                    <field name="total_amount" attrs="{'invisible':[('type','not in',['out_invoice','out_refund'])]}"/>
+                    <field name="total_items_discount_amount"
+                           attrs="{'invisible':[('type','not in',['out_invoice','out_refund'])]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="eta_uuid" readonly="1"/>
+                    <field name="eta_url" readonly="1" widget="url"/>
+                    <field name="eta_public_url" readonly="1" widget="url"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="server_action_invoice_post_tax_eta" model="ir.actions.server">
+            <field name="name">Submit to ETA</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="groups_id" eval="[(4, ref('eta_invoice.group_submit_to_eta'))]"/>
+            <field name="code">
+                if records:
+                action = records.action_post_tax()
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

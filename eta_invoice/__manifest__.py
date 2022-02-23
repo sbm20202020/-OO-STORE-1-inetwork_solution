@@ -15,6 +15,7 @@
     'auto_install': True,
     'data':[
         'security/security.xml',
+        'data/data.xml',
         'views/eta_button.xml',
         'views/account_tax.xml',
         'views/product_product.xml',

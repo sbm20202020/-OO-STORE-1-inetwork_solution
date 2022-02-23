@@ -78,7 +78,18 @@ class AccountMove(models.Model):
 
 
     def action_post_tax(self):
-        print("ahmed Fahmy")
+        print('company id', self.env.company.id)
+        ip_adress=''
+        if self.env.company.id==1:
+            ip_adress=self.env['ir.config_parameter'].get_param('eta_invoice.el_khaleg')
+        elif self.env.company.id==2:
+            ip_adress = self.env['ir.config_parameter'].get_param('eta_invoice.alqitaria')
+        elif self.env.company.id==3:
+            ip_adress = self.env['ir.config_parameter'].get_param('eta_invoice.el_masria')
+
+
+
+        # self.env['ir.config_parameter'].get_param('eta_invoice.parameter_eta')
 
         testNames=["EG-200148796-041","EG-200148796-042","EG-200148796-043","EG-200148796-043","EG-200148796-044","EG-200148796-003"]
         i=-1
@@ -208,8 +219,10 @@ class AccountMove(models.Model):
             filtered = remove_none(invoice_to_dict(invoice))
             # raise ValidationError(_('%s')%(filtered))
 
-            print(filtered)
-            res = requests.post('http://41.130.144.84:8080/api/invoice/signJson', json=filtered, verify=False)
+            # res = requests.post(self.env['ir.config_parameter'].get_param('eta_invoice.parameter_eta'), json=filtered, verify=False)
+            # res = requests.post('http://41.130.144.84:8080/api/invoice/signJson', json=filtered, verify=False)
+            print('ip',ip_adress)
+            res = requests.post(ip_adress, json=filtered, verify=False)
             res = json.loads(res.text)
             if res.get('acceptedDocuments'):
                 move.eta_uuid = res["acceptedDocuments"][0]["uuid"]

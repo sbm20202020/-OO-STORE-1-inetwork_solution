@@ -119,6 +119,3 @@ class AccountMoveLine(models.Model):
                 items[tax.tax_type] += tax_item_amount
 
         return items
-
-
-

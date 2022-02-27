@@ -14,7 +14,7 @@
                 </xpath>
                 <xpath expr="//field[@name='state']" position="replace">
 
-                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirmed"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirmed_line"/>
 
                 </xpath>
 
@@ -37,13 +37,13 @@
                     <attribute name="states">confirmed_line</attribute>
                 </xpath>
                 <xpath expr="//button[@name='action_quotation_send'][2]" position="attributes">
-                    <attribute name="attrs">{'invisible': [('state', 'not in', ['confirmed'])]}</attribute>
+                    <attribute name="attrs">{'invisible': [('state', 'not in', ['confirmed_line'])]}</attribute>
                 </xpath>
                 <xpath expr="//button[@name='action_quotation_send'][3]" position="attributes">
                     <attribute name="attrs">{'invisible': ['|',('state', 'not in', ['draft']),('state', 'in', ['draft'])]}</attribute>
                 </xpath>
                  <xpath expr="//button[@name='action_confirm']" position="attributes">
-                    <attribute name="states">confirmed</attribute>
+                    <attribute name="states">confirmed_line</attribute>
                 </xpath>
 
 
@@ -52,11 +52,11 @@
                 </xpath>
 
                 <xpath expr="//field[@name='partner_id']" position="attributes">
-                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sent','confirmed'])]}</attribute>
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sent','confirmed_line'])]}</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='validity_date']" position="attributes">
-                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sent','confirmed'])]}</attribute>
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sent','confirmed_line'])]}</attribute>
                 </xpath>
 
 
@@ -72,7 +72,7 @@
             <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
             <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
             <field name="context">{}</field>
-            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel','confirmed'))]</field>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel','confirmed_line'))]</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     Create a Quotation, the first step of a new sale.
@@ -91,7 +91,7 @@
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
             <field name="arch" type="xml">
                      <xpath expr="//notebook/page/group/group/field[@name='picking_policy']" position="attributes">
-                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sent','confirmed'])],'required':True}</attribute>
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sent','confirmed_line'])],'required':True}</attribute>
                 </xpath>
             </field>
          </record>

@@ -45,7 +45,7 @@ class SaleOrder(models.Model):
 
     state = fields.Selection([
         ('draft', 'Quotation'),
-        ('confirmed_line', 'Confirmed'),
+        ('confirmed', 'Confirmed'),
         ('sent', 'Quotation Sent'),
         ('sale', 'Sales Order'),
         ('done', 'Locked'),
@@ -56,8 +56,7 @@ class SaleOrder(models.Model):
     def change_state(self):
         for line in self:
             if line.total_state == 'Confirm Complate':
-                #line.state = 'confirmed_line'
-                line.write({'state':'confirmed_line'})
+                line.state = 'confirmed'
                 # commission_group = self.env.ref('sales_team.group_sale_manager')
                 # commission_group.write({'users': [(4,self.env.user.id)]})
             elif line.total_state == 'Waiting Confirm' or line.total_state == ' ':

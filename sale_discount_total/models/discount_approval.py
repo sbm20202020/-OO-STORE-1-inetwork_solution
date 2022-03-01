@@ -28,6 +28,7 @@ class sale_discount(models.Model):
 
     state = fields.Selection([
         ('draft', 'Quotation'),
+        ('confirmed_line', 'Confirmed'),
         ('sent', 'Quotation Sent'),
         ('waiting', 'Waiting Approval'),
         ('sale', 'Sales Order'),

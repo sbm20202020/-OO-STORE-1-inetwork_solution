@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_leave_allocation_view_form_new_action_server" model="ir.ui.view">
+            <field name="name">hr.leave.allocation.form</field>
+            <field name="model">hr.leave.allocation</field>
+                    <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                    <field name="state" invisible="1" widget="statusbar" statusbar_visible="draft,confirm,validate"/>
+                </header>
+                    <sheet>
+                        <group>
+                            <field name="holiday_type" invisible="1" />
+                            <field name="employee_id" invisible="1" />
+                            <field name="name" required="1"/>
+                            <field name="holiday_status_id"/>
+                            <field name="number_of_days_display" readonly="1"/>
+                            <field name="from_time_off_ids" readonly="1" invisible="1"/>
+
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Apply" class="btn btn-primary" special="save"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+
+            </field>
+        </record>
+
+
+        <record id="act_hr_employee_holiday_leave_next_year" model="ir.actions.server">
+            <field name="name">Leave Time Off To Next Year</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="type">ir.actions.server</field>
+            <field name="binding_model_id" ref="hr.model_hr_employee"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.action_leave_time_out_to_next_year()
+            </field>
+        </record>
+
+        <record id="act_hr_employee_holiday_leave_next_year_all" model="ir.actions.server">
+            <field name="name">Leave Time Off To Next Year</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="type">ir.actions.server</field>
+            <field name="binding_model_id" ref="hr.model_hr_employee"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.action_leave_time_out_to_next_year_all()
+            </field>
+        </record>
+    </data>
+</odoo>

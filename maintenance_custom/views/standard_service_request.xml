@@ -52,9 +52,12 @@
                              attrs="{'invisible': [ ('stage_name', '!=', 'Closed')]}"/>
 
 <!--                       new buttons -->
-                    <button type="object" name="action_closed_shinder"
-                            string="Close "
-                            attrs="{'invisible': ['|',('fixable','=', True),('stage_name', '!=', 'tested')]}" />
+<!--                    <button type="object" name="action_closed_shinder"-->
+<!--                            string="Close"-->
+<!--                            attrs="{'invisible': ['|',('fixable','=', True),('stage_name', '!=', 'tested')]}" />-->
+                      <button type="object" name="action_closed_shinder"
+                            string="Close"
+                            attrs="{'invisible': [('stage_name', '!=', 'tested')]}" />
 
                     <button type="object" name="action_create_delivery_order_shinder"
                             string="Create DO Sh"

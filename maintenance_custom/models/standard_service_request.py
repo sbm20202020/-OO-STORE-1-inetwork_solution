@@ -18,7 +18,7 @@ class MaintenanceStage(models.Model):
     delivery_order_id = fields.Many2one('stock.picking', string='Delivery Order', copy=False, store=True)
     picking_count = fields.Integer(string='Picking count', default=0, store=True,copy=False)
     receipt_created = fields.Boolean('Receipt Created',copy=False)
-    stage_name = fields.Char('Stage Name', default='New Request')
+    stage_name = fields.Char('Stage Name', default='New Request',copy=False)
     picking_id_stage = fields.Selection([
         ('draft', 'Draft'),
         ('waiting', 'Waiting Another Operation'),

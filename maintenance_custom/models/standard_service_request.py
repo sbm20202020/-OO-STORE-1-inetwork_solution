@@ -26,7 +26,7 @@ class MaintenanceStage(models.Model):
         ('assigned', 'Ready'),
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
-    ], related='picking_id.state')
+    ], related='picking_id.state',copy=False)
     priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Medium'), ('3', 'High')], string='Priority')
     # request_date = fields.Date('Request Date', related='equipment_id.assign_date')
     confirm_user_id=fields.Many2one('res.users',string='confirmed user', readonly=1)

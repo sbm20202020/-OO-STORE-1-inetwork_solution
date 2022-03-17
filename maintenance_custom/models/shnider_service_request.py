@@ -32,7 +32,7 @@ class ShniderServiceRequest(models.Model):
         ('create_DO_to_CL', 'Create DO to CL'),
         ('closed', 'Closed'),
         # ('created_CI', 'Created CI'),
-    ], 'Stage', default='new_request')
+    ], 'Stage', default='new_request',copy=False)
     product_ids = fields.Many2many('product.product', string="Products")
     product_id = fields.Many2one('product.product', string="Product")
     product_price=fields.Float(related='product_id.lst_price')

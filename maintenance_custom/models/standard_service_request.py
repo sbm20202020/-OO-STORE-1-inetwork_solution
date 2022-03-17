@@ -111,7 +111,6 @@ class MaintenanceStage(models.Model):
             self.stage_name = 'Closed'
 
     def action_closed_shinder(self):
-
         if self.type == 'shnider':
             picking_obj = self.env['stock.picking'].search([('maintenance_request_id', '=', self.id)])
             for rec in picking_obj:
@@ -120,6 +119,8 @@ class MaintenanceStage(models.Model):
                 else:
                     self.stage_name='Closed'
                     self.shnider_stage_id = 'closed'
+
+
 
     def action_view_picking(self):
         """ This function returns an action that display existing picking orders of given Maintenance ids. When only one found, show the picking immediately.

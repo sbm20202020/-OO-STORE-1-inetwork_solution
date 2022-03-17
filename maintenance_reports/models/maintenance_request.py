@@ -37,6 +37,18 @@ class MaintenanceStage(models.Model):
     rma_number=fields.Char('RMA Number')
     serial = fields.Char(String='Serial',required=1)
 
+    @api.constrains("purchase_date", "end_user_date", )
+    def _check_dates_id(self):
+        for rec in self:
+            if rec.purchase_date:
+                if rec.purchase_date < fields.Date.from_string(fields.Date.today()):
+                    raise ValidationError(("You should select date in Purchase Date  Greater than Today Date "))
+
+            if rec.end_user_date:
+                if rec.end_user_date < fields.Date.from_string(fields.Date.today()):
+                    raise ValidationError(("You should select date in Date End user Obtained Replacement  Greater than Today Date "))
+
+
     @api.constrains('quantity')
     def quantity_not_minus(self):
         for line in self:

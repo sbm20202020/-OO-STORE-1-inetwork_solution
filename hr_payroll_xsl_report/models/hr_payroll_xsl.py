@@ -83,7 +83,7 @@ class BranchReasonProfitDataXls(models.AbstractModel):
             worksheet.write(row, col, str(lin.date_from), header3_format)
             worksheet.write(row, col+1, str(lin.date_to), header3_format)
             worksheet.write(row, col + 2, 'Salary', header3_format)
-            worksheet.write(row, col + 3, 'EGY', header3_format)
+            worksheet.write(row, col + 3, 'egp', header3_format)
             worksheet.write(row, col + 4, lin.employee_id.visa_no, header3_format)
             worksheet.write(row, col + 5, lin.employee_id.name, header3_format)
             worksheet.write(row, col + 6, lin.net_wage, header4_format)

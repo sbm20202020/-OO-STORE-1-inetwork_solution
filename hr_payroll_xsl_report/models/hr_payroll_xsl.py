@@ -71,7 +71,7 @@ class BranchReasonProfitDataXls(models.AbstractModel):
 
         row =1
         col = 0
-        number = 1
+        number = 0
         total_salary = 0.0
         for lin in lines:
             net_salary=0.0
@@ -91,7 +91,9 @@ class BranchReasonProfitDataXls(models.AbstractModel):
 
             number += 1
             row += 1
-        worksheet.write(row, col + 6, total_salary , header4_format)
+        worksheet.write(row, col + 6, total_salary, header4_format)
+
+        worksheet.write(row, col + 5, number , header4_format)
 
         return
 

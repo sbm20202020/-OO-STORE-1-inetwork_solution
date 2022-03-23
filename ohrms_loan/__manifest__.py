@@ -22,7 +22,7 @@
 ###################################################################################
 {
     'name': 'Open HRMS Loan Management',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.1.0',
     'summary': 'Manage Loan Requests',
     'description': """
         Helps you to manage Loan Requests of your company's staff.
@@ -33,11 +33,11 @@
     'maintainer': 'Cybrosys Techno Solutions',
     'website': "https://www.openhrms.com",
     'depends': [
-        'base', 'hr_payroll', 'hr','hr_overtime-master' ],
+        'base', 'hr_payroll', 'hr', 'account',
+    ],
     'data': [
-        # 'security/security.xml',
-        'security/access_right.xml',
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/hr_loan_seq.xml',
         'data/salary_rule_loan.xml',
         'views/hr_loan.xml',

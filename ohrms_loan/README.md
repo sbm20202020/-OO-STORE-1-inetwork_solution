@@ -6,7 +6,7 @@ Manage Loan Requests.
 
 Installation
 ============
-- www.odoo.com/documentation/11.0/setup/install.html
+- www.odoo.com/documentation/13.0/setup/install.html
 - Install our custom addon
 
 License

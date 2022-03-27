@@ -1,0 +1,18 @@
+<odoo>
+
+	<report id="salary_report_excel_id"
+                model="hr.payslip"
+                string="Salary Report(XLSX)"
+                report_type="xlsx"
+                name="salary_timesheet_report.salary_report_excel"
+                file="Salary Report"
+                attachment_use="False"/>
+
+	<report id="timesheet_report_excel_id"
+                model="attendance.sheet"
+                string="Timesheet Report(XLSX)"
+                report_type="xlsx"
+                name="salary_timesheet_report.timesheet_report_excel"
+                file="Timesheet Report"
+                attachment_use="False"/>
+</odoo>

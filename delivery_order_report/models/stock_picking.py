@@ -8,7 +8,8 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
     # cst_po_number_id = fields.Many2one('cst.po.number',string="CST PO Number")
-    cst_po_number= fields.Char(string="CST PO Number")
+    employee_id=fields.Many2one('hr.employee',string='Responsible')
+    cst_po_number= fields.Char(string="Case Number")
 
     attention = fields.Many2one('res.partner', domain="[('id','in',attention_ids)]")
     attention_ids = fields.Many2many('res.partner', 'par_picking_relation', 'att1_picking', 'att2_picking',

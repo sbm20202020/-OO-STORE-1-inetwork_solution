@@ -39,7 +39,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span t-field="o.partner_id.name"></span>
+                                                        <span t-field="o.partner_id"></span>
 
                                                     </td>
 
@@ -71,7 +71,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                         <span t-field="o.partner_id.phone"></span>
+                                                         <span t-field="o.contact_name"></span>
 
                                                     </td>
 
@@ -101,7 +101,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span t-field="o.partner_id.email"></span>
+                                                        <span t-field="o.email_cc"></span>
 
                                                     </td>
 
@@ -131,7 +131,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span t-field="o.equipment_id.product_id"></span>
+                                                        <span t-field="o.equipment_id.product_id.name"></span>
 
                                                     </td>
 
@@ -191,7 +191,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span t-field="o.equipment_id.lot_id.name"></span>
+                                                        <span t-field="o.serial"></span>
 
                                                     </td>
 
@@ -350,8 +350,8 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span></span>
-
+<!--                                    <span  t-field="o.create_uid"/>-->
+                                                        <span t-field="o.employee_id.name"/>
                                                     </td>
 
                                                 </table>
@@ -381,7 +381,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span ></span>
+                                                        <span t-field="o.user_id.name"/>
 
                                                     </td>
 
@@ -411,7 +411,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span></span>
+                                                        <span t-field="o.confirm_date"></span>
 
                                                     </td>
 

@@ -122,6 +122,7 @@ class PheReportDataXls(models.AbstractModel):
 
         row = 9
         col = 0
+        total=0.0
         if date_from and date_to and type:
 
             maintenance_obj = self.env['maintenance.request'].search([('request_date','>=',date_from),('request_date','<=',date_to),('type', '=', type)])
@@ -139,7 +140,6 @@ class PheReportDataXls(models.AbstractModel):
             for rec in maintenance_obj:
                 number = number +1
                 worksheet.write(row, col, number, header4_format)
-                print("reccccccccccccccccccc", rec.partner_id.name)
 
                 if rec.request_date:
 
@@ -147,7 +147,7 @@ class PheReportDataXls(models.AbstractModel):
                 else:
                     worksheet.write(row, col + 1, str(' '), header4_format)
                 if rec.partner_id:
-                    worksheet.write(row, col + 2, str(rec.partner_id.name), header4_format)
+                    worksheet.write(row, col + 2, str(rec.partner_id), header4_format)
                 else:
                     worksheet.write(row, col + 2, ' ', header4_format)
                 if rec.equipment_id:
@@ -158,8 +158,8 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
                 else:
                     worksheet.write(row, col + 4, ' ', header4_format)
-                if rec.service:
-                    worksheet.write(row, col + 5, rec.service, header4_format)
+                if rec.product_id:
+                    worksheet.write(row, col + 5, rec.product_id.name, header4_format)
                 else:
                     worksheet.write(row, col + 5, ' ', header4_format)
                 if rec.request_date:
@@ -169,8 +169,10 @@ class PheReportDataXls(models.AbstractModel):
 
                 if type=='standard':
                     worksheet.write(row, col + 7, rec.initial_amount, header4_format)
+                    total +=rec.initial_amount
                 if type=='shnider':
-                    worksheet.write(row, col +7, sum([s.lst_price for s in rec.product_ids]), header4_format)
+                    worksheet.write(row, col + 7, rec.product_id.lst_price, header4_format)
+                    total += rec.product_id.lst_price
                 row += 1
 
         if date_from and date_to and not type:
@@ -196,7 +198,7 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 1, str(' '), header4_format)
                 if rec.partner_id:
 
-                    worksheet.write(row, col + 2, rec.partner_id.name, header4_format)
+                    worksheet.write(row, col + 2, rec.partner_id, header4_format)
                 else:
                     worksheet.write(row, col + 2, ' ', header4_format)
                 if rec.equipment_id:
@@ -207,8 +209,8 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
                 else:
                     worksheet.write(row, col + 4, ' ', header4_format)
-                if rec.service:
-                    worksheet.write(row, col + 5, rec.service, header4_format)
+                if rec.product_id:
+                    worksheet.write(row, col + 5, rec.product_id.name, header4_format)
                 else:
                     worksheet.write(row, col + 5, ' ', header4_format)
                 if rec.request_date:
@@ -218,8 +220,12 @@ class PheReportDataXls(models.AbstractModel):
 
                 if rec.type == 'standard':
                     worksheet.write(row, col + 7, rec.initial_amount, header4_format)
+                    total +=rec.initial_amount
                 if rec.type == 'shnider':
-                    worksheet.write(row, col + 7,sum([s.lst_price for s in rec.product_ids]), header4_format)
+                    # worksheet.write(row, col + 7,sum([s.lst_price for s in rec.product_ids]), header4_format)
+                    # total += sum([s.lst_price for s in rec.product_ids])
+                    worksheet.write(row, col + 7, rec.product_id.lst_price, header4_format)
+                    total += rec.product_id.lst_price
 
                 row += 1
 
@@ -247,7 +253,7 @@ class PheReportDataXls(models.AbstractModel):
                 else:
                     worksheet.write(row, col + 1, str(' '), header4_format)
                 if rec.partner_id:
-                    worksheet.write(row, col + 2, rec.partner_id.name, header4_format)
+                    worksheet.write(row, col + 2, rec.partner_id, header4_format)
                 else:
                     worksheet.write(row, col + 2, ' ', header4_format)
                 if rec.equipment_id:
@@ -258,8 +264,8 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
                 else:
                     worksheet.write(row, col + 4, ' ', header4_format)
-                if rec.service:
-                    worksheet.write(row, col + 5, rec.service, header4_format)
+                if rec.product_id:
+                    worksheet.write(row, col + 5, rec.product_id.name, header4_format)
                 else:
                     worksheet.write(row, col + 5, ' ', header4_format)
 
@@ -269,12 +275,14 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 6, str(' '), header4_format)
                 if type == 'standard':
                     worksheet.write(row, col + 7, rec.initial_amount, header4_format)
+                    total += rec.initial_amount
                 if type == 'shnider':
-                    worksheet.write(row, col + 7,sum([s.lst_price for s in rec.product_ids]), header4_format)
+                    worksheet.write(row, col + 7, rec.product_id.lst_price, header4_format)
+                    total += rec.product_id.lst_price
 
                 row += 1
 
-        if date_to and  not type and not date_from:
+        if date_to and not type and not date_from:
 
             maintenance_obj = self.env['maintenance.request'].search([('request_date', '<=', date_to)])
             worksheet.write('A9', 'Sr. No.', t1)
@@ -296,7 +304,7 @@ class PheReportDataXls(models.AbstractModel):
                 else:
                     worksheet.write(row, col + 1, str(' '), header4_format)
                 if rec.partner_id:
-                    worksheet.write(row, col + 2, rec.partner_id.name, header4_format)
+                    worksheet.write(row, col + 2, rec.partner_id, header4_format)
                 else:
                     worksheet.write(row, col + 2, ' ', header4_format)
                 if rec.equipment_id:
@@ -307,8 +315,8 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
                 else:
                     worksheet.write(row, col + 4, ' ', header4_format)
-                if rec.service:
-                    worksheet.write(row, col + 5, rec.service, header4_format)
+                if rec.product_id:
+                    worksheet.write(row, col + 5, rec.product_id.name, header4_format)
                 else:
                     worksheet.write(row, col + 5, ' ', header4_format)
                 if rec.request_date:
@@ -317,11 +325,15 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 6, str(' '), header4_format)
                 if rec.type == 'standard':
                     worksheet.write(row, col + 7, rec.initial_amount, header4_format)
+                    total +=rec.initial_amount
                 if rec.type == 'shnider':
-                    print("reccccccccccccccccccc",rec.total_price)
-                    worksheet.write(row, col + 7, sum([s.lst_price for s in rec.product_ids]), header4_format)
+                    worksheet.write(row, col + 7, rec.product_id.lst_price, header4_format)
+                    total += rec.product_id.lst_price
 
                 row += 1
+
+        worksheet.write(row, col + 6, 'Total', header4_format)
+        worksheet.write(row, col + 7, total, header4_format)
 
 
 

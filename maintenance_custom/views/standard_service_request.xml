@@ -1,0 +1,212 @@
+<odoo>
+    <data>
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.view.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="replace">
+                    <field name="origin" placeholder="e.g. PO0032" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="hr_equipment_request_view_form_inherit" model="ir.ui.view">
+            <field name="name">hr.equipment.request.view.form.inherit</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='stage_id']" position="replace">
+                    <field name="stage_id" widget="statusbar" attrs="{'invisible': [('archive', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//button[@name='archive_equipment_request']" position="replace">
+                    <button string="Cancel" name="archive_equipment_request" type="object" groups="maintenance_custom.group_maintenance_cancel"/>
+                </xpath>
+                <xpath expr="//button[@name='archive_equipment_request']" position="after">
+                    <button type="action" name="%(maintenance_custom.act_menu_receipt)d"
+                            string="Receipt"
+                            domain="[('stage_id.done', '=', False)]" attrs="{'invisible': [('receipt_created', '=', True)]}"/>
+
+                    <button type="action" name="%(maintenance_custom.act_menu_inspection)d"
+                            string="Inspection"
+                            attrs="{'invisible': ['|','|','|',('receipt_created', '=', False), ('stage_name', '!=', 'New Request'), ('shnider_stage_id', '!=', 'new_request'),('picking_id_stage', '!=', 'done')]}"/>
+                    <button type="object" name="action_fixable"
+                            string="Fixable"
+                            attrs="{'invisible': ['&amp;',('stage_name', '!=', 'Inspection'), ('shnider_stage_id', '!=', 'inspection')]}"/>
+                    <button type="object" name="action_not_fixable"
+                            string="Not Fixable"
+                            attrs="{'invisible': ['&amp;',('stage_name', '!=', 'Inspection'), ('shnider_stage_id', '!=', 'inspection')]}"/>
+                    <button type="action" name="%(maintenance_custom.act_menu_so)d"
+                            string="Create SO"
+                            domain="[('stage_id.done', '=', False)]"
+                            attrs="{'invisible': ['|',('stage_name', '!=', 'fixable'),('type','=','shnider')]}"/>
+                    <button type="object" name="action_tested"
+                            string="Test"
+                            attrs="{'invisible': [('stage_name', '!=', 'Confirmed SO')]}" />
+
+                    <button type="object" name="action_closed"
+                            string="Close"
+                            attrs="{'invisible': [('stage_name', '!=', 'Tested')]}" />
+
+                    <button type="object" name="action_create_delivery_order"
+                            string="Create DO"
+                             attrs="{'invisible': [ ('stage_name', '!=', 'Closed')]}"/>
+
+<!--                       new buttons -->
+<!--                    <button type="object" name="action_closed_shinder"-->
+<!--                            string="Close"-->
+<!--                            attrs="{'invisible': ['|',('fixable','=', True),('stage_name', '!=', 'tested')]}" />-->
+                      <button type="object" name="action_closed_shinder"
+                            string="Close"
+                            attrs="{'invisible': [('stage_name', '!=', 'tested')]}" />
+
+                    <button type="object" name="action_create_delivery_order_shinder"
+                            string="Create DO Sh"
+                             attrs="{'invisible': ['|',('fixable','=', False), ('stage_name', '!=', 'tested')]}" invisible="1"/>
+
+
+
+<!--                    <button type="object" name="action_create_invoice"-->
+<!--                            string="Create CI"-->
+<!--                            attrs="{'invisible': ['|','|',('type','=','shnider'),('archive','=', False), ('stage_name','=', 'Created CI')]}"/>-->
+
+
+                </xpath>
+                <xpath expr="//sheet/div[@class='oe_right']" position="after">
+                    <div class="oe_button_box" name="button_box">
+<!--                        <button type="object" name="action_view_picking" class="oe_stat_button" icon="fa-truck" attrs="{'invisible':['|',('picking_count','=',0),('type','=','shnider')]}">-->
+<!--                            <field name="picking_count" widget="statinfo" string="Receipt" help="Incoming Shipments"/>-->
+<!--                            <field name="picking_id" invisible="1"/>-->
+<!--                        </button>-->
+
+                         <button name="collect_picking_view_standard"
+                                type="object"
+                               class="oe_stat_button" icon="fa-truck"
+                          attrs="{'invisible':[('type','=','shnider')]}">
+
+                            <field string="view pickings" name="picking_count_standard" widget="statinfo" attrs="{'invisible':[('type','=','shnider')]}"/>
+                        </button>
+
+                         <button name="collect_picking_view"
+                                type="object"
+                               class="oe_stat_button" icon="fa-truck"
+                          attrs="{'invisible':[('type','!=','shnider')]}">
+
+                            <field string="view pickings" name="picking_count_new" widget="statinfo" attrs="{'invisible':[('type','!=','shnider')]}"/>
+                        </button>
+
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='maintenance_type']" position="after">
+<!--                    <field name="type"/>-->
+                    <field name="receipt_created" invisible="1"/>
+                    <field name="stage_name" invisible="1"/>
+                    <field name="sales_order_id" attrs="{'invisible': [('type','=','shnider')]}" readonly="1"/>
+                    <field name="delivery_order_id" readonly="1" invisible="1"/>
+                    <field name="picking_id_stage" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='request_date']" position="after">
+                    <field name="site"/>
+                </xpath>
+                <xpath expr="//field[@name='maintenance_type']" position="replace">
+                    <field name="maintenance_type" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='schedule_date']" position="replace">
+                    <field name="schedule_date" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='close_date']" position="replace">
+                    <field name="close_date" invisible="1"/>
+                </xpath>
+                <xpath expr="//span[@class='ml8']" position="replace">
+                    <span class="ml-2">days</span>
+                </xpath>
+                 <xpath expr="//field[@name='maintenance_type']" position="replace">
+                    <field name="maintenance_type" invisible="1"/>
+                </xpath>
+                 <xpath expr="//field[@name='equipment_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True,'no_edit': True}</attribute>
+                       <attribute name="string">Device</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True,'no_edit': True}</attribute>
+                </xpath>
+
+                 <label for="name" position="replace">
+                    <label string="Case Number" for="name"  />
+                  </label>
+
+
+            </field>
+        </record>
+
+        <record id="maintenance.hr_equipment_request_action" model="ir.actions.act_window">
+            <field name="name">Standard service request</field>
+            <field name="res_model">maintenance.request</field>
+            <field name="view_mode">kanban,tree,form,pivot,graph,calendar</field>
+            <field name="view_id" ref="maintenance.hr_equipment_request_view_kanban"/>
+            <field name="context">{'type': 'standard', 'default_type': 'standard'}
+            </field>
+            <field name="domain">[('type', '=', 'standard')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new Standard service request
+                </p>
+                <p>
+                    Follow the process of the request and communicate with the collaborator.
+                </p>
+            </field>
+        </record>
+
+        <record id="maintenance_request_view_form_inherit_hr_inetwork" model="ir.ui.view">
+            <field name="name">maintenance.equipment.request.view.form.inherit</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="hr_maintenance.maintenance_request_view_form_inherit_hr"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="replace">
+                    <field name="employee_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem
+        id="maintenance.menu_maintenance_title"
+        name="Maintenance"
+        web_icon="maintenance,static/description/icon.png"
+        groups="maintenance.group_equipment_manager"
+        sequence="110"/>
+
+         <record id="hr_equipment_request_view_kanaban_order_security" model="ir.ui.view">
+        <field name="name">view.inherit.maintenance.request</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="stortable">0</attribute>
+
+                <attribute name="disable_drag_drop_record">1</attribute>
+                <attribute name="disable_sort_column">1</attribute>
+                <attribute name="records_draggable">0</attribute>
+<!--                    <attribute name="create">0</attribute>-->
+            </xpath>
+
+        </field>
+    </record>
+          <record id="hr_equipment_request_view_kanaban_order_security22" model="ir.ui.view">
+        <field name="name">view.inherit.maintenance.request</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance_custom.shnider_service_request_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="stortable">0</attribute>
+                <attribute name="disable_drag_drop_record">1</attribute>
+                <attribute name="disable_sort_column">1</attribute>
+                <attribute name="records_draggable">0</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    </data>
+</odoo>

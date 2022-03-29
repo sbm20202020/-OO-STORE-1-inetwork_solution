@@ -1,0 +1,298 @@
+<odoo>
+    <data>
+        <record id="shnider_service_request_view" model="ir.ui.view">
+            <field name="name">hr.equipment.request.view.form.inherit</field>
+            <field name="model">maintenance.request</field>
+            <field name="priority" eval="100"/>
+            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="placeholder"> </attribute>
+                </xpath>
+                <xpath expr="//button[@name='archive_equipment_request']" position="after">
+                    <button type="object" name="action_test"
+                            string="Test"
+                            attrs="{'invisible': ['|',('type','!=','shnider'),('shnider_stage_id','!=','fixable')]}" />
+
+
+                    <button type="object" name="action_replace"
+                            string="Replace"
+                            attrs="{'invisible': ['|',('type','!=','shnider'),('shnider_stage_id','!=','not_fixable')]}" />
+                    <button type="object" name="action_not_replace"
+                            string="Not Replace"
+                            attrs="{'invisible': ['|',('type','!=','shnider'),('shnider_stage_id','!=','not_fixable')]}"/>
+
+<!--                    make this button invisible   (marwa commit )-->
+                    <button type="object" name="action_create_delivery_order_to_mt"
+                            string="Create DO to MT"
+                            attrs="{'invisible': [('shnider_stage_id','!=', 'replaced')]}" invisible="1"/>
+
+                    <button type="object" name="action_create_delivery_order_to_cl"
+                            string="Create DO to CL"
+                            attrs="{'invisible': [('shnider_stage_id','!=', 'replaced')]}" />
+
+<!--                     change state for this button -->
+                    <button type="object" name="action_create_delivery_order_to_shnider"
+                            string="Create DO to Shnider"
+                            attrs="{'invisible': ['|',('replaced','!=',True),('shnider_stage_id','!=', 'tested')]}" invisible="1"/>
+
+
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="after">
+                    <field name="shnider_stage_id"  widget="statusbar" attrs="{'invisible':[('type','=','standard')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('type','=','shnider')]}</attribute>
+                </xpath>
+                <xpath expr="//form/sheet" position="inside">
+                    <notebook>
+                         <page string="Replaced Product Information" attrs="{'invisible':['|',('type','!=','shnider'),('replaced','!=',True)]}">
+                            <group>
+<!--                                <field name="product_ids"  widget="many2many" options="{'no_create':True,'no_edit':True}" invisble="1">-->
+<!--                                    <tree>-->
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="qty_available"/>-->
+<!--                                        <field name="lst_price" sum="Total"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+                                <group>
+                                      <field name="product_id" attrs="{'required':[('replaced','=',True)]}"/>
+                                <field name="product_price"/>
+                                </group>
+
+                            </group>
+                        </page>
+<!--                        <page string="Product Information"  attrs="{'invisible':['|',('type','!=','shnider'),('fixable','!=',True)]}">-->
+<!--&lt;!&ndash;                            <group >&ndash;&gt;-->
+<!--&lt;!&ndash;                                <field name="product_ids"  widget="many2many" options="{'no_create':True,'no_edit':True}"  invisible="1">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <tree>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <field name="name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <field name="lst_price" sum="Total"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </tree>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </field>&ndash;&gt;-->
+<!--&lt;!&ndash;                               &ndash;&gt;-->
+<!--&lt;!&ndash;                            </group>&ndash;&gt;-->
+<!--                             <field name="product_id"/>-->
+<!--                        </page>-->
+
+
+                    </notebook>
+
+                </xpath>
+                <xpath expr="//field[@name='email_cc']" position="after">
+                    <field name="type" readonly="1"/>
+                    <field name="invoice_id" invisible="1" readonly="1"/>
+                    <field name="delivery_order_id_to_MT" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1" invisible="1"/>
+                    <field name="delivery_order_id_to_shnider" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1" invisible="1"/>
+                    <field name="replaced" invisible="1"/>
+                    <field name="fixable" invisible="1"/>
+                     <field name="confirm_user_id" readonly="1"  attrs="{'invisible':[('stage_name','!=','Confirmed SO')]}" />
+                    <field name="confirm_date" readonly="1"  attrs="{'invisible':[('stage_name','!=','Confirmed SO')]}" />
+                </xpath>
+                  <xpath expr="//field[@name='equipment_id']" position="attributes">
+                                          <attribute name="invisible">1</attribute>
+
+
+            </xpath>
+            </field>
+        </record>
+        <record id="shnider_request_view_tree" model="ir.ui.view">
+            <field name="name">shnider.request.tree</field>
+            <field name="model">maintenance.request</field>
+            <field name="arch" type="xml">
+                <tree string="maintenance Request" multi_edit="1">
+                    <field name="name"/>
+                    <field name="request_date" groups="base.group_no_one"/>
+                    <field name="user_id"/>
+                    <field name="shnider_stage_id"/>
+                    <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+        <record id="shnider_request_view_graph" model="ir.ui.view">
+            <field name="name">shnider.request.graph</field>
+            <field name="model">maintenance.request</field>
+            <field name="arch" type="xml">
+                <graph string="maintenance Request">
+                    <field name="user_id"/>
+                    <field name="shnider_stage_id"/>
+                </graph>
+            </field>
+        </record>
+        <record id="shnider_service_request_view_kanban" model="ir.ui.view">
+            <field name="name">shnider.request.kanban</field>
+            <field name="model">maintenance.request</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="shnider_stage_id">
+                    <field name="shnider_stage_id"/>
+                    <field name="color"/>
+                    <field name="priority"/>
+                    <field name="equipment_id"/>
+                    <field name="user_id"/>
+                    <field name="owner_user_id"/>
+                    <field name="category_id"/>
+                    <field name="kanban_state"/>
+                    <field name="message_needaction_counter"/>
+                    <field name="activity_ids" />
+                    <field name="activity_state" />
+                    <progressbar field="kanban_state" colors='{"done": "success", "blocked": "danger"}'/>
+                    <templates>
+                        <t t-name="kanban-tooltip">
+                           <ul class="oe_kanban_tooltip">
+                              <li t-if="record.category_id.raw_value"><b>Category:</b> <t t-esc="record.category_id.value"/></li>
+                              <li t-if="record.user_id.raw_value"><b>Request to:</b> <t t-esc="record.user_id.value"/></li>
+                           </ul>
+                        </t>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="{{!selection_mode ? 'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) : ''}} oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                                <div class="o_dropdown_kanban dropdown">
+
+                                    <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Edit...</a></t>
+                                        <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_content" tooltip="kanban-tooltip">
+                                    <div class="o_kanban_record_top">
+                                        <b class="o_kanban_record_title"><field name="name"/></b>
+                                    </div>
+                                    <div class="o_kanban_record_body">
+                                        <span name="owner_user_id" t-if="record.owner_user_id.raw_value">Requested by : <field name="owner_user_id"/><br/></span>
+                                        <span class="oe_grey" t-if="record.equipment_id.raw_value"><field name="equipment_id"/><br/></span>
+                                        <span t-if="record.category_id.raw_value"><field name="category_id"/></span>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="priority" widget="priority"/>
+                                            <t t-if="record.message_needaction_counter.raw_value">
+                                                <span role="alert" class='oe_kanban_mail_new' title='Unread Messages'><i class='fa fa-comments' role="img" aria-label="Unread Messages"/><t t-raw="record.message_needaction_counter.raw_value"/></span>
+                                            </t>
+                                            <div class="o_kanban_inline_block ml4 mr4">
+                                                <field name="activity_ids" widget="kanban_activity" />
+                                            </div>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <field name="kanban_state" widget="state_selection"/>
+                                            <img t-att-src="kanban_image('res.users', 'image_128', record.user_id.raw_value)" t-att-title="record.user_id.value" t-att-alt="record.user_id.value" class="oe_kanban_avatar float-right"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+          <record id="shinder_hr_equipment_request_view_search" model="ir.ui.view">
+        <field name="name">equipment.request.search</field>
+        <field name="model">maintenance.request</field>
+        <field name="arch" type="xml">
+            <search string="Maintenance Request Search">
+                <field name="name" string="Request"/>
+                <field name="category_id"/>
+                <field name="user_id"/>
+                <field name="equipment_id"/>
+                <field name="owner_user_id"/>
+                <field name="shnider_stage_id"/>
+                <field name="maintenance_team_id"/>
+                <filter string="My Maintenances" name="my_maintenances" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <separator/>
+                <filter string="Blocked" name="kanban_state_block" domain="[('kanban_state', '=', 'blocked')]"/>
+                <filter string="Ready" name="done" domain="[('kanban_state', '=', 'done')]"/>
+                <separator/>
+                <filter string="High-priority" name="high_priority" domain="[('priority', '=', '3')]"/>
+                <separator/>
+                <filter string="Unscheduled" name="unscheduled" domain="[('schedule_date', '=', False)]"/>
+                <separator/>
+                <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction', '=', True)]"/>
+                <separator/>
+                <filter invisible="1" string="Late Activities" name="activities_overdue"
+                    domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                    help="Show all records which has next action date is before today"/>
+                <filter invisible="1" string="Today Activities" name="activities_today"
+                    domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                    domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('archive', '=', True)]"/>
+                <group  expand='0' string='Group by...'>
+                    <filter string='Assigned to' name="assigned" domain="[]" context="{'group_by': 'user_id'}"/>
+                    <filter string='Stage' name="stages" domain="[]" context="{'group_by' : 'shnider_stage_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+        <record id="action_shnider_service_request" model="ir.actions.act_window">
+            <field name="name">Schneider Service Request</field>
+            <field name="res_model">maintenance.request</field>
+            <field name="view_mode">kanban,tree,form,pivot,graph,calendar</field>
+            <field name="view_id" ref="shnider_service_request_view_kanban"/>
+                    <field name="search_view_id" ref="shinder_hr_equipment_request_view_search"/>
+
+            <field name="context">{'type': 'shnider', 'default_type': 'shnider'}</field>
+            <field name="domain">[('type', '=', 'shnider')]</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_shnider_kanban">
+            <field name="sequence" eval="1" />
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="shnider_service_request_view_kanban"/>
+            <field name="act_window_id" ref="action_shnider_service_request"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_shnider_tree">
+            <field name="sequence" eval="2" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="shnider_request_view_tree"/>
+            <field name="act_window_id" ref="action_shnider_service_request"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_shnider_graph">
+            <field name="sequence" eval="4" />
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="shnider_request_view_graph"/>
+            <field name="act_window_id" ref="action_shnider_service_request"/>
+        </record>
+        <menuitem
+            id="maintenance.menu_m_request_form"
+            name="Standard Service Request"
+            parent="maintenance.menu_m_request"
+            action="maintenance.hr_equipment_request_action"
+            groups="maintenance.group_equipment_manager,base.group_user"
+            sequence="1"/>
+        <menuitem
+            action="action_shnider_service_request"
+            id="shnider_service_request_menu"
+            parent="maintenance.menu_m_request"
+            sequence="3"
+        />
+
+         <record id="stock_location_inher_view" model="ir.ui.view">
+            <field name="name">stock.location.view.form.inherit</field>
+            <field name="model">stock.location</field>
+            <field name="priority" eval="100"/>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='removal_strategy_id']" position="after">
+                <field name="maintaince_location"/>
+                    <field  name="shnider_location"/>
+                    <field  name="main_location"/>
+
+                </xpath>
+            </field></record>
+        <record id="stock_pciking_inher_view" model="ir.ui.view">
+            <field name="name">stock.picking.view.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="priority" eval="100"/>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="maintenance_request_id" invisible="1"/>
+                </xpath>
+            </field></record>
+
+    </data>
+</odoo>

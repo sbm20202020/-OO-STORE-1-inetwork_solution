@@ -9,7 +9,7 @@ import logging
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    cst_po_number= fields.Char(string="CST PO Number")
+    cst_po_number= fields.Char(string="Case Number")
 
     # @api.multi
     def action_confirm(self):
@@ -38,7 +38,7 @@ class PurchaseOrder(models.Model):
     # edit by marwa ahmed 16/6
     # cst_po_number_id = fields.Many2one('cst.po.number',string="CST PO Number")
 
-    cst_po_number= fields.Char(string="CST PO Number")
+    cst_po_number= fields.Char(string="Case Number")
 
     def button_confirm(self):
         res = super(PurchaseOrder, self).button_confirm()

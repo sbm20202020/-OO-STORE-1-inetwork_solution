@@ -43,6 +43,15 @@
                  paperformat="maintenance_reports.paperformat_pdf"
                 print_report_name="('SP Product Assessment')"/>
 
+        <report string="MR Print"
+                id="print_mr_report_id"
+                model="maintenance.request"
+                report_type="qweb-pdf"
+                name="maintenance_reports.mr_report_template"
+                file="maintenance_reports.mr_report_template"
+                 paperformat="maintenance_reports.paperformat_pdf"
+                />
+
          <report string="Visit Report"
                 id="visit_report_id"
                 model="maintenance.request"
@@ -53,13 +62,13 @@
                 print_report_name="('Visit Report')"/>
 
 
-        <report string="DOA Reimbursement xsl"
+        <report string="Swap Request xsl"
                 id="refund_warranty_id_xsl"
                 model="maintenance.request"
                 report_type="xlsx"
                 name="maintenance_reports.refund_warranty_xsl"
                 file="maintenance_reports.refund_warranty_xsl"
-                print_report_name="('DOA Reimbursement xsl')"
+                print_report_name="('Swap Request xsl')"
                 groups="maintenance_reports.shnider_report_group"
 
               />

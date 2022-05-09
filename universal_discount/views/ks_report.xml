@@ -1,5 +1,5 @@
 <odoo>
-    <template id="ks_global_discount_sale_report" inherit_id="sale.report_saleorder_document">
+<!--     <template id="ks_global_discount_sale_report" inherit_id="sale.report_saleorder_document">
         <xpath expr="//div[@name='total']/div/table/t" position="after">
             <t t-if="doc.ks_amount_discount>0">
                 <tr>
@@ -16,7 +16,7 @@
                 </tr>
             </t>
         </xpath>
-    </template>
+    </template> -->
 
 
     <template id="ks_global_discount_invoice_report" inherit_id="account.report_invoice_document">

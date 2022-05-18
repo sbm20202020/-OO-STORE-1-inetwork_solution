@@ -64,8 +64,50 @@ class HrLoan(models.Model):
         ('cancel', 'Canceled'),
     ], string="State", default='draft', track_visibility='onchange', copy=False, )
 
+    @api.onchange('loan_amount')
+    def check_loan_amount(self):
+        if self.loan_amount <0:
+            raise ValidationError(_("The loan amount must be more than 0"))
+
+    @api.onchange('employee_id')
+    def check_employee_id(self):
+        if not self.env.user.has_group('hr.group_hr_manager'):
+            res = {}
+            domain = []
+            domain = [('id', 'in', self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1).ids)]
+            res['domain'] = {'employee_id': domain}
+            return res
+
+    @api.onchange('loan_lines')
+    def check_loan_lines(self):
+        if self.loan_lines:
+            total_ins = sum(self.loan_lines.mapped('amount'))
+            if total_ins > self.loan_amount:
+                raise ValidationError(_("total of installments should be equal loan amount"))
+            if any([line.date < self.date for line in self.loan_lines]):
+                raise ValidationError(_("All installments date must be greater than the request date"))
+    @api.onchange('payment_date')
+    def check_payment_date(self):
+        if self.payment_date:
+
+            if self.payment_date < self.date :
+                raise ValidationError(_("The Payment Start Date must be greater than the request date"))
+
+
+    @api.onchange('installment')
+    def check_installment(self):
+        if self.installment <=0:
+            raise ValidationError(_("The installment must be more than 0"))
+
+
     @api.model
     def create(self, values):
+        if values.get('loan_amount') < 0:
+            raise ValidationError(_("The loan amount must be more than 0"))
+        if values.get('installment') <= 0:
+            raise ValidationError(_("The installment must be more than 0"))
+
+
         loan_count = self.env['hr.loan'].search_count(
             [('employee_id', '=', values['employee_id']), ('state', '=', 'approve'),
              ('balance_amount', '!=', 0)])
@@ -132,7 +174,8 @@ class InstallmentLine(models.Model):
 
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
-
+    created_from_attendance_device = fields.Boolean(string='Created from Device', readonly=True,
+                                                    help='This field indicates that the employee was created from the data of an attendance device')
     def _compute_employee_loans(self):
         """This compute the loan amount and total loans count of an employee.
             """

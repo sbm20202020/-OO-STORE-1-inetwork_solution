@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from . import leave
+from . import leave,payslip
+
 # from . import purchase

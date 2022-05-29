@@ -111,7 +111,9 @@ class workEntry(models.Model):
         elif self.work_entry_type_id and self.leave_id and self.leave_id.holiday_status_id.request_unit=='day' and self.is_overtime:
             contract = self.employee_id.contract_id
             calendar = contract.resource_calendar_id
-            return (self.leave_id.number_of_days * calendar.hours_per_day)
+            #number_of_hours_display
+            #(self.leave_id.number_of_days * calendar.hours_per_day)
+            return (self.leave_id.number_of_hours_display)
         else :
            dt = date_stop - date_start
            return dt.days * 24 + dt.seconds / 3600  # Number of hours

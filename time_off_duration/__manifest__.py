@@ -8,14 +8,14 @@
 {
     'name': 'Time Off Duration',
     'version': '1.0',
-    'author': 'Hussein Magdy',
+    'author': 'Hussein Magdy,Abeer Khalaf',
     'category': 'HR',
     'license': 'OPL-1',
     'summary': """
     """,
     'description': '''Time Off Duration''',
-    'depends': ['hr'],
-    'data': [],
+    'depends': ['hr','hr_work_entry','hr_payroll'],
+    'data': ['views/view.xml'],
     'installable': True,
     'auto_install': False,
     'application': True,

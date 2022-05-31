@@ -36,8 +36,8 @@ class ShniderServiceRequest(models.Model):
     product_ids = fields.Many2many('product.product', string="Products")
 
     product_id = fields.Many2one('product.product', string="Product")
-    product_price=fields.Float(string='Public Price')
-    price_list=fields.Float(string='Price List ',readonly=1,force_save=1)
+    product_price=fields.Float(string='Public Price',readonly=1,force_save=1)
+    price_list=fields.Float(string='Price List ',)
 
     @api.onchange('product_id')
     def get_lst_price(self):

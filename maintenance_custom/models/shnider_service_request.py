@@ -34,8 +34,21 @@ class ShniderServiceRequest(models.Model):
         # ('created_CI', 'Created CI'),
     ], 'Stage', default='new_request',copy=False)
     product_ids = fields.Many2many('product.product', string="Products")
+
     product_id = fields.Many2one('product.product', string="Product")
-    product_price=fields.Float(related='product_id.lst_price')
+    product_price=fields.Float(string='Public Price',readonly=1,force_save=1)
+    price_list=fields.Float(string='Price List ',)
+
+    @api.onchange('product_id')
+    def get_lst_price(self):
+        for rec in self:
+            rec.price_list=rec.product_id.lst_price
+
+    @api.onchange('price_list')
+    def get_lst_price_public(self):
+        for rec in self:
+            rec.product_price = rec.price_list
+
     # replaced_product_ids = fields.Many2many('product.product', string="Replaced Products")
     invoice_id = fields.Many2one('account.move', 'Customer Invoice')
     delivery_order_id_to_MT = fields.Many2one('stock.picking', string='Delivery Order to MT', copy=False, store=True)

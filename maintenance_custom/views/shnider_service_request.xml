@@ -57,7 +57,8 @@
 <!--                                </field>-->
                                 <group>
                                       <field name="product_id" attrs="{'required':[('replaced','=',True)]}"/>
-                                <field name="product_price"/>
+                               <field name="price_list"/>
+                                <field name="product_price" readonly="1" force_save="1"/>
                                 </group>
 
                             </group>
@@ -86,10 +87,8 @@
                     <field name="delivery_order_id_to_shnider" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1" invisible="1"/>
                     <field name="replaced" invisible="1"/>
                     <field name="fixable" invisible="1"/>
-                        <field name="confirm_user_id" readonly="1"  />
-                    <field name="confirm_date" readonly="1"  />
-<!--                      <field name="confirm_user_id" readonly="1"  attrs="{'invisible':[('stage_name','!=','Confirmed SO')]}" />
-                    <field name="confirm_date" readonly="1"  attrs="{'invisible':[('stage_name','!=','Confirmed SO')]}" /> -->
+                     <field name="confirm_user_id" readonly="1"  attrs="{'invisible':[('stage_name','!=','Confirmed SO')]}" />
+                    <field name="confirm_date" readonly="1"  attrs="{'invisible':[('stage_name','!=','Confirmed SO')]}" />
                 </xpath>
                   <xpath expr="//field[@name='equipment_id']" position="attributes">
                                           <attribute name="invisible">1</attribute>

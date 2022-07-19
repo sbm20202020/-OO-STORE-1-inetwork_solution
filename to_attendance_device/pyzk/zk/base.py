@@ -562,7 +562,7 @@ class ZK(object):
         else:
             raise ZKErrorResponse("can't read fingerprint version")
 
-    def _clear_error(self, command_string=b''):
+    def _clear_error(self, command_string=''):
         """
         clear ACK_error
         """

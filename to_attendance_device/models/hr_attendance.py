@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api,exceptions, _
+from odoo.tools import format_datetime
 
 
 class HrAttendance(models.Model):
@@ -10,7 +11,6 @@ class HrAttendance(models.Model):
                                          help='The device with which user took check out action')
     activity_id = fields.Many2one('attendance.activity', string='Attendance Activity',
                                   help='This field is to group attendance into multiple Activity (e.g. Overtime, Normal Working, etc)')
-
 
     @api.constrains('check_in', 'check_out', 'employee_id')
     def _check_validity(self):

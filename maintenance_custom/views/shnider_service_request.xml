@@ -57,8 +57,9 @@
 <!--                                </field>-->
                                 <group>
                                       <field name="product_id" attrs="{'required':[('replaced','=',True)]}"/>
-                               <field name="price_list"/>
-                                <field name="product_price" readonly="1" force_save="1"/>
+                                    <field name="price_list_id"/>
+<!--                               <field name="price_list"/>-->
+                                <field name="product_price" force_save="1"/>
                                 </group>
 
                             </group>
@@ -82,6 +83,8 @@
                 </xpath>
                 <xpath expr="//field[@name='email_cc']" position="after">
                     <field name="type" readonly="1"/>
+                    <field name="stage_name" invisible="1"/>
+
                     <field name="invoice_id" invisible="1" readonly="1"/>
                     <field name="delivery_order_id_to_MT" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1" invisible="1"/>
                     <field name="delivery_order_id_to_shnider" attrs="{'invisible':[('type','!=','shnider')]}" readonly="1" invisible="1"/>

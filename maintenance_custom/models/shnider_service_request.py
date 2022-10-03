@@ -36,18 +36,21 @@ class ShniderServiceRequest(models.Model):
     product_ids = fields.Many2many('product.product', string="Products")
 
     product_id = fields.Many2one('product.product', string="Product")
-    product_price=fields.Float(string='Public Price',readonly=1,force_save=1)
+    product_price=fields.Float(string='Public Price',force_save=1)
     price_list=fields.Float(string='Price List ',)
+    price_list_id=fields.Many2one('product.pricelist')
 
-    @api.onchange('product_id')
+    @api.onchange('product_id','price_list_id')
     def get_lst_price(self):
-        for rec in self:
-            rec.price_list=rec.product_id.lst_price
+        if self.price_list_id and self.product_id:
+           price= self.price_list_id.item_ids.filtered(lambda sh: sh.product_tmpl_id == self.product_id.product_tmpl_id and sh.applied_on=='1_product') or self.price_list_id.item_ids.filtered(lambda sh: sh.product_id == self.product_id and sh.applied_on=='0_product_variant')
 
-    @api.onchange('price_list')
-    def get_lst_price_public(self):
-        for rec in self:
-            rec.product_price = rec.price_list
+           self.product_price=price.fixed_price
+
+    # @api.onchange('price_list')
+    # def get_lst_price_public(self):
+    #     for rec in self:
+    #         rec.product_price = rec.price_list
 
     # replaced_product_ids = fields.Many2many('product.product', string="Replaced Products")
     invoice_id = fields.Many2one('account.move', 'Customer Invoice')

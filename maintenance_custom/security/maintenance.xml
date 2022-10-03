@@ -2,7 +2,7 @@
 <odoo>
     <record id="group_maintenance_cancel" model="res.groups">
         <field name="name">Access Cancel Maintenance </field>
-        <field name="category_id" ref="base.module_category_operations_maintenance"/>
+<!--        <field name="category_id" ref="base.module_category_operations_maintenance"/>-->
     </record>
 
 <!--    <record id="group_maintenance_user" model="res.groups">-->

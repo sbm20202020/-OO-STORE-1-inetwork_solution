@@ -69,7 +69,7 @@
 
                                                 <table style="font-weight: normal; ">
                                                     <td>
-                                                        <span t-field="o.product_id.name"></span>
+                                                        <span t-field="o.product_id.product_internal_name"></span>
 
                                                     </td>
 

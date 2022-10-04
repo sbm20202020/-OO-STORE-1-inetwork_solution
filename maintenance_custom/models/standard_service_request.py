@@ -343,3 +343,36 @@ class SaleOrder(models.Model):
             rec.stage_name = 'Confirmed SO'
 
 
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+    product_internal_name=fields.Char()
+    maintenance_product=fields.Boolean()
+
+    # @api.onchange('maintenance_product','name')
+    # def get_maintenance_product(self):
+    #     if self.name and self.maintenance_product == True:
+    #         print("44444444444444444444444444444444444444")
+    #         self.product_internal_name = False
+    #         if self.maintenance_product ==True:
+    #             self.product_internal_name=self.name
+    #             self.name=self.name + '/' + 'Maintenance'
+
+    @api.model
+    def create(self, vals):
+        res = super(ProductTemplate, self.sudo()).create(vals)
+        for rec in res:
+            if rec.name and rec.maintenance_product == True:
+                print("44444444444444444444444444444444444444")
+                rec.product_internal_name = False
+                if rec.maintenance_product == True:
+                    rec.product_internal_name = rec.name
+                    rec.name = rec.name + '/' + 'Maintenance'
+
+        return res
+
+
+
+
+
+

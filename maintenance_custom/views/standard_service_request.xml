@@ -206,6 +206,48 @@
 
         </field>
     </record>
+        <record id="inherit_product_template_form_new" model="ir.ui.view">
+                    <field name="name">view.inherit.product_template.form</field>
+                    <field name="model">product.template</field>
+                    <field name="inherit_id" ref="product.product_template_only_form_view"/>
+                    <field name="arch" type="xml">
+                         <div name="options" position="inside">
+                    <div>
+                        <field name="maintenance_product"/>
+                        <label for="maintenance_product"/>
+                    </div>
+                </div>
+                  <xpath expr="//field[@name='barcode']" position="after">
+
+                            <field name="product_internal_name" />
+
+
+                        </xpath>
+
+
+                    </field>
+            </record>
+
+        <record id="inherit_product_product_form_new" model="ir.ui.view">
+            <field name="name">view.inherit.product_product.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <div name="options" position="inside">
+                    <div>
+                        <field name="maintenance_product"/>
+                        <label for="maintenance_product"/>
+                    </div>
+                </div>
+                  <xpath expr="//field[@name='barcode']" position="after">
+
+                      <field name="product_internal_name" />
+                  </xpath>
+
+
+
+            </field>
+        </record>
 
 
     </data>

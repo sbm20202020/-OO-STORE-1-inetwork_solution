@@ -57,6 +57,7 @@ class MaintenanceStage(models.Model):
 
     total_price=fields.Float(compute='calc_total_price')
 
+
     @api.depends('product_ids.lst_price')
     def calc_total_price(self):
         total=0.0

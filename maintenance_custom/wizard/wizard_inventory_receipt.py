@@ -47,7 +47,6 @@ class StockInventoryWizard(models.TransientModel):
         data =self.env['maintenance.request'].browse(self._context.get('active_ids', []))
 
         res['serial']=data.serial,
-        # res['qty'] = data.quantity,
         res.update({'serial': data.serial,'qty': data.quantity})
 
         return res

@@ -13,9 +13,8 @@ class HrPayslipInput(models.Model):
 
 class HrPayslip(models.Model):
     _inherit = 'hr.payslip'
-    @api.onchange('employee_id', 'struct_id', 'contract_id', 'date_from', 'date_to')
-    def _onchange_employee(self):
-        result=super(HrPayslip, self)._onchange_employee()
+    def _get_new_input_lines(self):
+        result=super(HrPayslip, self)._get_new_input_lines()
         if self.employee_id:
                 lon_obj = self.env['hr.loan'].search([('employee_id', '=', self.employee_id.id), ('state', '=', 'approve')])
                 res=[]
@@ -41,8 +40,8 @@ class HrPayslip(models.Model):
                                     input |= input.new(r)
                             else:
                                 input=[(5, False, False)]
-                if self.struct_id and input != '':
-                    self.input_line_ids = input
+#                 if self.struct_id and input != '':
+#                     self.input_line_ids = input
         return result
 
 

@@ -72,7 +72,7 @@ class HrPayslip(models.Model):
     def _get_new_input_lines(self):
         res=[]
         lines = {}
-        other_input = self.env['hr.payslip.input.type'].search([('struct_ids','in',[self.struct_id.id])])
+        other_input = self.env['hr.payslip.input.type'].search([('struct_ids','in',[self.struct_id.id]),('code', '!=', 'LO')])
         for line in other_input:
             lines = {
                 'input_type_id': line.id,

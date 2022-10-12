@@ -150,18 +150,24 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 2, str(rec.partner_id), header4_format)
                 else:
                     worksheet.write(row, col + 2, ' ', header4_format)
-                if rec.equipment_id:
-                    worksheet.write(row, col + 3, rec.equipment_id.product_id.product_internal_name, header4_format)
-                else:
-                    worksheet.write(row, col + 3, ' ', header4_format)
-                if rec.equipment_id:
-                    worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
-                else:
-                    worksheet.write(row, col + 4, ' ', header4_format)
-                if rec.product_id:
-                    worksheet.write(row, col + 5, rec.product_id.product_internal_name, header4_format)
-                else:
-                    worksheet.write(row, col + 5, ' ', header4_format)
+                #add by eman
+                worksheet.write(row, col + 3, rec.name or '', header4_format)
+
+                # if rec.equipment_id:
+                #     worksheet.write(row, col + 3, rec.equipment_id.product_id.product_internal_name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 3, ' ', header4_format)
+                worksheet.write(row, col + 4, rec.serial or '', header4_format)
+                # if rec.equipment_id:
+                #     worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 4, ' ', header4_format)
+                worksheet.write(row, col + 5, rec.service or '', header4_format)
+
+               # if rec.product_id:
+               #      worksheet.write(row, col + 5, rec.product_id.product_internal_name, header4_format)
+               #  else:
+               #      worksheet.write(row, col + 5, ' ', header4_format)
                 if rec.request_date:
                     worksheet.write(row, col + 6, str(rec.request_date.strftime('%B')),header4_format)
                 else:
@@ -201,18 +207,22 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 2, rec.partner_id, header4_format)
                 else:
                     worksheet.write(row, col + 2, ' ', header4_format)
-                if rec.equipment_id:
-                    worksheet.write(row, col + 3, rec.equipment_id.product_id.product_internal_name, header4_format)
-                else:
-                    worksheet.write(row, col + 3, ' ', header4_format)
-                if rec.equipment_id:
-                    worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
-                else:
-                    worksheet.write(row, col + 4, ' ', header4_format)
-                if rec.product_id:
-                    worksheet.write(row, col + 5, rec.product_id.product_internal_name, header4_format)
-                else:
-                    worksheet.write(row, col + 5, ' ', header4_format)
+                #add by eman
+                worksheet.write(row, col + 3, rec.name or '', header4_format)
+                # if rec.equipment_id:
+                #     worksheet.write(row, col + 3, rec.equipment_id.product_id.product_internal_name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 3, ' ', header4_format)
+                worksheet.write(row, col + 4, rec.serial or '', header4_format)
+                # if rec.equipment_id:
+                #     worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 4, ' ', header4_format)
+                worksheet.write(row, col + 5, rec.service or '', header4_format)
+                # if rec.product_id:
+                #     worksheet.write(row, col + 5, rec.product_id.product_internal_name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 5, ' ', header4_format)
                 if rec.request_date:
                     worksheet.write(row, col + 6, str(rec.request_date.strftime('%B')),header4_format)
                 else:
@@ -256,18 +266,23 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 2, rec.partner_id, header4_format)
                 else:
                     worksheet.write(row, col + 2, ' ', header4_format)
-                if rec.equipment_id:
-                    worksheet.write(row, col + 3, rec.equipment_id.product_id.product_internal_name, header4_format)
-                else:
-                    worksheet.write(row, col + 3, ' ', header4_format)
-                if rec.equipment_id:
-                    worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
-                else:
-                    worksheet.write(row, col + 4, ' ', header4_format)
-                if rec.product_id:
-                    worksheet.write(row, col + 5, rec.product_id.product_internal_name, header4_format)
-                else:
-                    worksheet.write(row, col + 5, ' ', header4_format)
+                #add by eman
+                worksheet.write(row, col + 3, rec.name or '', header4_format)
+
+                # if rec.equipment_id:
+                #     worksheet.write(row, col + 3, rec.equipment_id.product_id.product_internal_name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 3, ' ', header4_format)
+                worksheet.write(row, col + 4, rec.serial or '', header4_format)
+                # if rec.equipment_id:
+                #     worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 4, ' ', header4_format)
+                worksheet.write(row, col + 5, rec.service or '', header4_format)
+                # if rec.product_id:
+                #     worksheet.write(row, col + 5, rec.product_id.product_internal_name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 5, ' ', header4_format)
 
                 if rec.request_date:
                     worksheet.write(row, col + 6, str(rec.request_date.strftime('%B')), header4_format)
@@ -307,18 +322,23 @@ class PheReportDataXls(models.AbstractModel):
                     worksheet.write(row, col + 2, rec.partner_id, header4_format)
                 else:
                     worksheet.write(row, col + 2, ' ', header4_format)
-                if rec.equipment_id:
-                    worksheet.write(row, col + 3, rec.equipment_id.product_id.product_internal_name, header4_format)
-                else:
-                    worksheet.write(row, col + 3, ' ', header4_format)
-                if rec.equipment_id:
-                    worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
-                else:
-                    worksheet.write(row, col + 4, ' ', header4_format)
-                if rec.product_id:
-                    worksheet.write(row, col + 5, rec.product_id.product_internal_name, header4_format)
-                else:
-                    worksheet.write(row, col + 5, ' ', header4_format)
+                #add by eman
+                worksheet.write(row, col + 3, rec.name or '', header4_format)
+
+                # if rec.equipment_id:
+                #     worksheet.write(row, col + 3, rec.equipment_id.product_id.product_internal_name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 3, ' ', header4_format)
+                worksheet.write(row, col + 4, rec.serial or '', header4_format)
+                # if rec.equipment_id:
+                #     worksheet.write(row, col + 4, rec.equipment_id.lot_id.name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 4, ' ', header4_format)
+                worksheet.write(row, col + 5, rec.service or '', header4_format)
+                # if rec.product_id:
+                #     worksheet.write(row, col + 5, rec.product_id.product_internal_name, header4_format)
+                # else:
+                #     worksheet.write(row, col + 5, ' ', header4_format)
                 if rec.request_date:
                     worksheet.write(row, col + 6, str(rec.request_date.strftime('%B')), header4_format)
                 else:

@@ -91,7 +91,7 @@ class HrPayslip(models.Model):
     @api.onchange('employee_id', 'struct_id', 'contract_id', 'date_from', 'date_to')
     def _onchange_employee(self):
         res=super(HrPayslip, self)._onchange_employee()
-#         self.input_line_ids = self._get_new_input_lines()
+        self.input_line_ids = self._get_new_input_lines()
         return res
 
     def _get_worked_day_lines(self):

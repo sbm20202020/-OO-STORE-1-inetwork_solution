@@ -1,0 +1,2008 @@
+<odoo>
+    <data>
+        <template id="visit_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="maintenance_reports.external_layout_custom_visit">
+                        <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
+                        <div class="page">
+
+
+                            <table style="font-size:14px;font-weight:normal;color:#000080">
+                                <thead>
+                                    <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:150px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span>Customer</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:150px;"
+                                                class="text-left">
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span>Branch</span>
+
+                                                </td>
+
+
+                                            </table>
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:250px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                    </tr>
+
+                                    <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:150px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span>Address</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:900px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th style="text-align:left;width:150px;" class="text-left">
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+                                        </th>
+                                        <th
+                                                style="width:200px;"
+                                                class="text-left">
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+                                                </td>
+
+                                            </table>
+
+                                        </th>
+
+                                    </tr>
+                                    <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:150px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span>Date</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:400px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:150px;"
+                                                class="text-left">
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span>Time</span>
+
+                                                </td>
+
+
+                                            </table>
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:200px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+                                            </table>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                            <br/>
+
+
+                            <table style="font-size:14px;font-weight:bold;color:#000080">
+                                <thead>
+
+                                    <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;height:2px;">
+                                    <th
+                                            style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:210px;"
+                                            class="text-left">
+
+                                        <table style="font-weight: bold; ">
+                                            <td>
+                                                <span>Visit Type</span>
+
+                                            </td>
+                                        </table>
+
+                                    </th>
+                                    <th style="text-align:left;width:900px;" class="text-center">
+
+                                        <table style="font-weight: normal; ">
+
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 100px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td>
+
+                                                <span>Regular</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span>Emergency</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td> <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+                                            <td>
+                                                <span>New installation</span>
+
+
+                                                <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+
+
+                                            </td>
+
+
+                                        </table>
+                                    </th>
+                                    </tr>
+                                </thead></table>
+
+                                     <table style="font-size:14px;font-weight:bold;color:#000080">
+                                <thead>
+
+                                    <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;height:2px;">
+                                     <th
+                                            style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:200px;"
+                                            class="text-left">
+
+                                        <table style="font-weight: bold; ">
+                                            <td>
+                                                <span>Current Status</span>
+
+                                            </td>
+                                        </table>
+
+                                    </th>
+                                        <th
+                                            style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:900px;"
+                                            class="text-left">
+
+                                        <table style="font-weight: normal; ">
+
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 90px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 10px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td>
+
+                                                <span>Online</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span>Alarm</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td>
+
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td style="width:100px;">
+                                                <span>Maint. Bypass</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+                                            </td>
+
+
+
+                                            <td style="width:100px;">
+                                                <span>Auto. Bypass</span>
+
+
+                                                <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+
+
+                                            </td>
+
+                                        </table>
+                                    </th>
+                                    </tr>
+
+                                </thead></table>
+
+
+                            <table style="font-size:14px;font-weight:bold;color:#000080">
+                                <thead>
+
+ <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;height:2px;">
+                                    <th
+                                            style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:210px;"
+                                            class="text-left">
+
+                                        <table style="font-weight: bold; ">
+                                            <td>
+                                                <span>Environment</span>
+
+                                            </td>
+                                        </table>
+
+                                    </th>
+
+                                    <th style="text-align:left;width:300px;" class="text-center">
+
+                                        <table style="font-weight: normal; ">
+
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 80px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 50px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td>
+
+                                                <span>OK</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span>NOT OK</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+
+                                        </table>
+                                    </th>
+                                         <th
+                                            style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:80px;"
+                                            class="text-left">
+
+                                        <table style="font-weight: bold; ">
+                                            <td>
+                                                <span>Temp</span>
+
+                                            </td>
+                                        </table>
+
+                                    </th>
+                                          <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:900px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                    </tr>
+                                </thead></table>
+
+                             <table style="font-size:14px;font-weight:bold;color:#000080">
+                                <thead>
+
+ <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;height:2px;">
+                                    <th
+                                            style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:180px;"
+                                            class="text-left">
+
+                                        <table style="font-weight: bold; ">
+                                            <td>
+                                                <span>Earthing</span>
+
+                                            </td>
+                                        </table>
+
+                                    </th>
+
+                                    <th style="text-align:left;width:300px;" class="text-center">
+
+                                        <table style="font-weight: normal; ">
+
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 80px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 30px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                            <td>
+
+                                                <span>OK</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span>NOT OK</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+
+                                        </table>
+                                    </th>
+                                         <th
+                                            style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:80px;"
+                                            class="text-left">
+
+                                        <table style="font-weight: bold;">
+                                            <td>
+                                                <span>Generator</span>
+
+                                            </td>
+                                        </table>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 35px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                              <td>
+
+                                                <span>YES</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 30px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span>NO</span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+                                             <td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 10px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td><td>
+                                                <span></span>
+                                                <span>
+                                                    <div class="circle" style="height: 15px;
+                      width: 185px; border-radius: 50%; border:1px solid white; line-height: 10px;
+                       text-align: center;"></div>
+                                                </span>
+
+                                            </td>
+
+
+                                           </th>
+
+                                    </tr>
+                                </thead></table>
+
+                            <br/>
+
+                            <table style="font-size:14px;font-weight:normal;color:#000080">
+                                <thead>
+                                    <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;height:3px;width:900px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:168px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: bold; ">
+                                                <td>
+                                                    <span>UPS Brand / Model</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:50px;"
+                                                class="text-left">
+
+                                            <table style="font-weight: bold; ">
+                                                <td>
+                                                    <span>PN</span>
+
+                                                </td>
+
+
+                                            </table>
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:200px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:50px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span>SN</span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:160px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+                                        </th>
+                                    </tr>
+
+
+                                </thead>
+
+                            </table>
+                            <table style="font-size:14px;font-weight:normal;color:#000080">
+                                <thead>
+                                    <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;height:3px;width:1000px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:180px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: bold; ">
+                                                <td>
+                                                    <span>Int. Battery</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:130px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: bold; text-align:center">
+                                                <td>
+                                                    <span>PN</span>
+                                                    <br/>
+                                                    <span>QN x AH</span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:370px;"
+                                                class="text-left">
+
+                                            <table style="font-weight: bold; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:70px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: bold; text-align:center">
+                                                <td>
+                                                    <span>SN</span>
+                                                    <br/>
+                                                    <span>Date</span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:280px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                    </tr>
+
+                                    <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;height:3px;width:1000px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:150px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: bold; ">
+                                                <td>
+                                                    <span>Ext. Battery</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:130px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: bold; text-align:center">
+                                                <td>
+                                                    <span>PN</span>
+                                                    <br/>
+                                                    <span>QN x AH</span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:370px;"
+                                                class="text-left">
+
+                                            <table style="font-weight: bold; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:70px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: bold; text-align:center">
+                                                <td>
+                                                    <span>SN</span>
+                                                    <br/>
+                                                    <span>Date</span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:280px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                    </tr>
+
+
+                                </thead>
+
+                            </table>
+                            <br/>
+                            <table style="font-size:14px;color:#000080;font-weight: normal;">
+                                <thead>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:350px;"
+                                        >
+
+
+                                            <table style="font-weight: bold;font-size:16px; ">
+                                                <td>
+                                                    <span>Measurements</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;font-weight: bold;text-align:center;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-center">
+
+
+
+                                                    <span >L1</span>
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:300px; font-weight: bold"
+                                                class="text-center">
+
+                                                    <span>L2</span>
+
+
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-center">
+
+
+
+                                                    <span>L3</span>
+
+
+
+                                        </th>
+
+
+                                    </tr>
+
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:230px;font-weight: normal;"
+                                                class="text-center">
+
+
+                                                    <span>Input Voltage</span>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                    </tr>
+
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;font-weight: normal;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;font-weight: normal;text-align:center;border-style: solid;border-color: #585858;width:200px;"
+                                                class="text-center">
+
+                                                    <span>Input Frequency</span>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                    </tr>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;font-weight: normal;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:200px;"
+                                                class="text-center">
+
+
+                                                    <span>Output Voltage</span>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                    </tr>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;font-weight: normal;text-align:center;border-style: solid;border-color: #585858;width:200px;"
+                                                class="text-center">
+
+
+                                                    <span>Output Frequency</span>
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+
+                                    </tr>
+
+
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;font-weight: normal;border-style: solid;border-color: #585858;width:200px;"
+                                                class="text-center">
+
+
+                                                    <span>Load PH</span>
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                    </tr>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;font-weight: normal;text-align:center;border-style: solid;border-color: #585858;width:200px;"
+                                                class="text-center">
+
+                                                    <span>Total load (KW / %)</span>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;width:300px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                    </tr>
+
+                                </thead>
+
+                            </table>
+                            <br/>
+                            <table style="font-size:14px;color:#000080">
+                                <thead>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:370px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: bold;font-size:16px; ">
+                                                <td>
+                                                    <span>Battery</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                                class="text-center">
+
+                                                    <span>B+</span>
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                                class="text-center">
+
+
+
+                                                    <span>B-</span>
+
+
+
+                                        </th>
+
+                                    </tr>
+
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;font-weight: normal;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:330px;"
+                                                class="text-center">
+
+
+                                                    <span>Battery Voltage</span>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                                class="text-center">
+
+
+                                            <table style="font-weight:normal; text-align:center;">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                                class="text-center">
+
+
+                                            <table style="font-weight: bold;text-align:center ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+                                    </tr>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;font-weight: normal;text-align:center;border-style: solid;border-color: #585858;width:330px;"
+                                                class="text-center">
+
+
+                                                    <span>Charger Voltage</span>
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                                class="text-center">
+
+
+                                            <table style="font-weight:normal; text-align:center;">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                                class="text-center">
+
+
+                                            <table style="font-weight: bold;text-align:center ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                    </tr>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;font-weight: normal;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:330px;"
+                                                class="text-center">
+
+
+                                                    <span>Run time / min</span>
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:330px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:330px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+
+
+                                    </tr>
+
+
+                                </thead>
+
+                            </table>
+
+                            <br/>
+                            <table style="font-size:14px;color:#000080">
+                                <thead>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:350px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: bold;font-size:16px; ">
+                                                <td>
+                                                    <span>Test procedure</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-center">
+
+
+                                                    <span>Tested</span>
+
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-center">
+
+                                                    <span>Not tested</span>
+
+
+
+
+                                        </th>
+
+
+                                    </tr>
+
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:330px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span>On battery ( 10 min)</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+
+                                        <th align="center"
+                                                style="  ;border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                               >
+
+                                                    <span align="center" >
+                                                        <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;border-top:10px" align="center" ></div>
+                                                    </span>
+
+
+                                        </th>
+                                        <th align="center"
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                                class="text-center">
+                                                    <span align="center">
+                                                        <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       "></div>
+                                                    </span>
+
+                                        </th>
+
+                                    </tr>
+
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;vertical-align:bottom;border-color: #585858;border-bottom:1px solid white;width:350px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal;font-size:16px; vertical-align:bottom;border-color: #585858;border-bottom:1px solid white;">
+                                                <td>
+                                                    <span>Voltage decrement (10 min)</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-center">
+
+
+                                                    <span>B+</span>
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-center">
+
+
+                                                    <span>B-</span>
+
+
+
+
+                                        </th>
+
+
+                                    </tr>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:20px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;border-top:1px solid white;width:350px;"
+                                                class="text-left">
+
+
+                                            <table style="font-weight: normal;font-size:16px; color: white">
+                                                <td>
+                                                    <span>.</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-center">
+
+
+                                            <table style="font-weight: normal; color: white">
+                                                <td>
+                                                    <span>
+                                                        <span>.</span>
+                                                    </span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:300px;"
+                                                class="text-center">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span>
+                                                        <span></span>
+                                                    </span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                    </tr>
+
+
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:330px;"
+                                                class="text-center">
+
+
+                                            <table style="font-weight: normal; ">
+                                                <td>
+                                                    <span>On Generator</span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                                class="text-center">
+
+                                                    <span align="center">
+                                                        <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                    </span>
+
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                                class="text-center">
+
+
+                                                    <span align="center">
+                                                        <div class="circle" style="height: 15px;
+                      width: 15px; border-radius: 50%; border:1px solid black; line-height: 10px;
+                       text-align: center;"></div>
+                                                    </span>
+
+
+
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                            </table>
+                            <br/>
+                            <table style="font-size:14px;color:#000080">
+                                <thead>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                        >
+
+
+                                                    <span>Parts replaced</span>
+
+
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                        >
+
+
+
+                                                    <span>Parts to be replaced</span>
+
+
+
+
+                                        </th>
+
+
+                                    </tr>
+                                    <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:100px;">
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                        >
+
+
+                                            <table style="font-weight: bold;font-size:16px; ">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+                                            </table>
+
+                                        </th>
+                                        <th
+                                                style="border-width: 1px;padding: 10px;text-align:center;border-style: solid;border-color: #585858;width:450px;"
+                                        >
+
+
+                                            <table style="font-weight: bold; text-align:center;">
+                                                <td>
+                                                    <span></span>
+
+                                                </td>
+
+
+                                            </table>
+
+
+                                        </th>
+
+
+                                    </tr>
+
+                                </thead>
+                            </table>
+
+                            <div align="center" tyle="font-size:18px;">
+                                <h4 class="text-center" style="font-size:14px; ">
+                                    <span style="font-size:18px;">تقرير الزياره
+                                    </span>
+
+                                </h4>
+                            </div>
+
+                            <table class="table table-sm"
+                                   style="border-color:black,border-style:solid #808080;width:830px;height:90px;"
+                                   border="1">
+
+                                <tr style="border: 1px solid #808080;font-weight:bold;font-size:18px;height:90px;">
+                                    <th class="text-left"
+                                        style="border: 1px solid #808080;font-weight:70px;font-size:18px;height:90px;"
+                                    >
+
+                                    </th>
+
+
+                                </tr>
+                            </table>
+                            <table  style="font-size:14px;font-weight:normal;color:#000080">
+                                    <thead>
+                                        <tr style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:900px;height:5px;">
+<td
+                                                style="border-width: 1px;padding: 10px;border-style: solid;border-color: #585858;width:750px;"
+                                                >
+
+                                                <table style="font-weight: normal; ">
+                                                    <td>
+                                                        <span></span>
+
+                                                    </td>
+
+                                                </table>
+                                            </td>
+                                            <td
+                                                style="border-width: 1px;padding: 10px;text-align:right;border-style: solid;border-color: #585858;width:250px;"
+                                                class="text-right">
+
+
+                                                        <span>امضاء العميل</span>
+
+
+
+
+
+
+                                            </td>
+
+
+                                        </tr>
+
+                                        <tr style="border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: #585858;width:900px;height:5px;">
+
+                                            <td
+                                                style="border-width: 1px;padding: 10px;text-align:left;border-style: solid;border-color: #585858;width:750px;"
+                                                class="text-left">
+
+                                                <table style="font-weight: normal; ">
+                                                    <td>
+                                                        <span ></span>
+
+                                                    </td>
+
+                                                </table>
+                                            </td>
+                                            <td
+                                                style="border-width: 1px;padding: 10px;text-align:right;border-style: solid;border-color: #585858;width:250px;"
+                                                class="text-right">
+
+
+
+                                                        <span>امضاء المهندس</span>
+
+
+
+
+
+                                            </td>
+
+
+                                        </tr>
+
+
+
+                                    </thead>
+
+                                </table>
+
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

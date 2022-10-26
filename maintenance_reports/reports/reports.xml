@@ -1,0 +1,78 @@
+<odoo>
+    <data>
+        <record id="paperformat_pdf" model="report.paperformat">
+            <field name="name">European A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+             <field name="dpi">85</field>
+
+        </record>
+         <record id="paperformat_pdf_visit" model="report.paperformat">
+            <field name="name">European A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+             <field name="dpi">85</field>
+
+
+        </record>
+
+         <report string="SP Product Assessment"
+                id="sp_product_report_id"
+                model="maintenance.request"
+                report_type="qweb-pdf"
+                name="maintenance_reports.sp_product_report_template"
+                file="maintenance_reports.sp_product_report_template"
+                 paperformat="maintenance_reports.paperformat_pdf"
+                print_report_name="('SP Product Assessment')"/>
+
+        <report string="MR Print"
+                id="print_mr_report_id"
+                model="maintenance.request"
+                report_type="qweb-pdf"
+                name="maintenance_reports.mr_report_template"
+                file="maintenance_reports.mr_report_template"
+                 paperformat="maintenance_reports.paperformat_pdf"
+                />
+
+         <report string="Visit Report"
+                id="visit_report_id"
+                model="maintenance.request"
+                report_type="qweb-pdf"
+                name="maintenance_reports.visit_report_template"
+                file="maintenance_reports.visit_report_template"
+                 paperformat="maintenance_reports.paperformat_pdf_visit"
+                print_report_name="('Visit Report')"/>
+
+
+        <report string="Swap Request xsl"
+                id="refund_warranty_id_xsl"
+                model="maintenance.request"
+                report_type="xlsx"
+                name="maintenance_reports.refund_warranty_xsl"
+                file="maintenance_reports.refund_warranty_xsl"
+                print_report_name="('Swap Request xsl')"
+                groups="maintenance_reports.shnider_report_group"
+
+              />
+
+
+    </data>
+</odoo>

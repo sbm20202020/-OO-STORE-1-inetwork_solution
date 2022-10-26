@@ -1,0 +1,99 @@
+<odoo>
+    <data>
+
+        <record id="hr_payslip_view_form_inherit" model="ir.ui.view">
+            <field name="name">hr.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title']" position="inside">
+                    <h5>
+                        <label for="department_id" string="Department:"/>
+                        <field name="department_id" />
+                    </h5>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="hr_payslip_view_filter_inherit" model="ir.ui.view">
+            <field name="name">hr.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="department_id" placeholder="Department"/>
+                </xpath>
+                <xpath expr="//group" position="inside">
+                    <filter string="Department" name="department_id" context="{'group_by': 'department_id'}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+
+        <record id="hr_work_entry_type_view_form_inherit" model="ir.ui.view">
+            <field name="name">hr.work.entry.type.form</field>
+            <field name="model">hr.work.entry.type</field>
+            <field name="inherit_id" ref="hr_work_entry.hr_work_entry_type_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group/group/field[@name='sequence']" position="after">
+                    <field name="appear_on_payslip" />
+
+
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="hr_payslip_input_type_view_form_inherit" model="ir.ui.view">
+            <field name="name">hr.payslip.input.type.form</field>
+            <field name="model">hr.payslip.input.type</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_input_type_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group/group/field[@name='code']" position="after">
+                    <field name="input_path" />
+
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="hr_employee_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Update Input">
+                           <field name="employee_work_ids"   context="{'default_employee_id':active_id}" >
+                               <tree editable="True" default_order="date desc">
+                                     <field name="employee_id" invisible="1" />
+                                     <field name="date" />
+                                   <field name="date_day"  />
+                                     <field name="type" />
+                                    <field name="input_type_id" options="{'no_create': True,'no_create_edit':True,'no_edit':True}" attrs="{'invisible':[('type','in',['work_entry_type',False])]}" />
+                                   <field name="amount" attrs="{'invisible':[('type','in',['work_entry_type',False])]}"/>
+                                      <field name="work_entry_type_id" options="{'no_create': True,'no_create_edit':True,'no_edit':True}" attrs="{ 'invisible' : [('type', 'in', ['input_type',False])]}"/>
+                                   <field name="number_of_hours" width="100px" attrs="{ 'invisible' : [('type', 'in', ['input_type',False])]}"/>
+                                    <field name="number_of_days" width="100px" attrs="{ 'invisible' : [('type', 'in', ['input_type',False])]}"/>
+                                   <field name="company_id" invisible="1"/>
+                                    <field name="state" />
+                               </tree>
+
+                           </field>
+
+
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+        <record id="shinder_request_view_form_inherit_new" model="ir.ui.view">
+            <field name="name">maintenance.request</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance_custom.shnider_service_request_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form/sheet/notebook/page[1]" position="after">
+
+                        <page string="Inspection" attrs="{'invisible':[('stage_name','=','New Request')]}">
+                            <group>
+                                <field name="symptoms_description" attrs="{'required':[('stage_name','=','Inspection')]}"/>
+                                <field name="assessment_performed" attrs="{'required':[('stage_name','=','Inspection')]}"/>
+                                <field name="observations" attrs="{'required':[('stage_name','=','Inspection')]}"/>
+                                <field name="assessment_results" attrs="{'required':[('stage_name','=','Inspection')]}"/>
+                                <field name="recommendations_further" attrs="{'required':[('stage_name','=','Inspection')]}"/>
+
+                            </group>
+                        </page>
+                        <page string="REIMBURSEMENT REQUEST" attrs="{'invisible':[('type','!=','shnider')]}">
+                            <group>
+
+                                <group>
+                                    <field name="total_price" invisible="1"/>
+                                    <field name="end_user_name" attrs="{'required':[('type','=','shnider')]}"/>
+                                    <field name="issue_problem" attrs="{'required':[('type','=','shnider')]}"/>
+                                    <field name="defective_part_number" attrs="{'required':[('type','=','shnider')]}"/>
+                                    <field name="defective_serial_number" attrs="{'required':[('type','=','shnider')]}"/>
+                                </group>
+
+                                <group>
+                                    <field name="replacement_part_number" />
+                                    <field name="replacement_serial_number" />
+                                    <field name="purchase_date"/>
+                                    <field name="end_user_date"/>
+                                </group>
+                                <group>
+                                    <field name="service_request_number" attrs="{'required':[('type','=','shnider')]}"/>
+                                    <field name="rma_number" attrs="{'required':[('type','=','shnider')]}"/>
+
+                                </group>
+
+
+                            </group>
+
+                        </page>
+
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="hr_equipment_request_view_form_inherit_new" model="ir.ui.view">
+            <field name="name">hr.request.view.form.inherit</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="partner_id"/>
+                    <field name="contact_name"/>
+                    <field name="service"/>
+                    <field name="quantity"/>
+                    <field name="serial"/>
+                    <field name="initial_amount" attrs="{'invisible': [('type', '!=', 'standard')]}"/>
+
+                </xpath>
+
+
+
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

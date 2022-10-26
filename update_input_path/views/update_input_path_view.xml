@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<!-- FORM VIEW  -->
+
+        <record id="update_input_path_view_tree_new" model="ir.ui.view">
+            <field name="name">update.input.path.tree</field>
+            <field name="model">update.input.path</field>
+            <field name="arch" type="xml">
+                <tree  editable="top" delete="false" decoration-danger="state == 'draft'" decoration-info="state =='confirm'" >
+                     <field name="payslip" width="400px" optional="show"/>
+                    <field name="employee_id" width="300px" optional="show"/>
+                    <field name="job_title" width="200px" optional="show"/>
+                    <field name="code_con" width="200px" optional="show"/>
+                    <field name="employee_code" string="Employee Code" width="200px" optional="show"/>
+                    <field name="department_id" placeholder="Department" width="200px" optional="show"/>
+                    <field name="location_id" string="Employee Location" width="200px" optional="show"/>
+                    <field name="basic_wage"  width="200px" optional="show"/>
+                    <field name="payslip_run_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="state" width="100px" optional="show"/>
+                </tree>
+            </field>
+        </record>
+       <record id="update_input_path_view_search_new" model="ir.ui.view">
+            <field name="name">update.input.path.search</field>
+            <field name="model">update.input.path</field>
+            <field name="arch" type="xml">
+                <search>
+                     <field name="payslip" />
+                    <field name="employee_id" />
+                    <field name="job_title" />
+                    <field name="code_con" />
+                    <field name="department_id"/>
+                    <field name="state" />
+                    <field name="month"/>
+                  <filter string="This Month" name="this_month" domain="[('date', '&gt;=', context_today().strftime('%%Y-%%m-01'))]"/>
+                    <group string="Group By..." expand="0" name="groupby">
+                        <filter string="Payslip" name="Payslip" context="{'group_by': 'payslip'}"/>
+                        <filter string="Employee" name="employee_id" context="{'group_by': 'employee_id'}"/>
+                        <filter string="State" name="state" context="{'group_by': 'state'}"/>
+                        <filter string="Date" name="date" context="{'group_by': 'date:month'}"/>
+                        <filter string="Batch" name="payslip_run_id" context="{'group_by': 'payslip_run_id'}"/>
+                        <filter string="Job Title" name="job_title" context="{'group_by': 'job_title'}"/>
+                        <filter string="Department" name="department_id" context="{'group_by': 'department_id'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+<!-- ACTION     -->
+
+        <record id="update_input_path_action" model="ir.actions.act_window">
+            <field name="name">Update Input Path </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">update.input.path</field>
+            <field name="view_mode">tree</field>
+        </record>
+       <menuitem action="update_input_path_action" id="update_input_path_menu"
+            parent="hr_payroll.menu_hr_payroll_payslips"
+                  name="Update Input Path"
+            sequence="1"/>
+
+     <record model="ir.actions.server" id="action_update_inpath_confirm">
+        <field name="name">Confirm</field>
+        <field name="model_id" ref="update_input_path.model_update_input_path"/>
+        <field name="binding_model_id" ref="update_input_path.model_update_input_path"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.action_confirm()
+        </field>
+    </record>
+    <record model="ir.actions.server" id="action_update_inpath_draft">
+        <field name="name">Set To Draft</field>
+        <field name="model_id" ref="update_input_path.model_update_input_path"/>
+        <field name="binding_model_id" ref="update_input_path.model_update_input_path"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.action_draft()
+        </field>
+    </record>
+
+</odoo>

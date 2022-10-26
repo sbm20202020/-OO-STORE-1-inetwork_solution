@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_update_input_path_wizard,update_input_path_wizard,model_update_input_path_wizard,,1,1,1,1\
-access_update_input_path,update_input_path,model_update_input_path,,1,1,1,1
-access_employee_work,employee_work,model_employee_work,,1,1,1,1

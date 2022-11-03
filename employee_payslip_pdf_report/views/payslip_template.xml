@@ -29,7 +29,7 @@
 
                                         <th >
                                          <td class="text-center" >
-                                           <span t-field="o.employee_id.last_employee_code" />
+                                           <strong t-field="o.employee_id.last_employee_code" />
                                         </td>
                                     </th>
 
@@ -51,7 +51,7 @@
                                     </th>
                                         <th >
                                          <td class="text-center" >
-                                           <span t-field="o.employee_id.name" />
+                                          <strong t-field="o.employee_id.name" />
                                         </td>
                                     </th>
 
@@ -73,7 +73,7 @@
 
                                         <th >
                                          <td class="text-center" >
-                                           <span t-field="o.employee_id.job_title" />
+                                           <strong t-field="o.employee_id.job_title" />
                                         </td>
                                     </th>
 
@@ -106,15 +106,15 @@
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.basic_salary" style="text-align:center;"/>
+                                            <strong t-field="o.basic_salary" style="text-align:center;"/>
                                         </td>
 
 
                                         <td align="right"
                                             style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
-                                            <span style="font-size:14px; ">
+                                           <strong style="font-size:14px; ">
                                               : الاساسى
-                                            </span>
+                                           </strong>
                                         </td>
 
 
@@ -123,15 +123,15 @@
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.allownce" style="text-align:center;"/>
+                                            <strong t-field="o.allownce" style="text-align:center;"/>
                                         </td>
 
 
                                         <td align="right"
                                             style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
-                                            <span style="font-size:14px; ">
+                                            <strong style="font-size:14px; ">
                                               : بدلات
-                                            </span>
+                                            </strong>
                                         </td>
 
 
@@ -141,15 +141,15 @@
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.transportation" style="text-align:center;"/>
+                                            <strong t-field="o.transportation" style="text-align:center;"/>
                                         </td>
 
 
                                         <td align="right"
                                             style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
-                                            <span style="font-size:14px; ">
+                                            <strong style="font-size:14px; ">
                                                  : بدل الانتقالات
-                                            </span>
+                                            </strong>
                                         </td>
 
 
@@ -159,15 +159,15 @@
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.overtime" style="text-align:center;"/>
+                                           <strong t-field="o.overtime" style="text-align:center;"/>
                                         </td>
 
 
                                         <td align="right"
                                             style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
-                                            <span style="font-size:14px; ">
+                                            <strong style="font-size:14px; ">
                                               : الاضافى
-                                            </span>
+                                            </strong>
                                         </td>
 
 
@@ -176,15 +176,15 @@
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.bouns" style="text-align:center;"/>
+                                           <strong t-field="o.bouns" style="text-align:center;"/>
                                         </td>
 
 
                                         <td align="right"
                                             style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
-                                            <span style="font-size:14px; ">
+                                            <strong style="font-size:14px; ">
                                            : ارباح سنوية
-                                            </span>
+                                            </strong>
                                         </td>
 
 
@@ -194,15 +194,15 @@
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.net_salary" style="text-align:center;"/>
+                                           <strong t-field="o.net_salary" style="text-align:center;"/>
                                         </td>
 
 
                                         <td align="right"
                                              style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
-                                            <span style="font-size:14px; ">
+                                            <strong style="font-size:14px; ">
                                             : اجمالى الراتب الاساسى
-                                            </span>
+                                            </strong>
                                         </td>
 
 
@@ -229,9 +229,9 @@
 
                                         <td align="right"
                                             style="background-color:   #b2bcbd   ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
-                                            <span style="font-size:14px; ">
+                                            <strong style="font-size:14px; ">
                                               : المستقطع
-                                            </span>
+                                            </strong>
                                         </td>
 
 
@@ -246,7 +246,7 @@
                                          <tr>
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.social_insurance" style="text-align:center;"/>
+                                            <strong t-field="o.social_insurance" style="text-align:center;"/>
                                         </td>
                                              <td align="right"
                                             style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
@@ -255,9 +255,9 @@
 
                                         <td
                                                 style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                   <span style="font-size:14px; ">
+                                   <strong style="font-size:14px; ">
                                               التامينات الاجتماعية
-                                            </span>                                        </td>
+                                            </strong>                                        </td>
 
 
                                         <td align="right"
@@ -270,7 +270,7 @@
                                     <tr>
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.medical_insurnace" style="text-align:center;"/>
+                                            <strong t-field="o.medical_insurnace" style="text-align:center;"/>
                                         </td>
                                           <td align="right"
                                             style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
@@ -279,9 +279,9 @@
 
                                         <td
                                                 style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                   <span style="font-size:14px; ">
+                                   <strong style="font-size:14px; ">
                                               تامين طبى
-                                            </span>                                        </td>
+                                            </strong>                                        </td>
 
 
                                         <td align="right"
@@ -295,7 +295,7 @@
                                     <tr>
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.phone_allownace" style="text-align:center;"/>
+                                            <strong t-field="o.phone_allownace" style="text-align:center;"/>
                                         </td>
                                           <td align="right"
                                             style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
@@ -304,9 +304,9 @@
 
                                         <td
                                                 style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                   <span style="font-size:14px; ">
+                                   <strong style="font-size:14px; ">
                                               التلفون
-                                            </span>                                        </td>
+                                            </strong>                                        </td>
 
 
                                         <td align="right"
@@ -320,7 +320,7 @@
                                     <tr>
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.martyrs_families" style="text-align:center;"/>
+                                            <strong t-field="o.martyrs_families" style="text-align:center;"/>
                                         </td>
                                           <td align="right"
                                             style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
@@ -329,9 +329,9 @@
 
                                         <td
                                                 style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                   <span style="font-size:14px; ">
+                                   <strong style="font-size:14px; ">
                                               	Martyrs families fund
-                                            </span>                                        </td>
+                                            </strong>                                        </td>
 
 
                                         <td align="right"
@@ -345,7 +345,7 @@
                                     <tr>
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.payroll_tax" style="text-align:center;"/>
+                                            <strong t-field="o.payroll_tax" style="text-align:center;"/>
                                         </td>
                                           <td align="right"
                                             style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
@@ -354,9 +354,9 @@
 
                                         <td
                                                 style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                   <span style="font-size:14px; ">
+                                   <strong style="font-size:14px; ">
                                               	الضرائب
-                                            </span>                                        </td>
+                                            </strong>                                        </td>
 
 
                                         <td align="right"
@@ -370,7 +370,7 @@
                                     <tr>
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.loan_pdf" style="text-align:center;"/>
+                                          <strong t-field="o.loan_pdf" style="text-align:center;"/>
                                         </td>
                                           <td align="right"
                                             style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
@@ -379,9 +379,9 @@
 
                                         <td
                                                 style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                   <span style="font-size:14px; ">
+                                   <strong style="font-size:14px; ">
                                               	السلف
-                                            </span>                                        </td>
+                                            </strong>                                        </td>
 
 
                                         <td align="right"
@@ -394,7 +394,7 @@
                                      <tr>
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.installment" style="text-align:center;"/>
+                                            <strong t-field="o.installment" style="text-align:center;"/>
                                         </td>
                                            <td align="right"
                                             style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
@@ -403,9 +403,9 @@
 
                                         <td
                                                 style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                   <span style="font-size:14px; ">
+                                   <strong style="font-size:14px; ">
                                               	العهد
-                                            </span>                                        </td>
+                                            </strong>                                        </td>
 
 
                                         <td align="right"
@@ -419,7 +419,7 @@
                                       <tr>
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.pn_amount" style="text-align:center;"/>
+                                            <strong t-field="o.pn_amount" style="text-align:center;"/>
                                         </td>
                                             <td align="right"
                                             style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
@@ -428,9 +428,9 @@
 
                                         <td
                                                 style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                   <span style="font-size:14px; ">
+                                   <strong style="font-size:14px; ">
                                               	الجزاءات
-                                            </span>                                        </td>
+                                            </strong>                                        </td>
 
 
                                         <td align="right"
@@ -454,7 +454,7 @@
                                      <tr style="background-color:   #b2bcbd  ;">
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.total_amount" style="text-align:center;"/>
+                                            <strong t-field="o.total_amount" style="text-align:center;"/>
                                         </td>
 
                                         <td
@@ -465,9 +465,9 @@
 
                                         <td align="right"
                                             style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
-                                            <span style="font-size:14px; ">
+                                            <strong style="font-size:14px; ">
                                               :  اجمالى المستقطع
-                                            </span>
+                                            </strong>
                                         </td>
 
 
@@ -485,7 +485,7 @@
                                     <tr style="background-color:   #b2bcbd   ;">
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
-                                            <span t-field="o.net_wage" style="text-align:center;"/>
+                                           <strong t-field="o.net_wage" style="text-align:center;"/>
                                         </td>
 
 
@@ -493,9 +493,9 @@
 
                                         <td align="right"
                                             style="width:80%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
-                                            <span style="font-size:14px; ">
+                                            <strong style="font-size:14px; ">
                                               الراتب المستحق
-                                            </span>
+                                            </strong>
                                         </td>
 
 

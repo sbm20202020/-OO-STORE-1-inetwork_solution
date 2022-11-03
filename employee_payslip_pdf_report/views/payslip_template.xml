@@ -7,7 +7,7 @@
                    <t t-call="employee_payslip_pdf_report.external_layout_new_payslip">
                         <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
 
-                        <div class="page">
+                        <div class="page" style="ont-weight:bold;">
                             <div style="text-align: center; font-size:24px; color:#000000">
 
 
@@ -98,7 +98,7 @@
                              <br/><br/>
 
                             <table class="gridtable"
-                                   style="	background-color:  #b2bcbd  ;font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
+                                   style="	background-color:  #b2bcbd  ;font-family: verdana,arial,sans-serif;font-weight:bold;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
                                    width="100%">
                                 <thead>
 

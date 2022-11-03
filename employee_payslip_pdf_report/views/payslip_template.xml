@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+          <template id="print_report_pdf_payslip_document">
+
+                   <t t-call="web.external_layout">
+                        <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
+
+                        <div class="page">
+                            <div style="text-align: center; font-size:24px; color:#000000">
+
+
+
+                               <span t-field="o.date_from" t-options='{"format": "MMMM yyyy"}'/>
+                                <strong style="font-weight: normal;">سند قبض عن شهر</strong>
+                            </div>
+
+                            <table border="1" align="right"  width="100%"
+                                  style=";background-color:  #9fa8a9  ;font-family: verdana,arial,sans-serif;border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: black">
+
+                       <thead  style="font-family: verdana,arial,sans-serif;border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: black">
+                                <tr >
+                                    <th style="border-color:black,border-style:solid;width:20%;" >
+
+                                        <div style="border-color:black,border-style:solid;"></div>
+
+                                    </th>
+
+                                        <th >
+                                         <td class="text-center" >
+                                           <span t-field="o.employee_id.last_employee_code" />
+                                        </td>
+                                    </th>
+
+
+
+                                     <th>
+                                        <td  class="text-right">
+                                            <strong style="font-size:15px;" class="text-right"> : كود الموظف
+                                            </strong>
+
+                                        </td>
+                                    </th>
+                                </tr >
+                                         <tr  style="font-family: verdana,arial,sans-serif;font-size:18px;color:#000000;border-width: 1px;border-color: #000000;border-collapse: collapse;">
+                                             <th style="border-color:black,border-style:solid;width:20%;" >
+
+                                        <div style="border-color:black,border-style:solid;"></div>
+
+                                    </th>
+                                        <th >
+                                         <td class="text-center" >
+                                           <span t-field="o.employee_id.name" />
+                                        </td>
+                                    </th>
+
+                                     <th>
+                                        <td  class="text-right">
+                                            <strong style="font-size:15px;" class="text-right" >  : الاسم
+                                            </strong>
+
+                                        </td>
+                                     </th>
+
+                                </tr>
+                                <tr  style="font-family: verdana,arial,sans-serif;font-size:18px;color:#000000;border-width: 1px;border-color: #000000;border-collapse: collapse;">
+                                    <th style="border-color:black,border-style:solid;width:20%;" >
+
+                                        <div style="border-color:black,border-style:solid;"></div>
+
+                                    </th>
+
+                                        <th >
+                                         <td class="text-center" >
+                                           <span t-field="o.employee_id.job_title" />
+                                        </td>
+                                    </th>
+
+                                     <th>
+                                        <td  class="text-right">
+                                            <strong style="font-size:15px" class="text-right">   : الوظيفة
+                                            </strong>
+
+                                        </td>
+                                    </th>
+
+
+                                </tr>
+
+
+</thead>
+                            </table>
+
+
+
+                           <br/> <br/>
+                             <br/><br/>
+
+                            <table class="gridtable"
+                                   style="	background-color: #596566 ;font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
+                                   width="100%">
+                                <thead>
+
+                                    <tr style="background-color:  #9fa8a9  ;">
+
+                                        <td
+                                                style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.basic_salary" style="text-align:center;"/>
+                                        </td>
+
+
+                                        <td align="right"
+                                            style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            <span style="font-size:14px; ">
+                                              : الاساسى
+                                            </span>
+                                        </td>
+
+
+                                    </tr>
+                                      <tr style="background-color:  #9fa8a9  ;">
+
+                                        <td
+                                                style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.allownce" style="text-align:center;"/>
+                                        </td>
+
+
+                                        <td align="right"
+                                            style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            <span style="font-size:14px; ">
+                                              : بدلات
+                                            </span>
+                                        </td>
+
+
+                                    </tr>
+
+                                      <tr style="background-color:  #9fa8a9  ;">
+
+                                        <td
+                                                style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.transportation" style="text-align:center;"/>
+                                        </td>
+
+
+                                        <td align="right"
+                                            style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            <span style="font-size:14px; ">
+                                                 : بدل الانتقالات
+                                            </span>
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr style="background-color:  #9fa8a9 ;">
+
+                                        <td
+                                                style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.overtime" style="text-align:center;"/>
+                                        </td>
+
+
+                                        <td align="right"
+                                            style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            <span style="font-size:14px; ">
+                                              : الاضافى
+                                            </span>
+                                        </td>
+
+
+                                    </tr>
+                                     <tr style="background-color: #9fa8a9  ;">
+
+                                        <td
+                                                style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.bouns" style="text-align:center;"/>
+                                        </td>
+
+
+                                        <td align="right"
+                                            style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            <span style="font-size:14px; ">
+                                           : ارباح سنوية
+                                            </span>
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr style="background-color:  #9fa8a9  ;">
+
+                                        <td
+                                                style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.net_salary" style="text-align:center;"/>
+                                        </td>
+
+
+                                        <td align="right"
+                                             style="width:70%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            <span style="font-size:14px; ">
+                                            : اجمالى الراتب الاساسى
+                                            </span>
+                                        </td>
+
+
+                                    </tr>
+
+
+                                </thead>
+                            </table>
+
+
+                            <br/>
+
+                            <table class="gridtable"
+                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
+                                   width="100%">
+                                <thead>
+
+                                    <tr>
+                                        <td
+                                                style="width:80%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+<!--                                            <span t-field="o.basic_salary" style="text-align:center;"/>-->
+                                        </td>
+
+
+                                        <td align="right"
+                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            <span style="font-size:14px; ">
+                                              : المستقطع
+                                            </span>
+                                        </td>
+
+
+                                    </tr></thead></table>
+
+                            <table class="gridtable"
+                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
+                                   width="100%">
+                                <thead>
+
+
+                                         <tr>
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.social_insurance" style="text-align:center;"/>
+                                        </td>
+                                             <td align="right"
+                                            style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+                                        <td
+                                                style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                   <span style="font-size:14px; ">
+                                              التامينات الاجتماعية
+                                            </span>                                        </td>
+
+
+                                        <td align="right"
+                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.medical_insurnace" style="text-align:center;"/>
+                                        </td>
+                                          <td align="right"
+                                            style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+                                        <td
+                                                style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                   <span style="font-size:14px; ">
+                                              تامين طبى
+                                            </span>                                        </td>
+
+
+                                        <td align="right"
+                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.phone_allownace" style="text-align:center;"/>
+                                        </td>
+                                          <td align="right"
+                                            style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+                                        <td
+                                                style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                   <span style="font-size:14px; ">
+                                              التلفون
+                                            </span>                                        </td>
+
+
+                                        <td align="right"
+                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.martyrs_families" style="text-align:center;"/>
+                                        </td>
+                                          <td align="right"
+                                            style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+                                        <td
+                                                style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                   <span style="font-size:14px; ">
+                                              	Martyrs families fund
+                                            </span>                                        </td>
+
+
+                                        <td align="right"
+                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.payroll_tax" style="text-align:center;"/>
+                                        </td>
+                                          <td align="right"
+                                            style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+                                        <td
+                                                style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                   <span style="font-size:14px; ">
+                                              	الضرائب
+                                            </span>                                        </td>
+
+
+                                        <td align="right"
+                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.loan_pdf" style="text-align:center;"/>
+                                        </td>
+                                          <td align="right"
+                                            style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+                                        <td
+                                                style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                   <span style="font-size:14px; ">
+                                              	السلف
+                                            </span>                                        </td>
+
+
+                                        <td align="right"
+                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+
+                                    </tr>
+                                     <tr>
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.installment" style="text-align:center;"/>
+                                        </td>
+                                           <td align="right"
+                                            style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+                                        <td
+                                                style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                   <span style="font-size:14px; ">
+                                              	العهد
+                                            </span>                                        </td>
+
+
+                                        <td align="right"
+                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+
+                                    </tr>
+
+                                      <tr>
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.pn_amount" style="text-align:center;"/>
+                                        </td>
+                                            <td align="right"
+                                            style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+                                        <td
+                                                style="width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                   <span style="font-size:14px; ">
+                                              	الجزاءات
+                                            </span>                                        </td>
+
+
+                                        <td align="right"
+                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+
+                                        </td>
+
+
+                                    </tr>
+
+
+
+
+                                </thead>
+                            </table>
+
+                            <table class="gridtable"
+                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
+                                   width="100%">
+                                <thead>
+                                     <tr style="background-color:  #9fa8a9  ;">
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.total_amount" style="text-align:center;"/>
+                                        </td>
+
+                                        <td
+                                                style="width:60%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+<!--                                            <span t-field="o.basic_salary" style="text-align:center;"/>-->
+                                        </td>
+
+
+                                        <td align="right"
+                                            style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            <span style="font-size:14px; ">
+                                              :  اجمالى المستقطع
+                                            </span>
+                                        </td>
+
+
+                                    </tr>
+
+
+                                </thead></table>
+                             <br/>
+
+                            <table class="gridtable"
+                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
+                                   width="100%">
+                                <thead>
+
+                                    <tr style="background-color:  #9fa8a9  ;">
+                                        <td
+                                                style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                            <span t-field="o.net_wage" style="text-align:center;"/>
+                                        </td>
+
+
+
+
+                                        <td align="right"
+                                            style="width:80%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            <span style="font-size:14px; ">
+                                              الراتب المستحق
+                                            </span>
+                                        </td>
+
+
+                                    </tr>
+                                </thead></table>
+
+                            <div align="right">
+
+
+                            <strong align="right">
+                                : امضاء الموظف
+                            </strong>
+                                <br/>
+                             <strong align="right">
+                                : التاريخ
+                            </strong>
+                                 </div>
+
+
+                        </div>
+
+            </t>
+        </template>
+
+        <template id="employee_payslip_order_report_template">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="employee_payslip_pdf_report.print_report_pdf_payslip_document" />
+        </t>
+    </t></template>
+
+    </data>
+</odoo>

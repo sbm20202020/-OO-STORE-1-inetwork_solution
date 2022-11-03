@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+<report
+                id="payroll_xsl_bank_report"
+                model="hr.payslip"
+                string="Payroll Bank Letter XSL Report"
+                report_type="xlsx"
+                name="hr_payroll_account_xsl_report.payroll_xsl_bank_report"
+                file="Payroll SheetPayroll Bank Letter Report"
+        />
+
+    </data>
+</odoo>

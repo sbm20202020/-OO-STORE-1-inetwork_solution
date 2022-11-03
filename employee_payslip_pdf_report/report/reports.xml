@@ -1,14 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+         <record id="paperformat_pdf" model="report.paperformat">
+            <field name="name">European A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+
              <report string="Payslip Pdf Report"
                 id="employee_payslip_order_report"
                 model="hr.payslip"
                 report_type="qweb-pdf"
                 name="employee_payslip_pdf_report.employee_payslip_order_report_template"
                 file="employee_payslip_pdf_report.employee_payslip_order_report_template"
+                     paperformat="employee_payslip_pdf_report.paperformat_pdf"
 
 
         />
+        <template id="custom_external_layout_header_new_payslip">
+            <div class="header">
+                <table border="0">
+                    <tr>
+                        <th align="center">
+                            <div width="100%" align="center">
+                                <img align="center" src="/employee_payslip_pdf_report/static/description/inetwork_header.png"
+                                     style=" height:80px; width:220px;"/>
+                            </div>
+                        </th>
+                        <th style="border-color:black,border-style:solid;height:1px;width:500px;">
+                            <div style="border-color:black,border-style:solid;height:1px;width:500px;"></div>
+                        </th>
+                        <th>
+                            <table class="table table-sm"
+                                   style="border-color:black,border-style:solid;width:200px;" border="1">
+
+<!--                                <thead style="color: #FFFAF0;background-color: #808080;font-weight:70px;"-->
+<!--                                       align="center">-->
+<!--                                    <td t-if="doc_model in ['stock.picking']"-->
+<!--                                        style="text-color: #111111;border: 1px solid black;font-weight: lighter;font-size:22px;height:30px;">-->
+<!--                                        <span style="text-color: #FFFAF0;">Delivery Order</span>-->
+<!--                                    </td>-->
+<!--                                </thead>-->
+<!--                                <tbody align="center">-->
+<!--                                    <td style="border: 1px solid black;font-weight: lighter;">-->
+<!--                                            <span style="font-size:22px;height:30px;" t-field="o.name"/>-->
+<!--                                    </td>-->
+<!--                                </tbody>-->
+                            </table>
+                        </th>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+            </div>
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                 t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="external_layout_footer_new_payslip">
+            <div class="footer">
+
+                <p style="border-top:1px solid #000000;">
+
+                </p>
+                <center>
+                    <table border="0" align="center">
+                        <tr>
+                            <th>
+                                <span class="text-center" style="font-size:15px;font-weight: lighter;">
+                                    Villa 196, Sameh Gado St,
+6Th district ,opposite mall of arabia ,6th of october GZ 12588
+                                    <br/>
+
+                                 Tel: +202-38241650 -01200030910
+                                </span>
+
+                            </th>
+                        </tr>
+                    </table>
+                </center>
+            </div>
+        </template>
+        <template id="external_layout_new_payslip">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+
+            <t t-call="employee_payslip_pdf_report.custom_external_layout_header_new_payslip">
+                <t t-raw="0"/>
+            </t>
+            <t t-call="employee_payslip_pdf_report.external_layout_footer_new_payslip"/>
+
+        </template>
+
+
     </data>
 </odoo>

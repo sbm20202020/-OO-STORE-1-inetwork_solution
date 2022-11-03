@@ -4,7 +4,7 @@
     <data>
           <template id="print_report_pdf_payslip_document">
 
-                   <t t-call="web.external_layout">
+                   <t t-call="employee_payslip_pdf_report.external_layout_new_payslip">
                         <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
 
                         <div class="page">
@@ -14,10 +14,10 @@
 
                                <span t-field="o.date_from" t-options='{"format": "MMMM yyyy"}'/>
                                 <strong style="font-weight: normal;">سند قبض عن شهر</strong>
-                            </div>
+                            </div><br/>
 
                             <table border="1" align="right"  width="100%"
-                                  style=";background-color:  #9fa8a9  ;font-family: verdana,arial,sans-serif;border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: black">
+                                  style=";background-color:   #b2bcbd   ;font-family: verdana,arial,sans-serif;border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: black">
 
                        <thead  style="font-family: verdana,arial,sans-serif;border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: black">
                                 <tr >
@@ -98,11 +98,11 @@
                              <br/><br/>
 
                             <table class="gridtable"
-                                   style="	background-color: #596566 ;font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
+                                   style="	background-color:  #b2bcbd  ;font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
                                    width="100%">
                                 <thead>
 
-                                    <tr style="background-color:  #9fa8a9  ;">
+                                    <tr style="background-color:   #b2bcbd   ;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -119,7 +119,7 @@
 
 
                                     </tr>
-                                      <tr style="background-color:  #9fa8a9  ;">
+                                      <tr style="background-color:   #b2bcbd  ;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -137,7 +137,7 @@
 
                                     </tr>
 
-                                      <tr style="background-color:  #9fa8a9  ;">
+                                      <tr style="background-color:   #b2bcbd ;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -155,7 +155,7 @@
 
                                     </tr>
 
-                                    <tr style="background-color:  #9fa8a9 ;">
+                                    <tr style="background-color:   #b2bcbd  ;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -172,7 +172,7 @@
 
 
                                     </tr>
-                                     <tr style="background-color: #9fa8a9  ;">
+                                     <tr style="background-color:  #b2bcbd  ;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -190,7 +190,7 @@
 
                                     </tr>
 
-                                    <tr style="background-color:  #9fa8a9  ;">
+                                    <tr style="background-color:  #b2bcbd   ;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -228,7 +228,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #b2bcbd   ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
                                             <span style="font-size:14px; ">
                                               : المستقطع
                                             </span>
@@ -261,7 +261,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -285,7 +285,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -310,7 +310,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -335,7 +335,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:  #b2bcbd   ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -360,7 +360,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #b2bcbd   ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -385,7 +385,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -409,7 +409,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #b2bcbd   ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -434,7 +434,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #9fa8a9  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:  #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -451,7 +451,7 @@
                                    style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
                                    width="100%">
                                 <thead>
-                                     <tr style="background-color:  #9fa8a9  ;">
+                                     <tr style="background-color:   #b2bcbd  ;">
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
                                             <span t-field="o.total_amount" style="text-align:center;"/>
@@ -482,7 +482,7 @@
                                    width="100%">
                                 <thead>
 
-                                    <tr style="background-color:  #9fa8a9  ;">
+                                    <tr style="background-color:   #b2bcbd   ;">
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
                                             <span t-field="o.net_wage" style="text-align:center;"/>

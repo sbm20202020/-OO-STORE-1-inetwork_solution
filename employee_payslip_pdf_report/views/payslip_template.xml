@@ -3,16 +3,13 @@
 <odoo>
     <data>
           <template id="print_report_pdf_payslip_document">
-
-                   <t t-call="employee_payslip_pdf_report.external_layout_new_payslip">
+                   <t t-call="web.external_layout">
                         <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
 
-                        <div class="page" style="ont-weight:bold;">
+                        <div class="page" style="font-size:16px;font-weight:bolder;font-color:#000000">
                             <div style="text-align: center; font-size:24px; color:#000000">
 
-
-
-                               <span t-field="o.date_from" t-options='{"format": "MMMM yyyy"}'/>
+                               <span t-field="o.date_from" t-options='{"format": "MM yyyy"}'/>
                                 <strong style="font-weight: normal;">سند قبض عن شهر</strong>
                             </div><br/>
 
@@ -29,7 +26,7 @@
 
                                         <th >
                                          <td class="text-center" >
-                                           <strong t-field="o.employee_id.last_employee_code" />
+                                           <strong t-field="o.employee_id.code_con" />
                                         </td>
                                     </th>
 

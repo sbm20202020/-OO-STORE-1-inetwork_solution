@@ -239,7 +239,7 @@
 <!--                            <table class="gridtable"-->
 <!--                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"-->
 <!--                                   width="100%">-->
-                            <table class="table table-sm" style="border-color:black;width:100%;font-size:15px;color:black;" border="1">
+                            <table class="gridtable" style="border-color:black;width:100%;font-size:15px;color:black;" border="1">
 
                                 <thead style="font-size:15px;color:black;">
 

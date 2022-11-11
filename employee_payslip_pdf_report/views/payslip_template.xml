@@ -13,27 +13,25 @@
                                 <strong style="font-weight: normal;">سند قبض عن شهر</strong>
                             </div><br/>
 
-                            <table border="1" align="right"  width="100%"
-                                  style=";background-color:   #b2bcbd   ;font-family: verdana,arial,sans-serif;border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: black">
-
-                       <thead  style="font-family: verdana,arial,sans-serif;border-width: 1px;padding: 10px;text-align: center;border-style: solid;border-color: black">
+                         <table class="table table-sm" style="border-color:black;width:100%;hieght:100%;" border="1">
+                                <thead style="background-color:#edeaea;font-size:15px;color:black;" align="right">
                                 <tr >
-                                    <th style="border-color:black,border-style:solid;width:20%;" >
+                                    <th style="border-color:black,border-style:solid;width:20%;color:black;" >
 
                                         <div style="border-color:black,border-style:solid;"></div>
 
                                     </th>
 
                                         <th >
-                                         <td class="text-center" >
+                                         <td class="text-center"  style="color:black;">
                                            <strong t-field="o.employee_id.code_con" />
                                         </td>
                                     </th>
 
 
 
-                                     <th>
-                                        <td  class="text-right">
+                                     <th >
+                                        <td  class="text-right" style="color:black;">
                                             <strong style="font-size:15px;" class="text-right"> : كود الموظف
                                             </strong>
 
@@ -92,7 +90,7 @@
 
 
                            <br/> <br/>
-                             <br/><br/>
+
 
 <!--                            <table class="gridtable"-->
 <!--                                   style="	background-color:  #b2bcbd  ;font-family: verdana,arial,sans-serif;font-weight:bold;font-size:14px;border-width: 2px;border-color: #000000;border-collapse: collapse;"-->
@@ -214,10 +212,12 @@
 
                             <br/>
 
-                            <table class="gridtable"
-                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
-                                   width="100%">
-                                <thead>
+<!--                            <table class="gridtable"-->
+<!--                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"-->
+<!--                                   width="100%">-->
+<!--                                <thead>-->
+                            <table class="table table-sm" style="border-color:black;width:100%;hieght:100%;font-size:15px;color:black;" border="1">
+                                <thead  >
 
                                     <tr>
                                         <td
@@ -227,7 +227,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:   #b2bcbd   ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #edeaea; ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
                                             <strong style="font-size:14px; ">
                                               : المستقطع
                                             </strong>
@@ -236,9 +236,11 @@
 
                                     </tr></thead></table>
 
-                            <table class="gridtable"
-                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
-                                   width="100%">
+<!--                            <table class="gridtable"-->
+<!--                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"-->
+<!--                                   width="100%">-->
+                                                        <table class="table table-sm" style="border-color:black;width:100%;hieght:100%;" border="1">
+
                                 <thead>
 
 
@@ -260,7 +262,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:   #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #edeaea; ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -284,7 +286,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:   #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #edeaea; ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -309,7 +311,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:   #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:  #edeaea; ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -334,7 +336,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #b2bcbd   ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:  #edeaea; ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -359,7 +361,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:   #b2bcbd   ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:  #edeaea; ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -384,7 +386,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:   #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:   #edeaea; ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -408,7 +410,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:   #b2bcbd   ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color:  #edeaea;  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -433,7 +435,7 @@
 
 
                                         <td align="right"
-                                            style="background-color:  #b2bcbd  ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
+                                            style="background-color: #edeaea ;width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:right;">
 
                                         </td>
 
@@ -446,11 +448,12 @@
                                 </thead>
                             </table>
 
-                            <table class="gridtable"
-                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
-                                   width="100%">
+<!--                            <table class="gridtable"-->
+<!--                                   style="	font-family: verdana,arial,sans-serif;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"-->
+<!--                                   width="100%">-->
+                             <table class="table table-sm" style="border-color:black;width:100%;hieght:100%;" border="1">
                                 <thead>
-                                     <tr style="background-color:   #b2bcbd  ;">
+                                     <tr style="background-color:   #edeaea; ;">
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
                                             <strong t-field="o.total_amount" style="text-align:center;"/>
@@ -481,7 +484,7 @@
                                    width="100%">
                                 <thead>
 
-                                    <tr style="background-color:   #b2bcbd   ;">
+                                    <tr style="background-color:   #edeaea;  ;">
                                         <td
                                                 style="width:20%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
                                            <strong t-field="o.net_wage" style="text-align:center;"/>

@@ -3,10 +3,10 @@
 <odoo>
     <data>
           <template id="print_report_pdf_payslip_document">
-                   <t t-call="web.external_layout">
+                   <t t-call="employee_payslip_pdf_report.external_layout_new_payslip">
                         <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
 
-                        <div class="page" style="font-size:16px;font-weight:bolder;font-color:#000000">
+                        <div class="page" style="font-size:16px;font-weight:bolder">
                             <div style="text-align: center; font-size:24px; color:#000000">
 
                                <span t-field="o.date_from" t-options='{"format": "MM yyyy"}'/>
@@ -94,15 +94,17 @@
                            <br/> <br/>
                              <br/><br/>
 
-                            <table class="gridtable"
-                                   style="	background-color:  #b2bcbd  ;font-family: verdana,arial,sans-serif;font-weight:bold;font-size:14px;color:#000000;border-width: 2px;border-color: #000000;border-collapse: collapse;"
-                                   width="100%">
-                                <thead>
+<!--                            <table class="gridtable"-->
+<!--                                   style="	background-color:  #b2bcbd  ;font-family: verdana,arial,sans-serif;font-weight:bold;font-size:14px;border-width: 2px;border-color: #000000;border-collapse: collapse;"-->
+<!--                                   width="100%">-->
+                                <table class="table table-sm" style="border-color:black;width:100%;hieght:100%;" border="1">
+                                <thead style="background-color:#edeaea;font-size:15px;color:black;" align="right">
+<!--                                <thead>-->
 
-                                    <tr style="background-color:   #b2bcbd   ;">
+                                    <tr style="background-color:#edeaea;font-size:15px;color:black;">
 
                                         <td
-                                                style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
+                                                style="font-size:15px;font-weight:bold;text-align:center;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;">
                                             <strong t-field="o.basic_salary" style="text-align:center;"/>
                                         </td>
 
@@ -116,7 +118,7 @@
 
 
                                     </tr>
-                                      <tr style="background-color:   #b2bcbd  ;">
+                                      <tr style="background-color:#edeaea;font-size:15px;color:black;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -134,7 +136,7 @@
 
                                     </tr>
 
-                                      <tr style="background-color:   #b2bcbd ;">
+                                      <tr style="background-color:#edeaea;font-size:15px;color:black;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -152,7 +154,7 @@
 
                                     </tr>
 
-                                    <tr style="background-color:   #b2bcbd  ;">
+                                    <tr style="background-color:#edeaea;font-size:15px;color:black;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -169,7 +171,7 @@
 
 
                                     </tr>
-                                     <tr style="background-color:  #b2bcbd  ;">
+                                     <tr style="background-color:#edeaea;font-size:15px;color:black;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
@@ -187,7 +189,7 @@
 
                                     </tr>
 
-                                    <tr style="background-color:  #b2bcbd   ;">
+                                    <tr style="background-color:#edeaea;font-size:15px;color:black;">
 
                                         <td
                                                 style="border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">

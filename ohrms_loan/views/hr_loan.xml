@@ -23,11 +23,14 @@
         <field name="arch" type="xml">
             <form string="Loan Request">
                 <header>
-                    <button name="compute_installment" groups="hr.group_hr_manager" type="object" string="Compute Installment" class="oe_highlight"  attrs="{'invisible':[('state','in',('approve', 'refuse'))]}"/>
+                    <button name="compute_installment" groups="hr.group_hr_manager" type="object" string="Compute Installment" class="oe_highlight"  attrs="{'invisible':[('state','in',('approve', 'refuse','cancel'))]}"/>
                     <button name="action_submit" type="object" string="Submit" states="draft" class="oe_highlight"/>
-                    <button name="action_cancel" type="object" groups="hr.group_hr_manager" string="Cancel" states="draft" />
+<!--                    <button name="action_cancel" type="object" groups="hr.group_hr_manager" string="Cancel" states="draft" />-->
                     <button name="action_approve" type="object" string="Approve" states="waiting_approval_1" class="oe_highlight" groups="hr.group_hr_manager"/>
                     <button name="action_refuse" type="object" string="Refuse" states="draft,waiting_approval_1" class="oe_highlight" groups="hr.group_hr_manager"/>
+
+                    <button name="action_cancel" type="object" groups="ohrms_loan.group_cancel_loan" string="Cancel" states="draft,approve" />
+                    <button name="action_draft" type="object" groups="ohrms_loan.group_cancel_loan" string="Set To Draft" states="cancel" />
                     <field name="state" widget="statusbar" statusbar_visible="draft,waiting_approval_1,approve" />
                 </header>
 
@@ -40,19 +43,19 @@
                         </h1>
                     </div>
                     <group col="4">
-                        <field name="employee_id"  attrs="{'readonly':[('state','=','approve')]}"/>
+                        <field name="employee_id"  attrs="{'readonly':['|',('state','=','approve'),('state','=','cancel')]}"/>
                         <field name="date"/>
                         <field name="department_id"/>
                         <field name="job_position"/>
-                        <field name="loan_amount" attrs="{'readonly':[('state','=','approve')]}"/>
-                        <field name="installment" attrs="{'readonly':[('state','=','approve')]}"/>
-                        <field name="payment_date" attrs="{'readonly':[('state','=','approve')]}"/>
+                        <field name="loan_amount" attrs="{'readonly':[('state','in',['approve','cancel'])]}"/>
+                        <field name="installment" attrs="{'readonly':[('state','in',['approve','cancel'])]}"/>
+                        <field name="payment_date" attrs="{'readonly':[('state','in',['approve','cancel'])]}"/>
                         <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                         <field name="currency_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                     </group>
                     <notebook>
                         <page string="Installments">
-                            <field name="loan_lines"  attrs="{'readonly':['|',('state','=','approve'),('state','=','refuse')]}">
+                            <field name="loan_lines"  attrs="{'readonly':['|','|',('state','=','approve'),('state','=','refuse'),('state','=','cancel')]}">
                                 <tree string="Installments" editable="bottom">
                                     <field name="date"/>
                                     <field name="amount"/>

@@ -123,7 +123,9 @@ class HrLoan(models.Model):
         company based on payment start date and the no of installments.
             """
         for loan in self:
-            loan.loan_lines.unlink()
+            for line in loan.loan_lines:
+                if line.paid !=True:
+                    line.unlink()
             date_start = datetime.strptime(str(loan.payment_date), '%Y-%m-%d')
             amount = loan.loan_amount / loan.installment
             for i in range(1, loan.installment + 1):
@@ -144,6 +146,9 @@ class HrLoan(models.Model):
 
     def action_cancel(self):
         self.write({'state': 'cancel'})
+
+    def action_draft(self):
+        self.write({'state': 'draft'})
 
     def action_approve(self):
         for data in self:

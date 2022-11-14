@@ -24,7 +24,7 @@
 
                                         <th >
                                          <td class="text-center"  style="color:black;">
-                                           <strong t-field="o.employee_id.code_con" />
+                                           <strong t-field="o.contract_id.emp_id" />
                                         </td>
                                     </th>
 
@@ -257,7 +257,7 @@
                                         <td
                                                 style="font-size:15px;color:black;width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
                                    <strong style="font-size:14px; ">
-                                              التامينات الاجتماعية
+                                              التأمينات الاجتماعية
                                             </strong>                                        </td>
 
 
@@ -281,7 +281,7 @@
                                         <td
                                                 style="font-size:15px;color:black;width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
                                    <strong style="font-size:14px; ">
-                                              تامين طبى
+                                              تأمين طبى
                                             </strong>                                        </td>
 
 
@@ -306,7 +306,7 @@
                                         <td
                                                 style="font-size:15px;color:black;width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
                                    <strong style="font-size:14px; ">
-                                              التلفون
+                                              التليفون
                                             </strong>                                        </td>
 
 
@@ -331,7 +331,7 @@
                                         <td
                                                 style="font-size:15px;color:black;width:30%;border-width: 1px;padding: 10px;border-style: solid;border-color: #000000;text-align:center;">
                                    <strong style="font-size:14px; ">
-                                              	Martyrs families fund
+                                              	Martyr's families fund
                                             </strong>                                        </td>
 
 

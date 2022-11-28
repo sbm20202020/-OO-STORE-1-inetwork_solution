@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+<report
+                id="payroll_xsl_report"
+                model="hr.payslip"
+                string="Payroll Sheet"
+                report_type="xlsx"
+                name="hr_payroll_xsl_report.payroll_xsl_report"
+                file="Payroll Sheet"
+                attachment_use="False"
+        />
+
+    </data>
+</odoo>

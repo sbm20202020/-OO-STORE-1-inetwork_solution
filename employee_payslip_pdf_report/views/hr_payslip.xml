@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="view_hr_payroll_view_hr_payslip_form" model="ir.ui.view">
+        <field name="name">hr.payslip.form.web.partner.autocomplete.inh</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+
+                 <field name="basic_salary" invisible="1"/>
+                <field name="allownce" invisible="1"/>
+                <field name="transportation" invisible="1"/>
+                <field name="overtime" invisible="1"/>
+                 <field name="bouns" invisible="1"/>
+                <field name="net_salary" invisible="1"/>
+
+                <field name="social_insurance" invisible="1"/>
+                <field name="medical_insurnace" invisible="1"/>
+                <field name="phone_allownace" invisible="1"/>
+                <field name="martyrs_families" invisible="1"/>
+                <field name="payroll_tax" invisible="1"/>
+
+                <field name="loan_pdf" invisible="1"/>
+                <field name="installment" invisible="1"/>
+                <field name="pn_amount" invisible="1"/>
+                <field name="total_amount" invisible="1"/>
+
+
+
+            </xpath>
+
+
+        </field>
+    </record>
+    </data>
+</odoo>
